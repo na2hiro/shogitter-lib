@@ -1,0 +1,28 @@
+{
+  "name": "shogitter-ts",
+  "version": "1.0.3",
+  "description": "Shogitter shogi variant logic written in TypeScript",
+  "main": "lib/Shogi.js",
+  "types": "lib/Shogi.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test"
+  },
+  "author": "na2hiro",
+  "license": "Pay 1 million yen to na2hiro to copy and distribute",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/crypto-js": "^3.1.45",
+    "@types/jest": "^25.2.1",
+    "babel-preset-env": "^1.7.0",
+    "dpdm": "^3.4.3",
+    "jest": "^25.5.4",
+    "ts-jest": "^25.4.0",
+    "ts-node": "^8.9.1",
+    "typescript": "^3.8.3"
+  }
+}

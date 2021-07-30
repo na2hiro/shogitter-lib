@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Nakamaware shogi can take friend king and lose 1`] = `
+ban:
+(1) 
+1ab1ac1ad1ae1ah1ae1ad1ac1ab
+___1ag_______________1af___
+1aa1aa1aa1aa1aa1aa1aa1aa1aa
+___________________________
+___________________________
+___________________________
+0aa0aa0aa0aa0aa0aa0aa0aa0aa
+___0af_______________0ag___
+0ab0ac0ad___0ae0ae0ad0ac0ab
+(0) ah1 
+kifu:
+☗5九金左 [0,[5,9,[0,"ah"],[0,"ae"]],[6,9,[0,"ae"],[]],[1,0,"ah"]]
+☗負け "_0"
+{
+  "version": "0.0",
+  "status": {
+    "num": 2,
+    "message": "先手の 王将 が取られました。"
+  },
+  "ruleid": 24,
+  "teban": 1,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;
+
+exports[`Nakamaware shogi can take friend piece 1`] = `
+ban:
+(1) 
+1ab1ac1ad1ae1ah1ae1ad1ac1ab
+___1ag_______________1af___
+1aa1aa1aa1aa1aa1aa1aa1aa1aa
+___________________________
+___________________________
+___________________________
+0aa0aa0aa0aa0aa0aa0aa0aa0aa
+___0ad_______________0ag___
+0ab0ac___0ae0ah0ae0ad0ac0ab
+(0) af1 
+kifu:
+☗8八銀 [0,[8,8,[0,"af"],[0,"ad"]],[7,9,[0,"ad"],[]],[1,0,"af"]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 24,
+  "teban": 1,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;

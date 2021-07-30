@@ -1,0 +1,286 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Quantum utils determines OU after other pieces (new piece was captured) 1`] = `
+Object {
+  "fulls": Array [
+    "aa",
+    "ab",
+    "ac",
+    "ad",
+    "ae",
+    "af",
+    "ag",
+    "ah",
+  ],
+  "kinds": Array [
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "ae",
+      "ag",
+      "ah",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "ae",
+      "ag",
+      "ah",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+    ],
+  ],
+}
+`;
+
+exports[`Quantum utils determines to 2 KEs and exhausts it 1`] = `
+Object {
+  "fulls": Array [
+    "ac",
+  ],
+  "kinds": Array [
+    Array [
+      "ac",
+    ],
+    Array [
+      "ac",
+    ],
+  ],
+}
+`;
+
+exports[`Quantum utils determines to 2 KEs and exhausts it 2`] = `
+Object {
+  "fulls": Array [
+    "ac",
+  ],
+  "kinds": Array [
+    Array [
+      "ac",
+    ],
+    Array [
+      "ac",
+    ],
+    Array [
+      "aa",
+      "ab",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+      "ah",
+    ],
+  ],
+}
+`;
+
+exports[`Quantum utils determines to HI after doing HI move and exhausts it 1`] = `
+Object {
+  "fulls": Array [
+    "ag",
+  ],
+  "kinds": Array [
+    Array [
+      "ag",
+    ],
+  ],
+}
+`;
+
+exports[`Quantum utils determines to KE after doing KE jump 1`] = `
+Object {
+  "fulls": Array [],
+  "kinds": Array [
+    Array [
+      "ac",
+    ],
+  ],
+}
+`;
+
+exports[`Quantum utils determines to KI,HI,OU after going backward 1`] = `
+Object {
+  "fulls": Array [],
+  "kinds": Array [
+    Array [
+      "ae",
+      "ag",
+      "ah",
+    ],
+  ],
+}
+`;
+
+exports[`Quantum utils doesn't determine without move 1`] = `
+Object {
+  "fulls": Array [],
+  "kinds": Array [
+    Array [
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "ag",
+      "ah",
+    ],
+  ],
+}
+`;

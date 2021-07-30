@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`4-player shogi can move twice except first move 1`] = `
+ban:
+(1) 
+(3) ad1 
+______1ad1ae1ah1ae_________
+_________1aa1ag1aa___3ad___
+2ad_________1aa____________
+2ae2aa_______________3aa3ae
+2ah2ag___2aa______3aa3ag3ah
+2ae2aa_______________3aa3ae
+2ad______0aa0aa_________3ad
+____________0ag0aa_________
+______0ad0ae0ah0ae0ad______
+(0) 
+(2) 
+kifu:
+☗6七歩 [0,[6,7,[],[0,"aa"]],[6,8,[0,"aa"],[]]]
+←6五歩 [1,[6,5,[],[2,"aa"]],[7,5,[2,"aa"],[]]]
+☖2二銀 [2,[2,2,[],[1,"ad"]],[3,1,[1,"ad"],[]]]
+→同銀 [3,[2,2,[1,"ad"],[3,"ad"]],[1,3,[3,"ad"],[]],[1,3,"ad"]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 27,
+  "teban": 0,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;

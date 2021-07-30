@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Annan shogi can move twice except first move 1`] = `
+ban:
+(1) 
+1ab___1ad1ae1ah1ae1ad1ac1ab
+___1ag_______________1af___
+1aa___1ac1aa0am1aa1aa___1aa
+___1aa1aa____________1aa___
+___________________________
+___0aa_______________0aa___
+0aa___0aa0aa0aa0aa0aa___0aa
+_____________________0ag___
+0ab0ac0ad0ae0ah0ae0ad0ac0ab
+(0) aa1 
+kifu:
+☗7六角 [0,[7,6,[],[0,"af"]],[8,8,[0,"af"],[]]]
+☖7四歩 [1,[7,4,[],[1,"aa"]],[7,3,[1,"aa"],[]]]
+☗7五角 [0,[7,5,[],[0,"af"]],[7,6,[0,"af"],[]]]
+☖7三桂 [1,[7,3,[],[1,"ac"]],[8,1,[1,"ac"],[]]]
+☗5三角成 [0,[5,3,[1,"aa"],[0,"am"]],[7,5,[0,"af"],[]],[1,0,"aa"]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 26,
+  "teban": 1,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;

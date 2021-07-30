@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Donden Gaeshi shogi can move 1`] = `
+ban:
+(1) ac1 
+1ab1ac1ad1ae1ah1ae1ad___1ab
+___1ag_______________1am___
+1aa1aa1aa1aa1aa1aa___1aa1aa
+__________________1aa______
+___________________________
+______0aa__________________
+0aa0aa___0aa0aa0aa0aa0aa0aa
+_____________________0ag___
+0ab0ac0ad0ae0ah0ae0ad0ac0ab
+(0) af1 
+kifu:
+☗7六歩 [0,[7,6,[],[0,"aa"]],[7,7,[0,"aa"],[]]]
+☖3四歩 [1,[3,4,[],[1,"aa"]],[3,3,[1,"aa"],[]]]
+☗2二角成 [0,[2,2,[1,"af"],[0,"ac"]],[8,8,[0,"af"],[]],[2,1,[1,"ac"],[1,"am"]],[1,0,"af"]]
+☖同馬 [1,[2,2,[0,"ac"],[1,"am"]],[2,1,[1,"am"],[]],[1,1,"ac"]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 73,
+  "teban": 0,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;

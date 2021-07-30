@@ -1,0 +1,309 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chu shogi can take shishi 2 pieces away which doesn't have kiki 1`] = `
+ban:
+(1) 
+1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
+1cm___1af___1cn1cp1co1cn___1af___1cm
+1cr1cs1ag1am1an1ct___1an1am1ag1cs1cr
+1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa
+_________1cq____________1cq_________
+____________________________________
+_____________________1bl____________
+_________0cq____________0cq_________
+0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa
+0cr0cs0ag0am0an___0ct0an0am0ag0cs0cr
+0cm___0af___0cn0co0cp0cn___0af___0cm
+0ab0cl0ci0ad0ae0ah0cf0ae0ad0ci0cl0ab
+(0) 
+kifu:
+☗7八獅子 [0,[7,8,[],[0,"bl"]],[7,10,[0,"bl"],[]]]
+☖7五獅子 [1,[7,5,[],[1,"bl"]],[6,3,[1,"bl"],[]]]
+☗5七獅子 [0,[5,7,[],[0,"bl"]],[7,8,[0,"bl"],[]]]
+☖同獅子 [1,[5,7,[0,"bl"],[1,"bl"]],[7,5,[1,"bl"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 48,
+  "teban": 0,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;
+
+exports[`Chu shogi can take shishi next to shishi 1`] = `
+ban:
+(1) 
+1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
+1cm___1af___1cn1cp1co1cn___1af___1cm
+1cr1cs1ag1am1an1ct___1an1am1ag1cs1cr
+1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa
+_________1cq____________1cq_________
+_________0bl________________________
+____________________________________
+_________0cq____________0cq_________
+0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa
+0cr0cs0ag0am0an___0ct0an0am0ag0cs0cr
+0cm___0af___0cn0co0cp0cn___0af___0cm
+0ab0cl0ci0ad0ae0ah0cf0ae0ad0ci0cl0ab
+(0) 
+kifu:
+☗7八獅子 [0,[7,8,[],[0,"bl"]],[7,10,[0,"bl"],[]]]
+☖8五獅子 [1,[8,5,[],[1,"bl"]],[6,3,[1,"bl"],[]]]
+☗9七獅子 [0,[9,7,[],[0,"bl"]],[7,8,[0,"bl"],[]]]
+☖8六獅子 [1,[8,6,[],[1,"bl"]],[8,5,[1,"bl"],[]]]
+☖9六獅子 [1,[9,6,[],[1,"bl"]],[8,6,[1,"bl"],[]]]
+☗同獅子 [0,[9,6,[1,"bl"],[0,"bl"]],[9,7,[0,"bl"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 48,
+  "teban": 0,
+  "turn": 0,
+  "date": {},
+  "moving": {
+    "xy": [
+      9,
+      6
+    ],
+    "status": 0
+  },
+  "debug": ""
+}
+`;
+
+exports[`Chu shogi can tsukegui 1`] = `
+ban:
+(1) 
+1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
+1cm___1af___1cn1cp1co1cn___1af___1cm
+1cr1cs1ag1am1an1ct___1an1am1ag1cs1cr
+1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa
+_________1cq____________1cq_________
+____________________________________
+____________________________________
+_________0cq0aa______0aa0cq_________
+0aa0aa0aa0aa___0aa0aa___0aa0aa0aa0aa
+0cr0cs0ag0am0an___0ct0an___0ag0cs0cr
+0cm___0af___0cn0co0cp0cn___0af___0cm
+0ab0cl0ci0ad0ae0ah0cf0ae0ad0ci0cl0ab
+(0) 
+kifu:
+☗8八獅子 [0,[8,8,[],[0,"bl"]],[7,10,[0,"bl"],[]]]
+☖8五獅子 [1,[8,5,[],[1,"bl"]],[6,3,[1,"bl"],[]]]
+☗5八歩 [0,[5,8,[],[0,"aa"]],[5,9,[0,"aa"],[]]]
+☖7五獅子 [1,[7,5,[],[1,"bl"]],[8,5,[1,"bl"],[]]]
+☖7六獅子 [1,[7,6,[],[1,"bl"]],[7,5,[1,"bl"],[]]]
+☗7七馬 [0,[7,7,[],[0,"am"]],[4,10,[0,"am"],[]]]
+☖同獅子 [1,[7,7,[0,"am"],[1,"bl"]],[7,6,[1,"bl"],[]]]
+☖8八獅子 [1,[8,8,[0,"bl"],[1,"bl"]],[7,7,[1,"bl"],[]]]
+☗同歩 [0,[8,8,[1,"bl"],[0,"aa"]],[8,9,[0,"aa"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 48,
+  "teban": 1,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;
+
+exports[`Chu shogi cannot take shishi 2 pieces away which has kiki 1`] = `
+ban:
+(1) 
+1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
+1cm___1af___1cn1cp1co1cn___1af___1cm
+1cr1cs1ag1am1an1ct___1an1am1ag1cs1cr
+1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa
+_________1cq1bl_________1cq_________
+____________________________________
+_________0bl________________________
+_________0cq____________0cq_________
+0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa
+0cr0cs0ag0am0an___0ct0an0am0ag0cs0cr
+0cm___0af___0cn0co0cp0cn___0af___0cm
+0ab0cl0ci0ad0ae0ah0cf0ae0ad0ci0cl0ab
+(0) 
+kifu:
+☗8八獅子 [0,[8,8,[],[0,"bl"]],[7,10,[0,"bl"],[]]]
+☖8五獅子 [1,[8,5,[],[1,"bl"]],[6,3,[1,"bl"],[]]]
+☗8七獅子 [0,[8,7,[],[0,"bl"]],[8,8,[0,"bl"],[]]]
+☗9七獅子 [0,[9,7,[],[0,"bl"]],[8,7,[0,"bl"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 48,
+  "teban": 1,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;
+
+exports[`Chu shogi cannot take shishi 2 pieces away which has kiki through the shishi to move 1`] = `
+ban:
+(1) 
+1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
+1cm___1af___1cn1cp1co1cn___1af___1cm
+1cr1cs1ag1am1an1ct___1an1am1ag1cs1cr
+1aa1aa1aa___1aa1aa1aa1aa1aa1aa1aa1aa
+_________0bl____________1cq_________
+____________________________________
+_______________1bl__________________
+_________0cq_________0aa0cq___0aa___
+0aa0aa0aa0aa0aa0aa0aa___0aa0aa___0aa
+0cr0cs0ag0am0an___0ct0an0am0ag0cs0cr
+0cm___0af___0cn0co0cp0cn___0af___0cm
+0ab0cl0ci0ad0ae0ah0cf0ae0ad0ci0cl0ab
+(0) 
+kifu:
+☗8八獅子 [0,[8,8,[],[0,"bl"]],[7,10,[0,"bl"],[]]]
+☖9六仲人 [1,[9,6,[],[1,"cq"]],[9,5,[1,"cq"],[]]]
+☗同獅子 [0,[9,6,[1,"cq"],[0,"bl"]],[8,8,[0,"bl"],[]]]
+☖9五歩 [1,[9,5,[],[1,"aa"]],[9,4,[1,"aa"],[]]]
+☗10六獅子 [0,[10,6,[],[0,"bl"]],[9,6,[0,"bl"],[]]]
+☗9五獅子 [0,[9,5,[1,"aa"],[0,"bl"]],[10,6,[0,"bl"],[]]]
+☖6五獅子 [1,[6,5,[],[1,"bl"]],[6,3,[1,"bl"],[]]]
+☗2八歩 [0,[2,8,[],[0,"aa"]],[2,9,[0,"aa"],[]]]
+☖7七獅子 [1,[7,7,[],[1,"bl"]],[6,5,[1,"bl"],[]]]
+☗5八歩 [0,[5,8,[],[0,"aa"]],[5,9,[0,"aa"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 48,
+  "teban": 1,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;
+
+exports[`Chu shogi cannot take shishi right after capturing shishi (Senjishi) 1`] = `
+ban:
+(1) 
+1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
+1cm___1af___1cn1cp1co1cn___1af___1cm
+1cr1cs1ag1am1an1ct___1an1am1ag1cs1cr
+1aa1aa1aa1aa1aa1aa1aa___1aa1aa1aa1aa
+_________1cq_________1aa0am_________
+________________________1cq_________
+_________0cq________________________
+_________0bl0aa_________0cq_________
+0aa0aa0aa0aa___0aa0aa0aa0aa0aa0aa0aa
+0cr0cs0ag___0an___0ct0an0am0ag0cs0cr
+0cm___0af___0cn0co0cp0cn___0af___0cm
+0ab0cl0ci0ad0ae0ah0cf0ae0ad0ci0cl0ab
+(0) 
+kifu:
+☗8八歩 [0,[8,8,[],[0,"aa"]],[8,9,[0,"aa"],[]]]
+☖5五歩 [1,[5,5,[],[1,"aa"]],[5,4,[1,"aa"],[]]]
+☗9七仲人 [0,[9,7,[],[0,"cq"]],[9,8,[0,"cq"],[]]]
+☖4六仲人 [1,[4,6,[],[1,"cq"]],[4,5,[1,"cq"],[]]]
+☗9八獅子 [0,[9,8,[],[0,"bl"]],[7,10,[0,"bl"],[]]]
+☖4五獅子 [1,[4,5,[],[1,"bl"]],[6,3,[1,"bl"],[]]]
+☗同馬 [0,[4,5,[1,"bl"],[0,"am"]],[9,10,[0,"am"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 48,
+  "teban": 1,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;
+
+exports[`Chu shogi cannot tsukegui with chunin 1`] = `
+ban:
+(1) 
+1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
+1cm___1af___1cn1cp1co1cn___1af___1cm
+1cr1cs1ag1am1an1ct___1an1am1ag1cs1cr
+1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa
+____________1bl_________1cq_________
+_________0bl________________________
+____________________________________
+_________0cq____________0cq_________
+0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa
+0cr0cs0ag0am0an___0ct0an0am0ag0cs0cr
+0cm___0af___0cn0co0cp0cn___0af___0cm
+0ab0cl0ci0ad0ae0ah0cf0ae0ad0ci0cl0ab
+(0) 
+kifu:
+☗8八獅子 [0,[8,8,[],[0,"bl"]],[7,10,[0,"bl"],[]]]
+☖8五獅子 [1,[8,5,[],[1,"bl"]],[6,3,[1,"bl"],[]]]
+☗8七獅子 [0,[8,7,[],[0,"bl"]],[8,8,[0,"bl"],[]]]
+☗9七獅子 [0,[9,7,[],[0,"bl"]],[8,7,[0,"bl"],[]]]
+☖9六仲人 [1,[9,6,[],[1,"cq"]],[9,5,[1,"cq"],[]]]
+☗同獅子 [0,[9,6,[1,"cq"],[0,"bl"]],[9,7,[0,"bl"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 48,
+  "teban": 0,
+  "turn": 0,
+  "date": {},
+  "moving": {
+    "xy": [
+      9,
+      6
+    ],
+    "status": 0
+  },
+  "debug": ""
+}
+`;
+
+exports[`Chu shogi shishi can move 1`] = `
+ban:
+(1) 
+1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
+1cm___1af___1cn1cp1co1cn___1af___1cm
+1cr1cs1ag1am1an1ct___1an1am1ag1cs1cr
+1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa1aa
+_________1cq______1bl___1cq_________
+____________________________________
+____________________________________
+_________0cq___0bl______0cq_________
+0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa0aa
+0cr0cs0ag0am0an___0ct0an0am0ag0cs0cr
+0cm___0af___0cn0co0cp0cn___0af___0cm
+0ab0cl0ci0ad0ae0ah0cf0ae0ad0ci0cl0ab
+(0) 
+kifu:
+☗7八獅子 [0,[7,8,[],[0,"bl"]],[7,10,[0,"bl"],[]]]
+☖6五獅子 [1,[6,5,[],[1,"bl"]],[6,3,[1,"bl"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 48,
+  "teban": 0,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;

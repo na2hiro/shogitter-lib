@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chain move shogi can chain 1`] = `
+Array [
+  Object {
+    "XY": (7, 8),
+    "type": 1,
+  },
+  Object {
+    "XY": (6, 8),
+    "type": 1,
+  },
+  Object {
+    "XY": (5, 8),
+    "type": 1,
+  },
+  Object {
+    "XY": (7, 9),
+    "type": 1,
+  },
+  Object {
+    "XY": (8, 8),
+    "type": 1,
+  },
+  Object {
+    "XY": (9, 7),
+    "type": 2,
+  },
+  Object {
+    "XY": (9, 6),
+    "type": 1,
+  },
+  Object {
+    "XY": (7, 7),
+    "type": 2,
+  },
+  Object {
+    "XY": (7, 6),
+    "type": 1,
+  },
+  Object {
+    "XY": (9, 9),
+    "type": 2,
+  },
+  Object {
+    "XY": (9, 8),
+    "type": 2,
+  },
+  Object {
+    "XY": (5, 9),
+    "type": 1,
+  },
+  Object {
+    "XY": (4, 8),
+    "type": 1,
+  },
+  Object {
+    "XY": (4, 9),
+    "type": 1,
+  },
+  Object {
+    "XY": (3, 8),
+    "type": 1,
+  },
+  Object {
+    "XY": (3, 9),
+    "type": 1,
+  },
+  Object {
+    "XY": (2, 8),
+    "type": 1,
+  },
+  Object {
+    "XY": (2, 7),
+    "type": 2,
+  },
+  Object {
+    "XY": (2, 6),
+    "type": 1,
+  },
+  Object {
+    "XY": (1, 8),
+    "type": 2,
+  },
+  Object {
+    "XY": (2, 9),
+    "type": 2,
+  },
+  Object {
+    "XY": (3, 7),
+    "type": 1,
+  },
+  Object {
+    "XY": (3, 6),
+    "type": 1,
+  },
+  Object {
+    "XY": (1, 7),
+    "type": 1,
+  },
+  Object {
+    "XY": (1, 6),
+    "type": 1,
+  },
+]
+`;
+
+exports[`Chain move shogi can put with chain 1`] = `
+ban:
+(1) 
+1ab1ac1ad1ae1ah1ae1ad___1ab
+___1ag_____________________
+1aa1aa1aa1aa1aa1aa1aa1aa0ai
+__________________1af1ac___
+___________________________
+________________________0ab
+0aa0aa0aa0aa0aa0aa0aa0aa___
+___0af_______________0ag0aa
+0ab0ac0ad0ae0ah0ae0ad0ac___
+(0) 
+kifu:
+☗1六香 [0,[1,6,[],[0,"ab"]],[1,9,[0,"ab"],[]]]
+☖3四角 [1,[3,4,[],[1,"af"]],[2,2,[1,"af"],[]]]
+☗1三歩成 [0,[1,3,[1,"aa"],[0,"ai"]],[1,7,[0,"aa"],[]],[1,0,"aa"]]
+☖2四桂 [1,[2,4,[],[1,"ac"]],[2,1,[1,"ac"],[]]]
+☗1八歩 [0,[1,8,[],[0,"aa"]],[-1,0,"aa"]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 67,
+  "teban": 1,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;
+
+exports[`Chain move shogi has to chain to put piece 1`] = `
+ban:
+(1) 
+1ab1ac1ad1ae1ah1ae1ad___1ab
+___1ag_____________________
+1aa1aa1aa1aa1aa1aa1aa1aa0aa
+__________________1af1ac___
+___________________________
+________________________0ab
+0aa0aa0aa0aa0aa0aa0aa0aa___
+___0af_______________0ag___
+0ab0ac0ad0ae0ah0ae0ad0ac___
+(0) aa1 
+kifu:
+☗1六香 [0,[1,6,[],[0,"ab"]],[1,9,[0,"ab"],[]]]
+☖3四角 [1,[3,4,[],[1,"af"]],[2,2,[1,"af"],[]]]
+☗1三歩不成 [0,[1,3,[1,"aa"],[0,"aa"]],[1,7,[0,"aa"],[]],[1,0,"aa"]]
+☖2四桂 [1,[2,4,[],[1,"ac"]],[2,1,[1,"ac"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 67,
+  "teban": 0,
+  "turn": 0,
+  "date": {},
+  "moving": null,
+  "debug": ""
+}
+`;
