@@ -1,7 +1,7 @@
 import XY from "../XY";
 import Ban, {Direction, Species} from "../Ban";
 import {BeforeAfterDropStrategy} from "./Strategy";
-import {shuffle, Exception} from "../utils/phpCompat";
+import {shuffle, ShogitterCoreException} from "../utils/phpCompat";
 import TebanRotationStrategy from "./TebanRotationStrategy";
 
 export default abstract class DestinationStrategy extends BeforeAfterDropStrategy{
@@ -33,7 +33,7 @@ class GravityDestinationStrategy extends DestinationStrategy{
 	   to.y=this.ban.y;
 	   //echo j;exit;
 	   while(1){
-			if(to.y==0) throw new Exception("そこには置けません。");
+			if(to.y==0) throw new ShogitterCoreException("そこには置けません。");
 			if(!this.ban.exists(to)){
 				 break;
 			}
@@ -55,7 +55,7 @@ class RandomDestinationStrategy extends DestinationStrategy{
 			to.set(newto['XY'].x, newto['XY'].y);
 			return;
 		}
-		throw new Exception("動けません");
+		throw new ShogitterCoreException("動けません");
 	}
 	public executeAfter(to: XY) {}
 	public executeDrop(to: XY, species: Species =null, direction: Direction=null) {
@@ -73,7 +73,7 @@ class RandomDestinationStrategy extends DestinationStrategy{
 			}
 		}
 		moves=moves.filter(move => nifus.indexOf(move.x)==-1);
-		if(moves.length==0) throw new Exception("その駒は打てません。");
+		if(moves.length==0) throw new ShogitterCoreException("その駒は打てません。");
 		const rand=Math.floor(Math.random()*moves.length);
 		const newto = moves[rand];
 		to.set(newto.x, newto.y);
@@ -89,7 +89,7 @@ class ChainDestinationStrategy extends DestinationStrategy {
 
 	executeDrop(to: XY, species: Species, direction: Direction): void {
 		if (!this.ban.mapKiki(direction).friend[to.x][to.y]) {
-			throw new Exception("味方の効きに連鎖させないと打てません");
+			throw new ShogitterCoreException("味方の効きに連鎖させないと打てません");
 		}
 	}
 

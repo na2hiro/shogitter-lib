@@ -2,7 +2,7 @@
  */
 // What is this:   define("a", 100);
 
-import {Exception} from "./utils/phpCompat";
+import {ShogitterCoreException} from "./utils/phpCompat";
 import Ban, {Direction, Species} from "./Ban";
 import XY, {RelXY} from "./XY";
 import {shogitterDB} from "./ShogitterDB";
@@ -312,7 +312,7 @@ export class Koma {
 
     ensureMovable(to: XY) {
         const movable = this.getMovableTypes(to);
-        if (movable.length==0) throw new Exception(`${this.XY}から${to}へは移動できません。`);
+        if (movable.length==0) throw new ShogitterCoreException(`${this.XY}から${to}へは移動できません。`);
         return movable;
     }
 
@@ -321,7 +321,7 @@ export class Koma {
     }
 
     ensureFriend(koma: Koma) {
-        if (!this.isFriend(koma)) throw new Exception(`${this.XY}と${koma.XY}は味方同士でなくてはなりません。`);
+        if (!this.isFriend(koma)) throw new ShogitterCoreException(`${this.XY}と${koma.XY}は味方同士でなくてはなりません。`);
     }
 
     isEnemy(koma: Koma) {
@@ -329,7 +329,7 @@ export class Koma {
     }
 
     ensureEnemy(koma: Koma) {
-        if (!this.isEnemy(koma)) throw new Exception(`${this.XY}と${koma.XY}は敵同士でなくてはなりません。`);
+        if (!this.isEnemy(koma)) throw new ShogitterCoreException(`${this.XY}と${koma.XY}は敵同士でなくてはなりません。`);
     }
 
     /**
@@ -346,7 +346,7 @@ export class Koma {
     }
 
     ensureLegal() {
-        if (!this.isLegal()) throw new Exception(`${this.XY}: この駒は動けません。`);
+        if (!this.isLegal()) throw new ShogitterCoreException(`${this.XY}: この駒は動けません。`);
     }
 
     isLegal() {

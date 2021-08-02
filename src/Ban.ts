@@ -1,7 +1,7 @@
 import "./Iterator";
 
 import XY, {RelativeType, RelXY} from "./XY";
-import {Exception} from "./utils/phpCompat";
+import {ShogitterCoreException} from "./utils/phpCompat";
 import {Teban} from "./Teban";
 import {Kiki, Koma, KomaObj} from "./Koma";
 import Shogi from "./Shogi";
@@ -314,7 +314,7 @@ export default class Ban {
             case Direction.RIGHT:
                 return this.x - xy.x + 1;
         }
-        throw new Exception("illegal direction at calcDan");
+        throw new ShogitterCoreException("illegal direction at calcDan");
     }
 
     /**
@@ -416,7 +416,7 @@ export default class Ban {
     public take(xy: XY) {
         const get = this.get(xy);
         if (get.isNull()) {
-            throw new Exception(`${xy}: 駒がありません。`, 1);
+            throw new ShogitterCoreException(`${xy}: 駒がありません。`, 1);
         }
         this.remove(xy);
         return get;
@@ -463,11 +463,11 @@ export default class Ban {
      * @param unknown_type y
      */
     ensureExists(xy: XY) {
-        if (!this.exists(xy)) throw new Exception(`${xy}に駒が存在しません。`);
+        if (!this.exists(xy)) throw new ShogitterCoreException(`${xy}に駒が存在しません。`);
     }
 
     ensureNotExists(xy: XY) {
-        if (this.exists(xy)) throw new Exception(`${xy}には駒が存在します。`);
+        if (this.exists(xy)) throw new ShogitterCoreException(`${xy}には駒が存在します。`);
     }
 
     /**
@@ -893,6 +893,6 @@ export default class Ban {
     }
 
     ensureLegal(xy: XY) {
-        if (!this.isLegal(xy)) throw new Exception(`${xy.toString()}: 盤外です。`, 1);
+        if (!this.isLegal(xy)) throw new ShogitterCoreException(`${xy.toString()}: 盤外です。`, 1);
     }
 }

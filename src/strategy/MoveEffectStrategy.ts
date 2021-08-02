@@ -7,7 +7,7 @@ import {
 import Ban, {Direction, Species} from "../Ban";
 import XY, {RelativeType, RelXY} from "../XY";
 import {Koma} from "../Koma";
-import {Exception} from "../utils/phpCompat";
+import {ShogitterCoreException} from "../utils/phpCompat";
 import {Teban} from "../Teban";
 import {shogitterDB} from "../ShogitterDB";
 import {MoveType, runQuantum} from "../utils/quantumUtils";
@@ -68,8 +68,8 @@ class CoinMoveEffectStrategy extends MoveEffectStrategy<CoinMoveEffectConfig>{
 	executeAfter(to: XY){
 		if(this.relXY){
 			const cointo=to.getCloneRel(this.relXY);
-			if(!this.ban.isLegal(cointo)) throw new Exception("コインが盤からはみ出してしまいます");
-			if(this.ban.exists(cointo)) throw new Exception("コインがほかの駒と重なってしまいます。");
+			if(!this.ban.isLegal(cointo)) throw new ShogitterCoreException("コインが盤からはみ出してしまいます");
+			if(this.ban.exists(cointo)) throw new ShogitterCoreException("コインがほかの駒と重なってしまいます。");
 			
 			this.ban.set(cointo, this.koma);
 		}
@@ -123,7 +123,7 @@ class OthelloMoveEffectStrategy extends MoveEffectStrategy<OthelloMoveEffectConf
 				this.ban.get(xy).direction=direction;
 			}
 		}
-		if(this.setting['must'] && !othelloed) throw new Exception("ひっくり返す必要があります。");
+		if(this.setting['must'] && !othelloed) throw new ShogitterCoreException("ひっくり返す必要があります。");
 	}
 	executeDrop(to: XY){
 		this.executeAfter(to);
@@ -276,7 +276,7 @@ class CheckerMoveEffectStrategy extends MoveEffectStrategy{
 	executeAfter(to: XY) {
 		const from=this.from;
 		if(Math.abs(from.x-to.x)<2 && Math.abs(from.y-to.y)<2){
-			if(this.flagCanJump)throw new Exception("取れる駒を取ってください");
+			if(this.flagCanJump)throw new ShogitterCoreException("取れる駒を取ってください");
 		}else{
 			this.ban.remove(new XY(Math.floor((from.x + to.x) / 2), Math.floor((from.y + to.y) / 2)));
 		}
@@ -359,8 +359,8 @@ class EpoxyMoveEffectStrategy extends MoveEffectStrategy{
 		const vec = this.from.to(to);
 		for (const mov of this.moving ){
 			const dest = mov["from"].getCloneRel(vec);
-			if(!this.ban.isLegal(dest)) throw new Exception("駒が盤外にはみ出ます");
-			if(this.ban.exists(dest)) throw new Exception("駒が重なります");
+			if(!this.ban.isLegal(dest)) throw new ShogitterCoreException("駒が盤外にはみ出ます");
+			if(this.ban.exists(dest)) throw new ShogitterCoreException("駒が重なります");
 			this.ban.set(dest, mov["piece"]);
 		}
 	}
@@ -491,7 +491,7 @@ class QuantumMoveEffectStrategy extends MoveEffectStrategy{
 				}
 			}
 		}
-		throw new Exception("持ち駒が見つかりません");
+		throw new ShogitterCoreException("持ち駒が見つかりません");
 	}
 	countMochigoma(direction: Direction){
 		let cnt=0;

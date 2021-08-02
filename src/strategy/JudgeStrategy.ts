@@ -3,7 +3,7 @@ import Ban, {Direction, Species} from "../Ban";
 import XY, {RelativeType, RelXY} from "../XY";
 import {Koma} from "../Koma";
 import {shogitterDB} from "../ShogitterDB";
-import {Exception} from "../utils/phpCompat";
+import {ShogitterCoreException} from "../utils/phpCompat";
 import {BanScanIterator} from "../Iterator";
 import {num2kan_decimal} from "../MyLib";
 import TebanRotationStrategy from "./TebanRotationStrategy";
@@ -92,10 +92,10 @@ class OuteJudgeStrategy extends JudgeStrategy<OuteJudgeConfig>{
 				this.ban.parent.gameEnd(direction, win, "勝ち", `${this.ban.parent.teban.getName(direction)}玉に王手がかかりました。${this.ban.parent.teban.getName(win)}の勝ちです。`);
 				cnt++;
 			})
-			if(cnt>1) throw new Exception("複数の玉に王手がかかっています。");
+			if(cnt>1) throw new ShogitterCoreException("複数の玉に王手がかかっています。");
 		}else{
 			if(this.ban.checkOuteByDirection(this.ban.get(to).direction)){
-				throw new Exception("王手を放置しています。");
+				throw new ShogitterCoreException("王手を放置しています。");
 			}
 		}
 	}
@@ -391,7 +391,7 @@ class IgoJudgeStrategy extends JudgeStrategy<{}>{
 		const tesuu=this.ban.parent.kifu.getTesuu();
 		if(tesuu>1){
 			if(this.ban.parent.getHash() == this.ban.parent.kifu.getHash(tesuu-2)){
-				throw new Exception("コウは禁止です。");
+				throw new ShogitterCoreException("コウは禁止です。");
 			}
 		}
 	}

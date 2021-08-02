@@ -1,4 +1,4 @@
-import {array_unique, Exception} from "./utils/phpCompat";
+import {array_unique, ShogitterCoreException} from "./utils/phpCompat";
 import Shogi from "./Shogi";
 import {Direction} from "./Ban";
 
@@ -78,6 +78,10 @@ export class Teban {
         return this.arrayUniqueDirection;
     }
 
+    public countUniqueTeban() {
+        return this.arrayUniqueDirection.length;
+    }
+
     getMaxTeban() {
         return this.teban.getMax();
     }
@@ -127,7 +131,7 @@ export class Teban {
     }
 
     shufflePlayers() {
-        if (this.shogi.isPlaying()) throw new Exception("対局中は振り駒できません", 1);
+        if (this.shogi.isPlaying()) throw new ShogitterCoreException("対局中は振り駒できません", 1);
         shuffle(this.arrayPlayerInfo);
     }
 
@@ -179,7 +183,7 @@ export class Teban {
                 }
             }
         }
-        throw new Exception("あなたはプレイヤーではありません．");
+        throw new ShogitterCoreException("あなたはプレイヤーではありません．");
     }
 
     setFlags(flags: TebanFlags) {
@@ -214,7 +218,7 @@ export class Teban {
     }
 
     static getMark(direction: Direction) {
-        if (direction == null) throw new Exception("getMark", 1);
+        if (direction == null) throw new ShogitterCoreException("getMark", 1);
         return Teban.tebanMark[direction];
     }
 
@@ -255,7 +259,7 @@ export class Teban {
     }
 
     ensureDirection(direction: Direction) {
-        if (!this.isDirection(direction)) throw new Exception(`手番が守られていません。${this.getName(this.getNowDirection())}の手番です。 (${direction})`);
+        if (!this.isDirection(direction)) throw new ShogitterCoreException(`手番が守られていません。${this.getName(this.getNowDirection())}の手番です。 (${direction})`);
     }
 
     /**
@@ -274,7 +278,7 @@ export class Teban {
             case Direction.RIGHT:
                 return Direction.LEFT;
             default:
-                throw new Exception("その向きは定義されていません。", 1);
+                throw new ShogitterCoreException("その向きは定義されていません。", 1);
         }
     }
 
@@ -285,6 +289,6 @@ export class Teban {
             case "△":
                 return 1;
         }
-        throw new Exception("unknown direction mark: " + str);
+        throw new ShogitterCoreException("unknown direction mark: " + str);
     }
 }

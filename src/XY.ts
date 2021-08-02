@@ -1,4 +1,4 @@
-import {Exception} from "./utils/phpCompat";
+import {ShogitterCoreException} from "./utils/phpCompat";
 import Ban, {Direction} from "./Ban";
 import {num2kan_decimal} from "./MyLib";
 
@@ -115,7 +115,7 @@ export class RelXY {
                 y = this.x;
                 break;
             default:
-                throw new Exception(`駒の向き${direction}が定義されていません。`);
+                throw new ShogitterCoreException(`駒の向き${direction}が定義されていません。`);
         }
         this.x = x;
         this.y = y;
@@ -141,7 +141,7 @@ export class RelXY {
                 y = -this.x;
                 break;
             default:
-                throw new Exception(`駒の向き${direction}が定義されていません。`, 1);
+                throw new ShogitterCoreException(`駒の向き${direction}が定義されていません。`, 1);
         }
         this.x = x;
         this.y = y;
@@ -209,11 +209,11 @@ export default class XY extends RelXY {
     }
 
     turn() {
-        throw new Exception("座標が回転できません。");
+        throw new ShogitterCoreException("座標が回転できません。");
     }
 
     turnReverse() {
-        throw new Exception("座標が回転できません。");
+        throw new ShogitterCoreException("座標が回転できません。");
     }
 
     getDistance(xy: XY) {

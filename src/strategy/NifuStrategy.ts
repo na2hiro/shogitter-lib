@@ -2,7 +2,7 @@ import Strategy from "./Strategy";
 import Ban, {Direction} from "../Ban";
 import {Koma} from "../Koma";
 import XY, {RelXY} from "../XY";
-import {Exception} from "../utils/phpCompat";
+import {ShogitterCoreException} from "../utils/phpCompat";
 
 export default abstract class NifuStrategy extends Strategy{
     static abstract = "二歩";
@@ -190,7 +190,7 @@ abstract class OnFoundNifuStrategy{
 }
 class NormalOnFoundNifuStrategy extends OnFoundNifuStrategy{
     execute(direction: Direction){
-        throw new Exception("二歩です。");
+        throw new ShogitterCoreException("二歩です。");
     }
 }
 class FatalOnFoundNifuStrategy extends OnFoundNifuStrategy{

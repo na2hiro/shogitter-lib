@@ -1,9 +1,12 @@
-import {Exception} from "./utils/phpCompat";
+import {ShogitterCoreException} from "./utils/phpCompat";
 import komaColl from "./db/koma";
 import ruleColl from "./db/rule";
+import ruleGenreColl from "./db/rulegenre";
 import {Species} from "./Ban";
 import {MochigomaObjDB} from "./Mochigoma";
 import {MoveType} from "./Koma";
+
+const MAX_RULE_ID = 111;
 
 type KomaObj = [] | [number, Species];
 export type Rule = {
@@ -26,6 +29,15 @@ export type Rule = {
     rensa?: boolean,
     incomplete?: boolean,
     js?: "quantum",
+    img?: {
+        width: number,
+        height: number,
+    },
+    noRoom?: boolean // under construction TODO: difference from incomplete?
+    eatfriend?: boolean
+    noreverse?: "ban" | "koma",
+    rewriteall?: boolean,
+    css?: string,
 }
 
 export type MoveAndType = {
@@ -51,6 +63,7 @@ type KomaConfig = any;
 class ShogitterDB {
     // db;
     arrayRule: {[ruleid: string]: Rule} = {};
+    arrayRuleGenre: {[genreName: string]: number[]} = {};
     arrayKoma: {[species: string]: KomaConfig} = {};
     // arrayRuleGenre;
 
@@ -62,7 +75,7 @@ class ShogitterDB {
 
     getAllRules(): Rule[] {
         const rules: Rule[] = [];
-        for(let i=0; i<110; i++) {
+        for(let i=0; i<=MAX_RULE_ID; i++) {
             try{
                rules.push(this.getRule(i));
             } catch(e) {
@@ -75,7 +88,7 @@ class ShogitterDB {
     getRuleByName(name: string): Rule {
         if (!this.nameRuleMap) {
             this.nameRuleMap = {};
-            for (let i = 0; i < 110; i++) {
+            for (let i = 0; i <= MAX_RULE_ID; i++) {
                 const rule = this.getRule(i);
                 this.nameRuleMap[rule.name] = rule;
             }
@@ -93,7 +106,7 @@ class ShogitterDB {
 
     loadRule(ruleid: number) {
         const rule = ruleColl.get(ruleid);
-        if (!rule) throw new Exception(`指定されたルールID「${ruleid}」が不正です。`);
+        if (!rule) throw new ShogitterCoreException(`指定されたルールID「${ruleid}」が不正です。`);
         if ('extend' in rule) {
             //継承する
             const extRule = {...this.getRule(rule.extend.$id)};
@@ -142,7 +155,7 @@ class ShogitterDB {
 
     loadKoma(species: Species) {
         const result = komaColl.get(species);
-        if (result == null) throw new Exception(`駒 ${species} が不明です．`+1);
+        if (result == null) throw new ShogitterCoreException(`駒 ${species} が不明です．`+1);
         this.arrayKoma[species] = result;
     }
 
@@ -166,25 +179,22 @@ class ShogitterDB {
             this.loadKomaByRefs(rule['refKoma']);
         }
     }
-
+    */
     getRuleGenre() {
-        if (!this.arrayRuleGenre) {
+        if (Object.keys(this.arrayRuleGenre).length === 0) {
             this.loadRuleGenre();
         }
         return this.arrayRuleGenre;
     }
 
     loadRuleGenre() {
-        const cursor = this.db.rulegenre.find({}, {'name': 1, 'rules': 1}).sort({'_id': 1});
-        while (cursor.hasNext()) {
-            const genre = cursor.getNext();
+        ruleGenreColl.getAll().forEach(genre => {
             this.arrayRuleGenre[genre.name] = [];
             for (let ruleid of genre['rules']) {
                 this.arrayRuleGenre[genre.name].push(ruleid);
             }
-        }
+        });
     }
-     */
 }
 
 let mongo;

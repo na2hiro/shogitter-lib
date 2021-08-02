@@ -1,7 +1,7 @@
 import {BeforeAfterDropStrategy, BeforeAfterDropStrategyContainer, CommonConfig} from "./Strategy";
 import XY, {RelXY} from "../XY";
 import Ban, {Species} from "../Ban";
-import {Exception} from "../utils/phpCompat";
+import {ShogitterCoreException} from "../utils/phpCompat";
 import {shogitterDB} from "../ShogitterDB";
 import {Teban} from "../Teban";
 
@@ -44,7 +44,7 @@ class FreezeMoveControlStrategy extends MoveControlStrategy<{}>{
 	static abstract = "金縛り(相手の駒の利きがある駒は動けない)";
 	executeBefore(from: XY){
 		if(this.isKanashibari(from)){
-			 throw new Exception("その駒は金縛りにあっています。");
+			 throw new ShogitterCoreException("その駒は金縛りにあっています。");
 		}
 	}
 	/**
@@ -68,7 +68,7 @@ class MadrasMoveControlStrategy extends MoveControlStrategy<{}>{
 	static abstract = "マドラシ(敵同士で同じ種類の駒が互いに利いている場合、お互い動けない)";
 	executeBefore(from: XY){
 		if(this.isMadorasi(from)){
-			throw new Exception("その駒はマドラシ金縛りにあっています。");
+			throw new ShogitterCoreException("その駒はマドラシ金縛りにあっています。");
 		}
 	}
 	/**
@@ -96,7 +96,7 @@ class VolleyballMoveControlStrategy extends MoveControlStrategy<{}>{
 	static abstract = "バレーボール(3手ずつ指す。ただし、3つとも別の駒でなくてはならない)";
 	executeBefore(from: XY){
 		if(!this.isVolleyball(from)){
-			throw new Exception("バレーボールの３回のうち同じ駒を２回動かしてはいけません。");
+			throw new ShogitterCoreException("バレーボールの３回のうち同じ駒を２回動かしてはいけません。");
 		}
 	}
 	/**
@@ -161,7 +161,7 @@ class NoTaimenMoveControlStrategy extends MoveControlStrategy<NoTaimenMoveContro
 				if(nowKoma.isNull())continue;
 				if(nowKoma.direction==tebanDirection)break;
 				if(nowKoma.species==koma.species){
-					throw new Exception(`${koma.get('name')}が対面してはいけません。`);
+					throw new ShogitterCoreException(`${koma.get('name')}が対面してはいけません。`);
 				}else{
 					break;
 				}
@@ -180,7 +180,7 @@ class SameMoveControlStrategy extends MoveControlStrategy<{}>{
 		if(tesuu>0){
 			const kif=kifu.getXYByTesuu(tesuu-1);
 			const kif2=kifu.get(tesuu-1);
-			if(kif2[0]==this.ban.get(from).direction && !kif['to'].equals(from))throw new Exception(`${kif['to']}の駒を動かしてください`);
+			if(kif2[0]==this.ban.get(from).direction && !kif['to'].equals(from))throw new ShogitterCoreException(`${kif['to']}の駒を動かしてください`);
 		}
 	}
 	toHTML() {
@@ -193,7 +193,7 @@ class IgoMoveControlStrategy extends MoveControlStrategy<{}>{
 	executeBefore(from: XY) {}
 	executeAfter(to: XY) {
 		if(this.ban.getSurroundedByEnemy(to).length>0){
-			throw new Exception("自殺手は禁じ手です。");
+			throw new ShogitterCoreException("自殺手は禁じ手です。");
 		}
 	}
 	toHTML() {

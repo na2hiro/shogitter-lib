@@ -1,7 +1,7 @@
 import Strategy from "./Strategy";
 import Ban, {Direction, Species} from "../Ban";
 import {Koma} from "../Koma";
-import {Exception} from "../utils/phpCompat";
+import {ShogitterCoreException} from "../utils/phpCompat";
 import {Teban} from "../Teban";
 import {shogitterDB} from "../ShogitterDB";
 
@@ -33,7 +33,7 @@ class NormalCaptureControlStrategy extends CaptureControlStrategy<{}> {
     static strategyVariant = "Normal";
     execute(captured: Koma, capturing: Koma) {
         if (!captured.isNull() && captured.isFriend(capturing)) {
-            throw new Exception("味方の駒を取る事はできません。");
+            throw new ShogitterCoreException("味方の駒を取る事はできません。");
         }
     }
 }
@@ -61,7 +61,7 @@ class ToruichiCaptureControlStrategy extends CaptureControlStrategy<{}> {
             || !this.isCapturable(capturing.direction)) {
             //ok
         } else {
-            throw new Exception("取る一手将棋なので取れる駒を取ってください。");
+            throw new ShogitterCoreException("取る一手将棋なので取れる駒を取ってください。");
         }
     }
 
@@ -119,7 +119,7 @@ class TorazuCaptureControlStrategy extends CaptureControlStrategy<TorazuCaptureC
         for (let komaset of this.setting) {
             if ((komaset[0] === null || captured.direction == komaset[0])
                 && (komaset[1] === null || captured.species == komaset[1])) {
-                throw new Exception("その駒を取ることは出来ません。");
+                throw new ShogitterCoreException("その駒を取ることは出来ません。");
             }
         }
     }
@@ -155,7 +155,7 @@ class ShishiCaptureControlStrategy extends CaptureControlStrategy<{}> {
                     const xy = capturing.XY;
                     const picked = this.ban.cut(xy);
                     if (this.ban.existsMovable(captured.XY, picked.direction, {igai: true})) {
-                        throw new Exception("２マス離れていて、足がついた獅子をとる事は出来ません。");
+                        throw new ShogitterCoreException("２マス離れていて、足がついた獅子をとる事は出来ません。");
                     } else {
                         // 獅子特例ok
                     }
@@ -170,9 +170,9 @@ class ShishiCaptureControlStrategy extends CaptureControlStrategy<{}> {
                     const xy = capturing.XY;
                     const picked = this.ban.cut(xy);
                     if (this.ban.existsMovable(captured.XY, capturing.direction, {'igai': true})) {
-                        throw new Exception("２マス離れていて足がついた獅子を、獅子でとる事は出来ません。また、付け喰いに歩と仲人は使えません。");
+                        throw new ShogitterCoreException("２マス離れていて足がついた獅子を、獅子でとる事は出来ません。また、付け喰いに歩と仲人は使えません。");
                     } else {
-                        throw new Exception("ok2");
+                        throw new ShogitterCoreException("ok2");
                     }
                     this.ban.set(xy, picked);
                 }
@@ -186,7 +186,7 @@ class ShishiCaptureControlStrategy extends CaptureControlStrategy<{}> {
 
             //獅子でない駒が獅子をとった場合
             if (!this.isShishi(fromSpe) && this.isShishi(toSpe)) {
-                throw new Exception("先獅子のため獅子を取る事はできません。");
+                throw new ShogitterCoreException("先獅子のため獅子を取る事はできません。");
             }
         }
     }
@@ -214,7 +214,7 @@ class SpeedCaptureControlStrategy extends CaptureControlStrategy<{}> {
         const tesuu = kifu.getTesuu();
         if (tesuu > 0) {
             const kif = kifu.get(tesuu - 1);
-            if (kif[0] == capturing.direction) throw new Exception("連続して動かす場合は駒をとれません．");
+            if (kif[0] == capturing.direction) throw new ShogitterCoreException("連続して動かす場合は駒をとれません．");
         }
     }
 

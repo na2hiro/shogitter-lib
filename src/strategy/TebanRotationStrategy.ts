@@ -1,6 +1,6 @@
 import Strategy from "./Strategy";
 import Ban from "../Ban";
-import {Exception} from "../utils/phpCompat";
+import {ShogitterCoreException} from "../utils/phpCompat";
 import {Koma} from "../Koma";
 import XY from "../XY";
 export default abstract class TebanRotationStrategy extends Strategy{
@@ -38,7 +38,7 @@ class OthelloTebanRotationStrategy extends NormalTebanRotationStrategy{
 	static abstract = "置けない場合はパスできる";
 	canPass() {
 		if(this.ban.canOthello(this.ban.parent.teban.getNowDirection())){
-			throw new Exception("置ける場所があるためパスできません。");
+			throw new ShogitterCoreException("置ける場所があるためパスできません。");
 		}
 		return true;
 	}

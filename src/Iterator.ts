@@ -1,4 +1,4 @@
-import {Exception} from "./utils/phpCompat";
+import {ShogitterCoreException} from "./utils/phpCompat";
 import XY, {RelXY} from "./XY";
 import Ban, {Species} from "./Ban";
 import {Koma} from "./Koma";
@@ -100,7 +100,7 @@ export class BanScanIterator implements Iterator<XY>, Iterable<XY> {
         this.size = [ban.x, ban.y];
         this.initPosition = position.getClone();
         this.vector = vector;
-        if (this.vector.x == 0 && this.vector.y == 0) throw new Exception("探索ベクトルが零ベクトルです。");
+        if (this.vector.x == 0 && this.vector.y == 0) throw new ShogitterCoreException("探索ベクトルが零ベクトルです。");
         this.limit = flags.limit || -1;
         this.limitJump = flags.limitJump || 0;
         this.jumpExceptions = flags.jumpException || [];

@@ -1,4 +1,4 @@
-import {Exception} from "./utils/phpCompat";
+import {ShogitterCoreException} from "./utils/phpCompat";
 import Shogi, {Player} from "./Shogi";
 import {Koma} from "./Koma";
 import {Config, generateStrategyContainer} from "./strategy/StrategyFactory";
@@ -154,7 +154,7 @@ export class Mochigoma {
      */
     remove(species: Species, direction: Direction, value = 1) {
         if (!this.arrayMochigoma[direction][species] || this.arrayMochigoma[direction][species] - value < 0) {
-            throw new Exception(`持ち駒 ${species} が足りません: ${this.arrayMochigoma[direction][species]} < ${value}`);
+            throw new ShogitterCoreException(`持ち駒 ${species} が足りません: ${this.arrayMochigoma[direction][species]} < ${value}`);
         } else if (this.arrayMochigoma[direction][species] - value === 0) {
             delete this.arrayMochigoma[direction][species];
         } else {

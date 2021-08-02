@@ -1,5 +1,5 @@
 {
-  "name": "shogitter-ts",
+  "name": "shogitter-core",
   "version": "1.0.3",
   "description": "Shogitter shogi variant logic written in TypeScript",
   "main": "lib/Shogi.js",

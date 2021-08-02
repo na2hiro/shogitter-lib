@@ -26,8 +26,21 @@ class RuleCollection extends Collection{
     }
 }
 
+export class RuleGenreCollection extends Collection{
+    getKey(obj: any): string {
+        return obj._id;
+    }
+
+    getAll(): {name: string, rules: number[]}[] {
+        return Object.values(this.map)
+            .sort((a, b) => a.id - b.id)
+            .map(v => ({name: v.name, rules: v.rules}));
+    }
+}
+
 const komaColl = new KomaCollection();
 const ruleColl = new RuleCollection();
+const ruleGenreColl = new RuleGenreCollection();
 
 export const db = {
     getCollection(coll: string) {
@@ -36,6 +49,8 @@ export const db = {
                 return komaColl;
             case "rule":
                 return ruleColl;
+            case "rulegenre":
+                return ruleGenreColl;
         }
         throw "unknown coll";
     }

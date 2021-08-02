@@ -1,7 +1,7 @@
 import "./strategy/Strategy"
-import {Exception} from "./utils/phpCompat";
+import {ShogitterCoreException} from "./utils/phpCompat";
 import {Mochigoma, MochigomaObj} from "./Mochigoma";
-import {PlayerInfo, Result, Teban, UserInfo} from "./Teban";
+import {Result, Teban, UserInfo} from "./Teban";
 import Ban, {BanObj, Direction, Species} from "./Ban";
 import XY, {XYObj} from "./XY";
 import {Koma, KomaObj, PromotionMode} from "./Koma";
@@ -9,7 +9,8 @@ import Kifu, {KifuLine, KifuMove} from "./Kifu";
 import {BanScanIterator} from "./Iterator";
 import {Rule, shogitterDB} from "./ShogitterDB";
 import {javaHashCode} from "./utils/hash";
-import rule from "./db/rule";
+
+export {ShogitterCoreException};
 
 const DEBUG_ECHO_TIME = true;
 
@@ -73,7 +74,16 @@ type Moving = {
     status: number;
 }
 
-export type KifuCommand = {direction?: Direction} & (MoveCommand | PutCommand | RollbackCommand | ResignCommand | InitializeCommand);
+export type KifuCommand = {direction?: Direction} & (
+    MoveCommand |
+    PutCommand |
+    RollbackCommand |
+    ResignCommand |
+    ResetCommand |
+    StartCommand |
+    PassCommand |
+    ChangeDirectionCommand |
+    DrawCommand);
 export type MoveCommand = {
     type: "move",
     from: XYObj,
@@ -89,13 +99,26 @@ export type PutCommand = {
 }
 export type RollbackCommand = {
     type: "rollback",
+    amount: number,
     //direction: Direction;
+}
+export type StartCommand = {
+    type: "start"
+}
+export type PassCommand = {
+    type: "pass"
 }
 export type ResignCommand = {
     type: "resign",
 }
-export type InitializeCommand = {
-    type: "initialize",
+export type DrawCommand = {
+    type: "draw",
+}
+export type ChangeDirectionCommand = {
+    type: "changedirection",
+}
+export type ResetCommand = {
+    type: "reset",
     ruleId: number;
 }
 
@@ -166,13 +189,13 @@ export default class Shogi {
     }
 
     init() {
-        if (this.isPlaying()) throw new Exception("対局中は初期化できません");
+        if (this.isPlaying()) throw new ShogitterCoreException("対局中は初期化できません");
         this.status = {num: Status.INITIAL};
         this.date = {}
     }
 
     start() {
-        if (!this.isReady()) throw new Exception("初期化されておらず、開始できません。");
+        if (!this.isReady()) throw new ShogitterCoreException("初期化されておらず、開始できません。");
         this.status = {num: Status.PLAYING};
         // this.date['start'] = new Date();
     }
@@ -577,7 +600,7 @@ export default class Shogi {
      * @param <type> direction
      */
     resign(direction?: Direction) {
-        if (!this.isPlaying()) throw new Exception("対局中ではありません．");
+        if (!this.isPlaying()) throw new ShogitterCoreException("対局中ではありません．");
         let dirResign;
         if (typeof direction !== "undefined") {
             //手番があったらその人が投了
@@ -592,13 +615,22 @@ export default class Shogi {
     }
 
     /**
+     *
+     */
+    draw() {
+        if(!this.isPlaying()) throw new ShogitterCoreException("対局中でないので操作できません。");
+        this.gameEnd(9, 9, "引き分け", "合意により引き分け");
+        this.gameEndFinalize();
+    }
+
+    /**
      * n手戻す
      * @param <type> number
      */
     rollback(number: number) {
-        if(!this.isPlaying()) throw new Exception("対局中でないので操作できません。");
+        if(!this.isPlaying()) throw new ShogitterCoreException("対局中でないので操作できません。");
         const max = this.kifu.getTesuu();
-        if (max <= 0) throw new Exception("初期局面なので待った出来ません。");
+        if (max <= 0) throw new ShogitterCoreException("初期局面なので待った出来ません。");
         let te = 1;
         let teban;
         while (te <= number) {
@@ -711,7 +743,7 @@ export default class Shogi {
 
     gameEnd(loseDirection: Direction, markDirection: Direction, kifu: string, description: string) {
         if (this.end) {
-            throw new Exception(`複数の終了条件にひっかかりました: ${this.end.status}, ${description}`);
+            throw new ShogitterCoreException(`複数の終了条件にひっかかりました: ${this.end.status}, ${description}`);
         }
         this.end = {'status': description, 'kifu': [`_${loseDirection}`, Teban.getMark(markDirection) + kifu]};
     }
@@ -732,7 +764,7 @@ export default class Shogi {
     ensureNoMoving(from: XY = null) {
         //移動中の駒があるがそれを動かそうとしていなかったらエラー
         if (this.moving && (from === null || !this.moving.XY.equals(from))) {
-            throw new Exception('移動中の駒をもう一度動かしてください。');
+            throw new ShogitterCoreException('移動中の駒をもう一度動かしてください。');
         }
     }
 
@@ -740,7 +772,7 @@ export default class Shogi {
         let fromDirection;
         this.fromDirection = fromDirection = this.ban.get(from).direction;
         if (typeof direction !== "undefined" && fromDirection !== direction) {
-            throw new Exception("It's not your turn");
+            throw new ShogitterCoreException("It's not your turn");
         }
         this.teban.ensureDirection(fromDirection);
 
@@ -855,13 +887,27 @@ export default class Shogi {
      * @param command
      */
     runCommand(command: KifuCommand) {
-        if (command.type === "initialize") {
-            this.constructById(command.ruleId);
-            this.start();
-            return;
+        switch(command.type) {
+            case "reset":
+                this.constructById(command.ruleId);
+                return;
+            case "start":
+                this.start();
+                return;
+            case "draw":
+                this.draw();
+                return;
+            case "pass":
+                this.pass();
+                return;
+            case "changedirection":
+                if(this.isPlaying()) throw new ShogitterCoreException("対局中は先後交代できません。");
+                this.teban.changeDirection();
+                return;
         }
+
         if (this.isEnded()) {
-            throw new Exception("対局中ではありません．");
+            throw new ShogitterCoreException("対局中ではありません．");
         }
         if (command.type === "resign") {
             return this.resign(command.direction);
@@ -884,7 +930,12 @@ export default class Shogi {
                     command.id
                 );
             case "rollback":
-                return this.rollback(1);
+                if (command.amount === 1 || command.amount === 2) {
+                    return this.rollback(command.amount);
+                }
+                throw new ShogitterCoreException("Invalid amount to rollback", 1);
+            default:
+                throw new ShogitterCoreException("Unknown command type: "+(command as any).type, 1);
         }
         return true;
     }
@@ -931,11 +982,11 @@ export default class Shogi {
                 this.kifu.unsetLastMoving();
                 this.teban.rotate();
             } else {
-                throw new Exception("移動中の駒がありません。このボタンは多段階移動をする駒の移動を終了して手番を渡す時に使います。");
+                throw new ShogitterCoreException("移動中の駒がありません。このボタンは多段階移動をする駒の移動を終了して手番を渡す時に使います。");
             }
         } else {
             if (this.ban.get(this.moving.XY).get("nopass")) {
-                throw new Exception("この駒で手番を渡すことはできません");
+                throw new ShogitterCoreException("この駒で手番を渡すことはできません");
             } else {
                 this.kifu.unsetLastMoving();
                 this.moving = null;
@@ -1072,7 +1123,7 @@ export default class Shogi {
 
     getLoser() {
         const kifu = this.kifu.get(this.kifu.getTesuu() - 1);
-        if (kifu[0] !== "_") throw new Exception("まだゲームは終了していません。");
+        if (kifu[0] !== "_") throw new ShogitterCoreException("まだゲームは終了していません。");
         return kifu[1];
     }
 
@@ -1355,7 +1406,7 @@ export default class Shogi {
             case "九":
                 return 9;
         }
-        throw new Exception("Not a Number: string");
+        throw new ShogitterCoreException("Not a Number: string");
     }
 
     /*

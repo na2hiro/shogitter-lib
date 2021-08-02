@@ -2,7 +2,7 @@ import {Koma, KomaObj} from "./Koma";
 import XY from "./XY";
 import {Direction, Species} from "./Ban";
 import Shogi from "./Shogi";
-import {Exception} from "./utils/phpCompat";
+import {ShogitterCoreException} from "./utils/phpCompat";
 
 export type KifuLine = {
     move: KifuMove,
@@ -179,7 +179,7 @@ export default class Kifu {
      * @param num
      */
     get(num: number): KifuMove {
-        if(num<0) throw new Exception(`num must be non-negative: ${num} `, 1);
+        if(num<0) throw new ShogitterCoreException(`num must be non-negative: ${num} `, 1);
         return this.arrayKifu[num].move;
     }
 
@@ -189,7 +189,7 @@ export default class Kifu {
      * @param num
      */
     getKifu(num: number) {
-        if(num<0) throw new Exception(`num must be non-negative: ${num} `, 1);
+        if(num<0) throw new ShogitterCoreException(`num must be non-negative: ${num} `, 1);
         return this.arrayKifu[num].disp;
     }
 

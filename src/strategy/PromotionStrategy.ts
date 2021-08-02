@@ -4,7 +4,7 @@
 import Strategy from "./Strategy";
 import Ban, {Direction} from "../Ban";
 import XY from "../XY";
-import {Exception} from "../utils/phpCompat";
+import {ShogitterCoreException} from "../utils/phpCompat";
 
 type Setting = {
 	dan: number; // 段
@@ -44,7 +44,7 @@ export default abstract class PromotionStrategy<S = {}> extends Strategy{
 	abstract canPromote(to: XY, from: XY, captured: boolean, direction: Direction): boolean;
 	executeLegal(to: XY){
 		if(!this.setting['illegal'] && !this.ban.get(to).isLegal()){
-			throw new Exception("行きどころがありません。");
+			throw new ShogitterCoreException("行きどころがありません。");
 		}
 	}
 	toHTML() {
@@ -134,7 +134,7 @@ class NanamePromotionStrategy extends PromotionStrategy{
 			numto = num - numto;
 			numfrom = num - numfrom;
 		}else{
-			throw new Exception("斜め将棋で想定されていない向きです");
+			throw new ShogitterCoreException("斜め将棋で想定されていない向きです");
 		}
 	//	echo numto, numfrom;
 		// const dan=this.setting['dan']?:this.setting['dan']=6;
