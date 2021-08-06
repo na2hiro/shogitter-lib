@@ -122,7 +122,6 @@ export class Mochigoma {
         for (let direction=0; direction< players.length; direction++) {
             this.arrayMochigoma.push({});
             const player = players[direction];
-            if (player['mochigoma'].length == 0) continue;
             for (let species in player['mochigoma']) {
                 this.add(species, direction, player.mochigoma[species]);
             }
