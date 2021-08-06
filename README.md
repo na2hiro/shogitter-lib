@@ -14,5 +14,14 @@
 * Integrate `shogitter-core` to the shogitter itself
 * (optional) Provide an example UI to play around with what `shogitter-core` can do
 
+## File structure
+* `integration-tests`: Integration tests
+* `src`: main source code
+  * `db`: definitions of rules. It looks like an output of `mongoexport` command because it is.
+    * `koma.ts`: definition of pieces
+    * `rule.ts`: definition of rules
+    * `rulegenre.ts`: definition of rule genres (categories)
+  * `strategy`: "strategies" which can customize behavior of `Shogi` class
+
 ## Disclaimer
 * There's no clearly defined interface. I can change any interface at any moment
