@@ -14,10 +14,6 @@ export {ShogitterCoreException};
 
 const DEBUG_ECHO_TIME = true;
 
-export const isPlaying = (data: ShogiSerialization) => (
-    data.status.num === Status.PLAYING && data.kifu.length > 0
-);
-
 /*
 enum Format {
     FORMAT_UNKNOWN = -1,
@@ -95,7 +91,7 @@ export type PutCommand = {
     to: XYObj,
     direction: Direction;
     put: Species,
-    id: number,
+    id?: number, // Used for quantum shogi to distinguish individual pieces of a kind
 }
 export type RollbackCommand = {
     type: "rollback",
@@ -205,7 +201,7 @@ export default class Shogi {
      * TODO: This should only check the status once we have a proper UI for starting games
      */
     isPlaying() {
-        return this.status['num'] == Status.PLAYING && this.kifu.getTesuu() > 0;
+        return this.status['num'] == Status.PLAYING;
     }
 
     isEnded() {

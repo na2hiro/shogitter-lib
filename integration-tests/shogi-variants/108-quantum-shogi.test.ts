@@ -15,21 +15,21 @@ describe("Quantum shogi", () => {
     });
     it("can go back and forget", () => {
         move(shogi, 7, 7, 5, 5)
-        shogi.runCommand({type: "rollback"})
+        shogi.runCommand({type: "rollback", amount: 1})
         move(shogi, 7, 7, 5, 5)
     });
     it("can go back and forget", () => {
         move(shogi, 6, 7, 5, 5)
         move(shogi, 1, 3, 1, 5)
         move(shogi, 9, 7, 8, 5)
-        shogi.runCommand({type: "rollback"})
+        shogi.runCommand({type: "rollback", amount: 1})
         move(shogi, 9, 7, 8, 5)
     });
     it("can go back and forget, including capture", () => {
         move(shogi, 6, 7, 5, 5)
         move(shogi, 5, 3, 5, 5)
         move(shogi, 4, 7, 5, 5)
-        shogi.runCommand({type: "rollback"})
+        shogi.runCommand({type: "rollback", amount: 1})
         move(shogi, 4, 7, 5, 5)
     });
     it("can put piece with id", () => {
@@ -40,7 +40,7 @@ describe("Quantum shogi", () => {
         move(shogi, 1, 7, 1, 6)
         put(shogi, 9, 5, "ff", 0)
         expect(shogi.ban.get(new XY(9, 5)).getMovable()).toMatchSnapshot();
-        shogi.runCommand({type: "rollback"})
+        shogi.runCommand({type: "rollback", amount: 1})
         put(shogi, 9, 5, "ff", 1)
         expect(shogi.ban.get(new XY(9, 5)).getMovable()).toMatchSnapshot();
     });
