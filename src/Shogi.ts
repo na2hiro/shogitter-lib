@@ -38,7 +38,7 @@ export enum Status {
     ENDED,
 }
 export type Player = {
-    user: UserInfo[],
+    user?: UserInfo[], // It can be missing in live board by some reason
     mochigoma: {[species: string]: number},
     result?: Result,
 }
@@ -477,21 +477,12 @@ export default class Shogi {
 
     constructByJSON(arr: ShogiSerialization) {
         this.constructById(arr['ruleid']);
-        //if (arr.status.num !== null) {
-            this.status = arr.status;
-        /*} else {
-            //旧
-            if (arr['status'][1] === null) arr['status'][1] = "";
-            this.status = {
-                'num': arr['status'][0],
-                'message': arr['status'][1] || ""
-            };
-        }*/
+        this.status = arr.status;
         this.date = {
             start: new Date(arr.date?.start),
             end: new Date(arr.date?.end)
         };
-        this.teban.setMaxTurn(arr.players[0].user.length);
+        this.teban.setMaxTurn(arr.players[0].user?.length || 0);
         this.teban.set(arr.teban);
         this.teban.setTurn(arr.turn);
         this.jsonsystem = arr.system;
