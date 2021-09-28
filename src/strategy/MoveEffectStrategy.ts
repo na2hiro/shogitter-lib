@@ -517,14 +517,14 @@ class QuantumMoveEffectStrategy extends MoveEffectStrategy{
 			const capturedDirection = 1 - this.direction;
 			if (!capturedPos) {
 				const capturedData = this.obj[capturedDirection];
-				if (capturedData.xys.length == 19 && capturedData.d.fulls.indexOf("ah") === -1 && capturedData.d.kinds.every(sp => sp.indexOf("ah") < 0)) {
+				if (capturedData.xys.length == 19 && capturedData.d.fulls.indexOf("Ou") === -1 && capturedData.d.kinds.every(sp => sp.indexOf("Ou") < 0)) {
 					this.ban.parent.gameEnd(capturedDirection, this.direction, "勝ち", "王に確定した駒を取りました");
 					end = true;
 				}
 				capturedPos = this.allocatePos(capturedDirection);
 			} else {
 				const kinds = this.obj[capturedPos.direction].d.kinds[capturedPos.position];
-				if (kinds.length == 1 && kinds[0] == "ah") {
+				if (kinds.length == 1 && kinds[0] == "Ou") {
 					this.ban.parent.gameEnd(capturedDirection, this.direction, "勝ち", "王に確定した駒を取りました");
 					end = true;
 				}

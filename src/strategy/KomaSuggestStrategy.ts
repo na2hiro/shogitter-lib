@@ -316,14 +316,14 @@ class QuantumKomaSuggestStrategy extends KomaSuggestStrategy{
 	}
 	convertName(name: string, promoted: boolean){
 		switch(name){
-			case "aa": return promoted?"ai":"aa";
-			case "ab": return promoted?"aj":"ab";
-			case "ac": return promoted?"ak":"ac";
-			case "ad": return promoted?"al":"ad";
-			case "ae": return promoted?null:"ae";
-			case "af": return promoted?"am":"af";
-			case "ag": return promoted?"an":"ag";
-			case "ah": return promoted?null:"ah";
+			case "Fu": return promoted?"ai":"aa";
+			case "Ky": return promoted?"aj":"ab";
+			case "Ke": return promoted?"ak":"ac";
+			case "Gi": return promoted?"al":"ad";
+			case "Ki": return promoted?null:"ae";
+			case "Ka": return promoted?"am":"af";
+			case "Hi": return promoted?"an":"ag";
+			case "Ou": return promoted?null:"ah";
 			default: throw new Error(`Unknown kind: ${name}`);
 		}
 	}

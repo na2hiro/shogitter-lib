@@ -1,8 +1,10 @@
-export class ShogitterCoreException {
+export class ShogitterCoreException extends Error {
     message: string;
     flag: number;
     errorInstance: Error;
     constructor(message: string, flag: number = 0) {
+        super(message);
+
         this.errorInstance = new Error(message);
         this.message = message;
         this.flag = flag;

@@ -1,13 +1,13 @@
 import {RelXY} from "../XY";
 
-var FU = "aa";
-var KY = "ab";
-var KE = "ac";
-var GI = "ad";
-var KI = "ae";
-var KA = "af";
-var HI = "ag";
-var OU = "ah";
+var FU = "Fu";
+var KY = "Ky";
+var KE = "Ke";
+var GI = "Gi";
+var KI = "Ki";
+var KA = "Ka";
+var HI = "Hi";
+var OU = "Ou";
 const allPieces = [FU, KY, KE, GI, KI, KA, HI, OU];
 const initialPieces = {
     [FU]: 9,

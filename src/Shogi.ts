@@ -96,7 +96,7 @@ export type PutCommand = {
 }
 export type RollbackCommand = {
     type: "rollback",
-    direction: Direction;
+    direction?: Direction;
 }
 export type StartCommand = {
     type: "start"
@@ -921,8 +921,7 @@ export default class Shogi {
                     command.id
                 );
             case "rollback":
-                console.log("ROLLBACK", this.teban.getNowDirection(), command.direction, command);
-                const amount = this.teban.getNowDirection() === command.direction ? 2 : 1;
+                const amount = typeof command.direction !== "undefined" && this.teban.getNowDirection() === command.direction ? 2 : 1;
                 return this.rollback(Math.min(amount, this.kifu.getTesuu()))
             default:
                 throw new ShogitterCoreException("Unknown command type: "+(command as any).type, 1);

@@ -330,14 +330,6 @@ Array [
     "type": 2,
   },
   Object {
-    "XY": (9, 6),
-    "type": 2,
-  },
-  Object {
-    "XY": (9, 7),
-    "type": 2,
-  },
-  Object {
     "XY": (8, 5),
     "type": 2,
   },
@@ -355,6 +347,14 @@ Array [
   },
   Object {
     "XY": (9, 3),
+    "type": 2,
+  },
+  Object {
+    "XY": (9, 6),
+    "type": 2,
+  },
+  Object {
+    "XY": (9, 7),
     "type": 2,
   },
 ]
