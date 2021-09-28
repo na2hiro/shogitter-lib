@@ -7,13 +7,14 @@ import Ban, {Direction} from "../Ban";
 export type StrategySerialization = any; // TODO
 
 export type CommonConfig = {
-    common: {
+    common?: {
         directions: Direction[]
     },
 }
 
 export default abstract class Strategy {
-    public abstract = "説明";
+    public abstract: string;
+    strategyGenre: string;
     protected commonSetting: {
         directions?: Direction[];
     };
@@ -28,8 +29,16 @@ export default abstract class Strategy {
     }
 
     toHTML(): string {
-        //return "<del>".get_class(this).this.abstract."</del>";
-        return "strategy";
+        return this.abstract;
+        // return (this.constructor as any).abstract;
+    }
+
+    getStrategyGenre() {
+        return this.strategyGenre;
+    }
+
+    isNormal() {
+        return this.constructor.name.startsWith("Normal");
     }
 
     serialize(obj: StrategySerialization): StrategySerialization {
@@ -63,6 +72,7 @@ export abstract class BeforeAfterDropStrategy extends Strategy {
  */
 export abstract class StrategyContainer<T extends Strategy> {
     public abstract: string;
+    strategyGenre: string;
     static defaultSetting = {};
     protected arrayStrategies: T[] = [];
     public ban: Ban;
@@ -105,6 +115,19 @@ export abstract class StrategyContainer<T extends Strategy> {
 
     getAbstract() {
         return this.abstract;
+
+        // return (this.constructor as any).abstract;
+    }
+
+    getStrategyGenre() {
+        return this.strategyGenre;
+    }
+
+    isNormal() {
+        for (let strategy of this.arrayStrategies) {
+            if(!strategy.isNormal()) return false;
+        }
+        return true;
     }
 
     deserialize(obj: StrategySerialization) {

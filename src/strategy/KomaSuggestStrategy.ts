@@ -11,16 +11,12 @@ import {QuantumData} from "./MoveEffectStrategy";
 export default abstract class KomaSuggestStrategy extends Strategy{
 	ban: Ban;
 	static strategyVariant: string;
-	static abstract = "駒の性能";
+	strategyGenre = "駒の性能";
 	constructor(ban: Ban){
 		super();
 		this.ban = ban;
 	}
 	abstract execute(koma: Koma): Species[];
-	getStrategyGenre(){
-		return this.abstract;
-	}
-
 	static create(name: string, ban: Ban, setting: any): KomaSuggestStrategy {
 		const klass: any = nameToStrategy[name];
 		return new klass(ban, setting);
@@ -31,7 +27,7 @@ export default abstract class KomaSuggestStrategy extends Strategy{
  */
 class NormalKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Normal";
-	static abstract = "通常";
+	abstract = "通常";
 	execute(koma: Koma){
 		return [koma.species];
 	}
@@ -41,7 +37,7 @@ class NormalKomaSuggestStrategy extends KomaSuggestStrategy{
  */
 class AnnanKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Annan";
-	static abstact = "後ろに味方の駒があればその動きをする。";
+	abstract = "後ろに味方の駒があればその動きをする。";
 	execute(koma: Koma){
 		//１つ後ろのベクトルが入る
 		const vec=new RelXY(0, 1);
@@ -54,16 +50,13 @@ class AnnanKomaSuggestStrategy extends KomaSuggestStrategy{
 			return [koma.species];
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
-}	
+}
 /**
  * 前に駒があったらそれを名乗る
  */
 class AnhokuKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Anhoku";
-	static abstact = "前に味方の駒があればその動きをする。";
+	abstract = "前に味方の駒があればその動きをする。";
 	execute(koma: Koma){
 		//１つ前のベクトルが入る
 		const vec=new RelXY(0, -1);
@@ -76,16 +69,13 @@ class AnhokuKomaSuggestStrategy extends KomaSuggestStrategy{
 			return [koma.species];
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * 元の種類に加え，後ろに駒があったらそれも名乗る
  */
 class TenjikuKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Tenjiku";
-	static abstact = "元の動きに加え、後ろに味方の駒があればその動きをする。";
+	abstract = "元の動きに加え、後ろに味方の駒があればその動きをする。";
 	execute(koma: Koma){
 		const species=[koma.species];
 		const vec=new RelXY(0, 1);
@@ -96,16 +86,13 @@ class TenjikuKomaSuggestStrategy extends KomaSuggestStrategy{
 		}
 		return species;
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * ネコ鮮
  */
 class NekosenKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Nekosen";
-	static abstact = "味方の駒が縦に複数並んだとき、上からn番目の駒の性能と下からn番目の駒の性能が入れ替わる。";
+	abstract = "味方の駒が縦に複数並んだとき、上からn番目の駒の性能と下からn番目の駒の性能が入れ替わる。";
 	execute(koma: Koma){
 		let tan=koma.XY.getClone(0, -1);
 		//盤上かつ駒があるかつ同じ向き
@@ -122,9 +109,6 @@ class NekosenKomaSuggestStrategy extends KomaSuggestStrategy{
 		}
 		nowydown=tan.y;
 		return [koma.ban.getSpecies(new XY(koma.XY.x, koma.XY.y + (nowydown - koma.XY.y) + (nowyup - koma.XY.y)))];
-	}
-	toHTML() {
-		return this.abstract;
 	}
 }
 /**
@@ -132,7 +116,7 @@ class NekosenKomaSuggestStrategy extends KomaSuggestStrategy{
  */
 class NekonekosenKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Nekonekosen";
-	static abstact = "敵味方に関わらず、駒が横に複数並んだとき、上からn番目の駒の性能と下からn番目の駒の性能が入れ替わる。";
+	abstract = "敵味方に関わらず、駒が横に複数並んだとき、上からn番目の駒の性能と下からn番目の駒の性能が入れ替わる。";
 	execute(koma: Koma){
 		let tan=koma.XY.getClone(0, -1);
 		//盤上かつ駒がある
@@ -150,16 +134,13 @@ class NekonekosenKomaSuggestStrategy extends KomaSuggestStrategy{
 		nowydown=tan.y;
 		return [koma.ban.getSpecies(new XY(koma.XY.x, koma.XY.y + (nowydown - koma.XY.y) + (nowyup - koma.XY.y)))];
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * 横ネコ鮮
  */
 class YokonekosenKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Yokonekosen";
-	static abstact = "味方の駒が横に複数並んだとき、左からn番目の駒の性能と右からn番目の駒の性能が入れ替わる。";
+	abstract = "味方の駒が横に複数並んだとき、左からn番目の駒の性能と右からn番目の駒の性能が入れ替わる。";
 	execute(koma: Koma){
 		let tan=koma.XY.getClone(-1, 0);
 		//盤上かつ駒があるかつ（ねこねこまたは同じ向き）
@@ -176,9 +157,6 @@ class YokonekosenKomaSuggestStrategy extends KomaSuggestStrategy{
 		const nowxright=tan.x;
 		
 		return [koma.ban.getSpecies(new XY(koma.XY.x + (nowxright - koma.XY.x) + (nowxleft - koma.XY.x), koma.XY.y))];
-	}
-	toHTML() {
-		return this.abstract;
 	}
 }
 /**
@@ -186,7 +164,7 @@ class YokonekosenKomaSuggestStrategy extends KomaSuggestStrategy{
  */
 class YokonekonekosenKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Yokonekonekosen";
-	static abstact = "敵味方に関わらず、駒が横に複数並んだとき、左からn番目の駒の性能と右からn番目の駒の性能が入れ替わる。";
+	abstract = "敵味方に関わらず、駒が横に複数並んだとき、左からn番目の駒の性能と右からn番目の駒の性能が入れ替わる。";
 	execute(koma: Koma){
 		let tan=koma.XY.getClone(-1, 0);
 		//盤上かつ駒があるかつ（ねこねこまたは同じ向き）
@@ -204,16 +182,13 @@ class YokonekonekosenKomaSuggestStrategy extends KomaSuggestStrategy{
 		
 		return [koma.ban.getSpecies(new XY(koma.XY.x + (nowxright - koma.XY.x) + (nowxleft - koma.XY.x), koma.XY.y))];
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * 相手の駒が前にあったらそいつを名乗る
  */
 class TaimenKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Taimen";
-	static abstact = "前のマスに相手の駒があったら、その動きをする。";
+	abstract = "前のマスに相手の駒があったら、その動きをする。";
 	execute(koma: Koma){
 		const vec=new RelXY(0, -1);
 		vec.turn(koma.direction);
@@ -225,16 +200,13 @@ class TaimenKomaSuggestStrategy extends KomaSuggestStrategy{
 			return [koma.species];
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * 相手の駒が後ろにあったらそいつを名乗る
  */
 class HaimenKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Haimen";
-	static abstact = "後ろのマスに相手の駒があったら、その動きをする。";
+	abstract = "後ろのマスに相手の駒があったら、その動きをする。";
 	execute(koma: Koma){
 		const vec=new RelXY(0, 1);
 		vec.turn(koma.direction);
@@ -246,16 +218,13 @@ class HaimenKomaSuggestStrategy extends KomaSuggestStrategy{
 			return [koma.species];
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * 八方桂の位置に駒があったらそいつを名乗る
  */
 class AnkiKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Anki";
-	static abstact = "八方桂の位置に相手の駒があったら、その動きをする。";
+	abstract = "八方桂の位置に相手の駒があったら、その動きをする。";
 	execute(koma: Koma){
 		const tansakuKnight=[
 			new RelXY(2,1),
@@ -282,16 +251,13 @@ class AnkiKomaSuggestStrategy extends KomaSuggestStrategy{
 			return [koma.species];
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * 左右に駒があったらそいつを名乗る
  */
 class AntouzaiKomaSuggestStrategy extends KomaSuggestStrategy{
 	static strategyVariant: "Antouzai";
-	static abstact = "左右のマスに相手の駒があったら、その動きをする。";
+	abstract = "左右のマスに相手の駒があったら、その動きをする。";
 	execute(koma: Koma){
 		const tansakuSayuu=[
 			new RelXY(1,0),
@@ -312,12 +278,10 @@ class AntouzaiKomaSuggestStrategy extends KomaSuggestStrategy{
 			return [koma.species];
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 
 class QuantumKomaSuggestStrategy extends KomaSuggestStrategy{
+	abstract = "過去の移動と他の駒の動きにより決定される(量子将棋的駒の性能)";
 	static strategyVariant: "Quantum";
 	koma = ["aa","ab","ac","ad","ae","af","ag","ah"];
 	komaProm = ["ai","aj","ak","al","am","an"];

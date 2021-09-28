@@ -1,5 +1,5 @@
 import Ban from "../Ban";
-import {StrategyContainer} from "./Strategy";
+import Strategy, {StrategyContainer} from "./Strategy";
 import {CaptureControlStrategy} from "./CaptureControlStrategy";
 import {MochigomaIOStrategy, MochigomaIOStrategyContainer} from "./MochigomaIOStrategy";
 import KomaSuggestStrategy from "./KomaSuggestStrategy";
@@ -36,26 +36,50 @@ export type Config = any;
 export type IteratorConfig = {
     BanScan?: VariantAndConfig,
 }
-export type StrategyName = StrategyContainerName |
-    "KomaSuggest"|
-    "Nifu"|
-    "Capture"|
-    "Promotion"|
-    "CaptureControl"|
-    "TebanRotation"|
-    "Destination"|
-    "Judge"|
-    "MoveControl"|
-    "MoveFilter"|
-    "MoveEffect";
 
-export type StrategyContainerName =
-    "MochigomaIO"|
-    "MochigomaControl"|
-    "MoveControl"|
-    "MoveEffect"|
-    "MoveFilter"|
-    "Judge";
+export type BanStrategyRaw = {
+    Destination: DestinationStrategy;
+    CaptureControl: CaptureControlStrategy<any>;
+    Capture: CaptureStrategy;
+    Promotion: PromotionStrategy;
+    Nifu: NifuStrategy;
+    TebanRotation: TebanRotationStrategy;
+    KomaSuggest: KomaSuggestStrategy;
+}
+export type BanStrategyNameRaw = keyof BanStrategyRaw;
+
+export type BanStrategyWithContainer = {
+    Judge: JudgeStrategy<any>;
+    MoveControl: MoveControlStrategy<any>;
+    MoveFilter: MoveFilterStrategy;
+    MoveEffect: MoveEffectStrategy<any>;
+}
+export type BanStrategyNameWithContainer = keyof BanStrategyWithContainer;
+export type BanStrategy = BanStrategyRaw & BanStrategyWithContainer;
+
+export type BanStrategyName = BanStrategyNameRaw | BanStrategyNameWithContainer;
+
+/**
+ * Mochigoma
+ */
+
+export type MochigomaStrategyRaw = {
+};
+export type MochigomaStrategyNameRaw = keyof MochigomaStrategyRaw;
+
+export type MochigomaStrategyWithContainer = {
+    MochigomaIO: MochigomaIOStrategy<any>;
+    MochigomaControl: MochigomaControlStrategy<any>;
+}
+export type MochigomaStrategyNameWithContainer = keyof MochigomaStrategyWithContainer;
+
+export type MochigomaStrategy = MochigomaStrategyRaw & MochigomaStrategyWithContainer;
+
+export type MochigomaStrategyName = MochigomaStrategyNameRaw | MochigomaStrategyNameWithContainer;
+
+export type StrategyName = BanStrategyName | MochigomaStrategyName;
+
+export type StrategyContainerName = BanStrategyNameWithContainer | MochigomaStrategyNameWithContainer;
 
 export type StrategyConfig = {
     [name in StrategyName]?: VariantAndConfig;
@@ -77,7 +101,7 @@ export const generateStrategy = (strategyName: StrategyName, obj: Config, ban: B
         name = "Normal";
     }
 
-    const ret = strategyNameToClass[strategyName].create(name, ban, setting);
+    const ret: Strategy = strategyNameToClass[strategyName].create(name, ban, setting);
     ret.setCommonSetting(setting.common);
     return ret;
 };

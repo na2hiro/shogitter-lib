@@ -2,11 +2,11 @@ import Strategy, {StrategyContainer} from "./Strategy";
 import Ban, {Direction, Species} from "../Ban";
 import XY, {RelXY} from "../XY";
 import {shogitterDB} from "../ShogitterDB";
-import TebanRotationStrategy from "./TebanRotationStrategy";
 import {Kiki} from "../Koma";
+import {Flags} from "../Flags";
 
 export class MoveFilterStrategyContainer<S = {}> extends StrategyContainer<MoveFilterStrategy<S>>{
-	public static abstract = "移動制限";
+	strategyGenre = "移動制限";
 	// @ts-ignore
 	execute(arrayMovable, to: XY, direction: Direction, species: Species, flags){
 		for(const strategy of this.arrayStrategies){
@@ -15,15 +15,9 @@ export class MoveFilterStrategyContainer<S = {}> extends StrategyContainer<MoveF
 		return arrayMovable;
 	}
 	
-	getStrategyGenre(){
-		return this.abstract;
-	}
-}
-type Flags = {
-	directionCalcingAllowed?: boolean
 }
 export default abstract class MoveFilterStrategy<S = {}> extends Strategy{
-	static abstract="移動制限";
+	strategyGenre = "移動制限";
 	protected ban: Ban;
 	protected setting: S;
 	constructor(ban: Ban, setting: S){
@@ -39,13 +33,13 @@ export default abstract class MoveFilterStrategy<S = {}> extends Strategy{
 	}
 }
 class NormalMoveFilterStrategy extends MoveFilterStrategy{
-	static abstract="特になし";
+	abstract = "特になし";
 	execute(arrayMovable: Kiki[], to: XY, direction: Direction, species: Species, flags: Flags) {
 		return arrayMovable;
 	}
 }
 class DashMoveFilterStrategy extends MoveFilterStrategy{
-	static abstract="後方に進む事が出来ない";
+	abstract = "後方に進む事が出来ない";
 	execute(arrayMovable: Kiki[], to: XY, direction: Direction, species: Species, flags: Flags){
 		//１つ後ろのベクトルが入る
 		const back=new RelXY(0, 1);
@@ -57,9 +51,6 @@ class DashMoveFilterStrategy extends MoveFilterStrategy{
 			if(back.y * vec.y > 0) return false;
 			return true;
 		});
-	}
-	toHTML() {
-		return this.abstract;
 	}
 }
 type RestrictedMoveFilterConfig = {
@@ -78,7 +69,7 @@ type RestrictedMoveFilterConfig = {
  *   max: {x: , y: }
  */
 class RestrictedMoveFilterStrategy extends MoveFilterStrategy<RestrictedMoveFilterConfig>{
-	static abstract="決まった領域にしか動く事ができない";
+	abstract = "決まった領域にしか動く事ができない";
 	execute(arrayMovable: Kiki[], to: XY, direction: Direction, species: Species, flags: Flags){
 		if(!this.setting['place']) return arrayMovable;
 		const dir=(typeof flags['directionCalcingAllowed']!=="undefined")?flags['directionCalcingAllowed']:direction;

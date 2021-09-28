@@ -1,10 +1,13 @@
 import {ShogitterCoreException} from "./utils/phpCompat";
 import Shogi, {Player} from "./Shogi";
 import {Koma} from "./Koma";
-import {Config, generateStrategyContainer} from "./strategy/StrategyFactory";
+import {
+    Config,
+    generateStrategyContainer,
+    MochigomaStrategy, MochigomaStrategyNameWithContainer
+} from "./strategy/StrategyFactory";
 import {PutDiff} from "./Kifu";
 import {Direction, Species} from "./Ban";
-import {PlayerInfo} from "./Teban";
 
 function pad0(value: number) {
     return value>=10 ? `${value}` : `0${value}`;
@@ -19,11 +22,10 @@ const strategyContainerNames: StrategyContainerName[] = ['MochigomaIO', 'Mochigo
 export class Mochigoma {
     arrayMochigoma: MochigomaObj[];
     parent: Shogi;
-    strategy: any;
+    strategy: MochigomaStrategy;
 
     constructor(parent: Shogi) {
         this.parent = parent;
-        this.strategy = {};
         this.arrayMochigoma = [];
         for(let i=0; i<this.parent.rule.players.length; i++) {
             this.arrayMochigoma[i] = {};
@@ -50,10 +52,13 @@ export class Mochigoma {
         return ret;
     }
 
-    setStrategy(strategies: {[name in StrategyContainerName]: Config}) {
+    setStrategy(strategies: {[name in MochigomaStrategyNameWithContainer]: Config}) {
+        const generatedStrategy: any = {};
         for (let name of strategyContainerNames) {
-            this.strategy[name] = generateStrategyContainer(name, strategies[name], this.parent.ban);
+            generatedStrategy[name] = generateStrategyContainer(name, strategies[name], this.parent.ban);
         }
+
+        this.strategy = generatedStrategy;
     }
 
     getDifference(lastmochigoma: MochigomaObj[]): PutDiff[] {

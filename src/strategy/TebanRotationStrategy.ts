@@ -4,7 +4,7 @@ import {ShogitterCoreException} from "../utils/phpCompat";
 import {Koma} from "../Koma";
 import XY from "../XY";
 export default abstract class TebanRotationStrategy extends Strategy{
-	static abstract = "手番";
+	strategyGenre = "手番";
 	protected ban: Ban;
 	constructor(ban: Ban){
 		super();
@@ -12,9 +12,6 @@ export default abstract class TebanRotationStrategy extends Strategy{
 	}
 	abstract execute(moving: Koma, nari: boolean, capture: boolean, to: XY, from: XY): void;
 	abstract canPass(): boolean;
-	getStrategyGenre(){
-		return this.abstract;
-	}
 
 	static create(name: string, ban: Ban, setting: any): TebanRotationStrategy {
 		const klass: any = nameToStrategy[name];
@@ -22,7 +19,7 @@ export default abstract class TebanRotationStrategy extends Strategy{
 	}
 }
 class NormalTebanRotationStrategy extends TebanRotationStrategy{
-	static abstract = "通常";
+	abstract = "通常";
 	execute(moving: Koma, nari: boolean, capture: boolean, to: XY, from: XY){
 		if(!moving){
 			this.ban.parent.teban.rotate();
@@ -35,19 +32,16 @@ class NormalTebanRotationStrategy extends TebanRotationStrategy{
 	}
 }
 class OthelloTebanRotationStrategy extends NormalTebanRotationStrategy{
-	static abstract = "置けない場合はパスできる";
+	abstract = "置けない場合はパスできる";
 	canPass() {
 		if(this.ban.canOthello(this.ban.parent.teban.getNowDirection())){
 			throw new ShogitterCoreException("置ける場所があるためパスできません。");
 		}
 		return true;
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 class SpeedTebanRotationStrategy extends TebanRotationStrategy{
-	static abstract = "1手以上動かしてからパスで移動を確定";
+	abstract = "1手以上動かしてからパスで移動を確定";
 	execute(moving: Koma, nari: boolean, capture: boolean){
 		if(!moving && (nari||capture)){
 			this.ban.parent.teban.rotate();
@@ -64,12 +58,9 @@ class SpeedTebanRotationStrategy extends TebanRotationStrategy{
 
 		return false;
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 class CheckerTebanRotationStrategy extends TebanRotationStrategy{
-	public static abstract = "飛び越せる駒がある場合は連続して指す";
+	abstract = "飛び越せる駒がある場合は連続して指す";
 	execute(moving: Koma, nari: boolean, capture: boolean, to: XY, from: XY) {
 		if(Math.abs(from.x-to.x)==2 || Math.abs(from.y-to.y)==2){
 			for(const kiki of this.ban.get(to).getMovable()){
@@ -82,9 +73,6 @@ class CheckerTebanRotationStrategy extends TebanRotationStrategy{
 	}
 	canPass() {
 		return false;
-	}
-	toHTML() {
-		return this.abstract;
 	}
 }
 

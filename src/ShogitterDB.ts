@@ -38,6 +38,7 @@ export type Rule = {
     noreverse?: "ban" | "koma",
     rewriteall?: boolean,
     css?: string,
+    yonin?: boolean,
 }
 
 export type MoveAndType = {

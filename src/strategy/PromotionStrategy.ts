@@ -5,6 +5,7 @@ import Strategy from "./Strategy";
 import Ban, {Direction} from "../Ban";
 import XY from "../XY";
 import {ShogitterCoreException} from "../utils/phpCompat";
+import {Koma} from "../Koma";
 
 type Setting = {
 	dan: number; // 段
@@ -14,7 +15,7 @@ type Setting = {
 }
 
 export default abstract class PromotionStrategy<S = {}> extends Strategy{
-	static abstract="成り";
+	strategyGenre = "成り";
 	protected ban: Ban;
 	protected setting: Setting & S;
 	public flag=false;
@@ -52,11 +53,8 @@ export default abstract class PromotionStrategy<S = {}> extends Strategy{
 		if(this.setting['illegal']) ret.push("<li>行き所のない駒を許可する");
 		if(this.setting['reversible']) ret.push("<li>表裏交互に成る");
 		if(this.setting['must']) ret.push("<li>成れる時は必ず成る");
-		if(ret.length==0) return null;
+		if(ret.length==0) return "";
 		return `<ul>${ret.join("")}</ul>`;
-	}
-	getStrategyGenre(){
-		return this.abstract;
 	}
 
 	shouldAskPromotion(to: XY, from: XY, captured: boolean, direction: Direction) {
@@ -78,10 +76,10 @@ export default abstract class PromotionStrategy<S = {}> extends Strategy{
 }
 
 type NormalPromotionConfig = {
-	species: {[species: string]: number};
+	species?: {[species: string]: number};
 }
 class NormalPromotionStrategy extends PromotionStrategy<NormalPromotionConfig>{
-	static abstract="n段目";
+	abstract = "n段目";
 	canPromote(to: XY, from: XY, captured: boolean, direction: Direction){
 		var species = this.ban.get(from).species;
 		const spedan=this.setting['species']?.[species];
@@ -89,18 +87,27 @@ class NormalPromotionStrategy extends PromotionStrategy<NormalPromotionConfig>{
 		if(spedan){
 			dan=spedan;
 		}else{
-			//dan=this.setting['dan']?:this.setting['dan']=3;
-			dan=this.setting['dan']||3;
+			dan=this.getDanSetting();
 		}
 		return (this.ban.calcDan(from, direction) <= dan
 			|| this.ban.calcDan(to, direction) <= dan) && !!this.ban.parent.rule.nari[species];
 	}
+	getDanSetting() {
+		return this.setting['dan'] || 3;
+	}
 	toHTML() {
-		return `${this.setting['dan'] || 3}段目${super.toHTML()}`;
+		let extra = [];
+		for(let species in this.setting.species || {}) {
+			extra.push(Koma.getStatelessData(species, 'name')+"は"+this.setting.species[species]+"段目")
+		}
+		return `${this.getDanSetting()}段目${extra.length>0 ? `（${extra.join("、")}）` : ""}${super.toHTML()}`;
+	}
+	isNormal() {
+		return this.getDanSetting() === 3 && Object.keys(this.setting.species||{}).length==0;
 	}
 }
 class CapturePromotionStrategy extends PromotionStrategy{
-	static abstract="駒をとった時";
+	abstract = "駒をとった時";
 	canPromote(to: XY, from: XY, captured: boolean, direction: Direction){
 		return !!captured;
 	}
@@ -109,7 +116,7 @@ class CapturePromotionStrategy extends PromotionStrategy{
 	}
 }
 class AllPromotionStrategy extends PromotionStrategy{
-	static abstract="動くたび";
+	abstract = "動くたび";
 	execute(to: XY, from: XY, captured: boolean, nari: boolean){
 		this.promote(to);
 		return "";
@@ -123,7 +130,7 @@ class AllPromotionStrategy extends PromotionStrategy{
 }
 
 class NanamePromotionStrategy extends PromotionStrategy{
-	static abstract = "斜め将棋";
+	abstract = "斜め将棋";
 	canPromote(to: XY, from: XY, captured: boolean, direction: Direction){
 		let numto = to.x+to.y;
 		let numfrom = from.x+from.y;
@@ -154,7 +161,7 @@ class NanamePromotionStrategy extends PromotionStrategy{
 	}
 }
 class SpeedPromotionStrategy extends NormalPromotionStrategy{
-	static abstract="連続して動く場合は成れない";
+	abstract = "連続して動く場合は成れない";
 	canPromote(to: XY, from: XY, captured: boolean, direction: Direction){
 		const kifu=this.ban.parent.kifu;
 		const tesuu=kifu.getTesuu();

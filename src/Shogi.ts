@@ -38,7 +38,8 @@ export enum Status {
     ENDED,
 }
 export type Player = {
-    user?: UserInfo[], // It can be missing in live board by some reason
+    // null when it's vacant
+    user: (UserInfo | null)[],
     mochigoma: {[species: string]: number},
     result?: Result,
 }
@@ -78,7 +79,7 @@ export type KifuCommand = {direction?: Direction} & (
     ResetCommand |
     StartCommand |
     PassCommand |
-    ChangeDirectionCommand |
+    // ChangeDirectionCommand | // Not used
     DrawCommand);
 export type MoveCommand = {
     type: "move",
@@ -95,8 +96,7 @@ export type PutCommand = {
 }
 export type RollbackCommand = {
     type: "rollback",
-    amount: number,
-    //direction: Direction;
+    direction: Direction;
 }
 export type StartCommand = {
     type: "start"
@@ -110,9 +110,10 @@ export type ResignCommand = {
 export type DrawCommand = {
     type: "draw",
 }
+/*
 export type ChangeDirectionCommand = {
     type: "changedirection",
-}
+}*/
 export type ResetCommand = {
     type: "reset",
     ruleId: number;
@@ -587,6 +588,7 @@ export default class Shogi {
      * @param <type> direction
      */
     resign(direction?: Direction) {
+        console.log("RESIGN", direction);
         if (!this.isPlaying()) throw new ShogitterCoreException("対局中ではありません．");
         let dirResign;
         if (typeof direction !== "undefined") {
@@ -797,7 +799,7 @@ export default class Shogi {
         if (movingTypes.indexOf(100) >= 0) {
             for (let xy of BanScanIterator.getBetween(this.ban, from, to)) {
                 if (this.ban.get(xy).isNull()) continue;
-                this.ban.strategy['Capture'].execute(XY, fromDirection);
+                this.ban.strategy['Capture'].execute(xy, fromDirection);
             }
         }
 
@@ -885,12 +887,14 @@ export default class Shogi {
                 this.draw();
                 return;
             case "pass":
-                this.pass();
+                this.pass(command.direction);
                 return;
+                /*
             case "changedirection":
                 if(this.isPlaying()) throw new ShogitterCoreException("対局中は先後交代できません。");
                 this.teban.changeDirection();
                 return;
+                 */
         }
 
         if (this.isEnded()) {
@@ -917,10 +921,9 @@ export default class Shogi {
                     command.id
                 );
             case "rollback":
-                if (command.amount === 1 || command.amount === 2) {
-                    return this.rollback(command.amount);
-                }
-                throw new ShogitterCoreException("Invalid amount to rollback", 1);
+                console.log("ROLLBACK", this.teban.getNowDirection(), command.direction, command);
+                const amount = this.teban.getNowDirection() === command.direction ? 2 : 1;
+                return this.rollback(Math.min(amount, this.kifu.getTesuu()))
             default:
                 throw new ShogitterCoreException("Unknown command type: "+(command as any).type, 1);
         }
@@ -963,7 +966,10 @@ export default class Shogi {
      * パスする（移動中の駒を移動済みにして手番を渡す）
      * @return <type>
      */
-    pass() {
+    pass(direction: Direction) {
+        if(this.teban.getNowDirection() !== direction) {
+            throw new ShogitterCoreException("あなたの手番ではありません。");
+        }
         if (this.moving == null) {
             if (this.ban.strategy['TebanRotation'].canPass()) {
                 this.kifu.unsetLastMoving();
