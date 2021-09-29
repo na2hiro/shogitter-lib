@@ -143,6 +143,8 @@ class ShogitterDB {
     }
      */
 
+    getKoma(species: Species): Koma;
+    getKoma(species: Species, member: string): any;
     getKoma(species: Species, member?: string) {
         if (!this.arrayKoma[species]) {
             this.loadKoma(species);

@@ -887,7 +887,10 @@ export default class Shogi {
                 this.draw();
                 return;
             case "pass":
-                this.pass(command.direction);
+                if (typeof command.direction === "number") {
+                    this.teban.ensureDirection(command.direction);
+                }
+                this.pass();
                 return;
                 /*
             case "changedirection":
@@ -902,6 +905,10 @@ export default class Shogi {
         }
         if (command.type === "resign") {
             return this.resign(command.direction);
+        }
+        if (command.type === "rollback") {
+            const amount = typeof command.direction !== "undefined" && this.teban.getNowDirection() === command.direction ? 2 : 1;
+            return this.rollback(Math.min(amount, this.kifu.getTesuu()))
         }
         if (typeof command.direction === "number") {
             this.teban.ensureDirection(command.direction);
@@ -920,9 +927,6 @@ export default class Shogi {
                     command.direction,
                     command.id
                 );
-            case "rollback":
-                const amount = typeof command.direction !== "undefined" && this.teban.getNowDirection() === command.direction ? 2 : 1;
-                return this.rollback(Math.min(amount, this.kifu.getTesuu()))
             default:
                 throw new ShogitterCoreException("Unknown command type: "+(command as any).type, 1);
         }
@@ -965,10 +969,7 @@ export default class Shogi {
      * パスする（移動中の駒を移動済みにして手番を渡す）
      * @return <type>
      */
-    pass(direction: Direction) {
-        if(this.teban.getNowDirection() !== direction) {
-            throw new ShogitterCoreException("あなたの手番ではありません。");
-        }
+    pass() {
         if (this.moving == null) {
             if (this.ban.strategy['TebanRotation'].canPass()) {
                 this.kifu.unsetLastMoving();
