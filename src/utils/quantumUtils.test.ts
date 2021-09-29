@@ -26,81 +26,81 @@ describe("Quantum utils", () => {
             runQuantum(1, hiMove, MoveType.Normal, kinds);
         }).toThrow()
     })
-    it("determines to KI,HI,OU after going backward", () => {
+    it("determines to KI,HI,OU after going bKekward", () => {
         expect(runQuantum(0, {vec: new RelXY(0, 1), promote: false}, MoveType.Normal, [])).toMatchSnapshot()
     })
     it("determines OU after other pieces (known piece was captured, known piece to be OU)", () => {
         const {kinds} = runQuantum(0, null, MoveType.Captured, [
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag", "ah"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag", "ah"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi", "Ou"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi", "Ou"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
         ])
-        expect(kinds[1]).toEqual(["ah"])
+        expect(kinds[1]).toEqual(["Ou"])
     })
     it("determines OU after other pieces (known piece was captured, new piece to be OU)", () => {
         const {fulls} = runQuantum(0, null, MoveType.Captured, [
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag", "ah"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
-            ["aa", "ab", "ac", "ad", "ae", "af", "ag"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi", "Ou"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
+            ["Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi"],
         ])
-        // New piece will be nothing but "ah"
+        // New piece will be nothing but "Ou"
         expect(fulls).toHaveLength(7)
-        expect(fulls).not.toContain("ah");
+        expect(fulls).not.toContain("Ou");
     })
     it("determines OU after other pieces (new piece was captured)", () => {
         expect(runQuantum(19, null, MoveType.Captured, [
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "ae", "ag", "ah" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "ae", "ag", "ah" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ],
-            [ "aa", "ab", "ac", "ad", "ae", "af", "ag" ]
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Ki", "Hi", "Ou" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Ki", "Hi", "Ou" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ],
+            [ "Fu", "Ky", "Ke", "Gi", "Ki", "Ka", "Hi" ]
         ])).toMatchSnapshot()
     })
 })

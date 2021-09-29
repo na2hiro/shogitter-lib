@@ -38,6 +38,7 @@ export type Rule = {
     noreverse?: "ban" | "koma",
     rewriteall?: boolean,
     css?: string,
+    yonin?: boolean,
 }
 
 export type MoveAndType = {
@@ -142,6 +143,8 @@ class ShogitterDB {
     }
      */
 
+    getKoma(species: Species): Koma;
+    getKoma(species: Species, member: string): any;
     getKoma(species: Species, member?: string) {
         if (!this.arrayKoma[species]) {
             this.loadKoma(species);

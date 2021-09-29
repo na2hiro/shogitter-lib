@@ -5,16 +5,12 @@ import {shuffle, ShogitterCoreException} from "../utils/phpCompat";
 import TebanRotationStrategy from "./TebanRotationStrategy";
 
 export default abstract class DestinationStrategy extends BeforeAfterDropStrategy{
-	static abstract = "行き先";
+	strategyGenre = "行き先";
 	protected ban: Ban;
 	constructor(ban: Ban){
 		super();
 		this.ban=ban;
 	}
-	getStrategyGenre(){
-		return this.abstract;
-	}
-
 	static create(name: string, ban: Ban, setting: any): TebanRotationStrategy {
 		const klass: any = nameToStrategy[name];
 		return new klass(ban, setting);
@@ -26,7 +22,7 @@ class NormalDestinationStrategy extends DestinationStrategy{
 	executeDrop(to: XY){}
 }
 class GravityDestinationStrategy extends DestinationStrategy{
-	static abstract = "下段へ落ちる";
+	abstract = "下段へ落ちる";
 	executeBefore(from: XY, to: XY = null){}
 	executeAfter(to: XY){}
 	executeDrop(to: XY) {
@@ -39,9 +35,6 @@ class GravityDestinationStrategy extends DestinationStrategy{
 			}
 			to.add(0, -1);
 	   }
-	}
-	toHTML() {
-		return this.abstract;
 	}
 }
 class RandomDestinationStrategy extends DestinationStrategy{
@@ -81,6 +74,7 @@ class RandomDestinationStrategy extends DestinationStrategy{
 }
 
 class ChainDestinationStrategy extends DestinationStrategy {
+	abstract = "持ち駒は味方の効いている地点にしか打てない（連鎖打ち）";
 	executeAfter(to: XY, captured?: boolean): void {
 	}
 

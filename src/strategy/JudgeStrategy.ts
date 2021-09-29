@@ -9,7 +9,7 @@ import {num2kan_decimal} from "../MyLib";
 import TebanRotationStrategy from "./TebanRotationStrategy";
 
 export class JudgeStrategyContainer<S> extends StrategyContainer<JudgeStrategy<S>>{
-	static abstract="勝利判定";
+	strategyGenre = "勝利判定";
 	static defaultSetting={
 		'WinKoma': {},
 		'Oute': {},
@@ -18,12 +18,9 @@ export class JudgeStrategyContainer<S> extends StrategyContainer<JudgeStrategy<S
 	getAbstract() {
 		return this.abstract;
 	}
-	getStrategyGenre(){
-		return this.abstract;
-	}
 }
 export default abstract class JudgeStrategy<S> extends Strategy{
-	static abstract="勝利判定";
+	strategyGenre = "勝利判定";
 	protected ban: Ban;
 	protected setting: S;
 	constructor(ban: Ban, setting: S){
@@ -31,7 +28,7 @@ export default abstract class JudgeStrategy<S> extends Strategy{
 		this.ban=ban;
 		this.setting=setting;
 	}
-	abstract execute(to: XY): void;
+	abstract execute(to: XY, other?: any): void;
 	gameEnd(loseDirection: Direction, markDirection: Direction, kifu:string, description: string){
 		this.ban.parent.gameEnd(loseDirection, markDirection, kifu, description);
 	}
@@ -42,7 +39,7 @@ export default abstract class JudgeStrategy<S> extends Strategy{
 	}
 }
 class WinKomaJudgeStrategy extends JudgeStrategy<{}>{
-	static abstract="玉がない";
+	abstract = "玉がない";
 	execute(to: XY){
 		//winkomaが存在しないことによる終局判定
 		if(!this.ban.parent.rule['winkoma']) return;
@@ -82,7 +79,7 @@ type OuteJudgeConfig = {
  *  fatal: 王手放置で負け，王手で勝ち
  */
 class OuteJudgeStrategy extends JudgeStrategy<OuteJudgeConfig>{
-	static abstract="王手";
+	abstract = "王手";
 	execute(to: XY){
 		if(this.setting.ignore) return;
 		if(this.setting.fatal){
@@ -114,7 +111,7 @@ type TsumiJudgeConfig = {
  * 詰みなら負けとする
  */
 class TsumiJudgeStrategy extends JudgeStrategy<TsumiJudgeConfig>{
-	static abstract="詰み";
+	abstract = "詰み";
 	execute(to: XY, put=false){
 		if(this.setting['ignore']) return;
 		const koma=this.ban.get(to);
@@ -228,7 +225,7 @@ class TsumiJudgeStrategy extends JudgeStrategy<TsumiJudgeConfig>{
 }
 //置ける場所がなくなったら終了
 class OthelloJudgeStrategy extends JudgeStrategy<{}>{
-	static abstract="オセロ";
+	abstract = "オセロ";
 	execute(to: XY){
 		
 		//終了判定
@@ -269,7 +266,7 @@ type GomokuJudgeConfig = {
  * setting
  */
 class GomokuJudgeStrategy extends JudgeStrategy<GomokuJudgeConfig>{
-	static abstract="n目並べ";
+	abstract = "n目並べ";
 	execute(to: XY){
 		let win, lose;
 		if(this.setting['sansan'] && this.sansan(to)){
@@ -386,7 +383,7 @@ class GomokuJudgeStrategy extends JudgeStrategy<GomokuJudgeConfig>{
 	}
 }
 class IgoJudgeStrategy extends JudgeStrategy<{}>{
-	static abstract="囲碁";
+	abstract = "囲碁";
 	execute(to: XY){
 		const tesuu=this.ban.parent.kifu.getTesuu();
 		if(tesuu>1){
@@ -404,7 +401,7 @@ type TryJudgeConfig = {
 }
 
 class TryJudgeStrategy extends JudgeStrategy<TryJudgeConfig>{
-	static abstract="トライ";
+	abstract = "トライ";
 	execute(to: XY){
 		const koma=this.ban.get(to);
 		if(this.ban.checkOuteByDirection(koma.direction)){
@@ -430,7 +427,7 @@ type CountJudgeConfig = {
 }
 class CountJudgeStrategy extends JudgeStrategy<CountJudgeConfig>{
 	//gte: n 枚数>=n, lte: m 枚数<=m
-	static abstract = "枚数";
+	abstract = "枚数";
 	execute(to: XY){
 		const maisuu=this.ban.count();
 		for(const player of this.ban.parent.teban.getIterator()){
@@ -453,7 +450,7 @@ class CountJudgeStrategy extends JudgeStrategy<CountJudgeConfig>{
 	}
 }
 class NoMoveJudgeStrategy extends JudgeStrategy<{}>{
-	static abstract = "動ける駒がなくなったら負け";
+	abstract = "動ける駒がなくなったら負け";
 	execute(to: XY) {
 		const direction = this.ban.get(to).direction;
 		for(const koma of this.ban.getIterator()){

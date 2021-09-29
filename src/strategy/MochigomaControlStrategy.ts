@@ -6,18 +6,14 @@ import Strategy, {StrategyContainer} from "./Strategy";
 import {Mochigoma} from "../Mochigoma";
 
 export class MochigomaControlStrategyContainer<S> extends StrategyContainer<MochigomaControlStrategy<S>> {
-    public static abstract = "持ち駒判定";
-
-    getStrategyGenre() {
-        return this.abstract;
-    }
+    strategyGenre = "持ち駒判定";
 }
 
 /**
  * 持ち駒を取った後のチェックに関するStrategy
  */
 export default abstract class MochigomaControlStrategy<S> extends Strategy {
-    static abstract = "持ち駒判定";
+    strategyGenre = "持ち駒判定";
     protected mochigoma: Mochigoma;
     protected setting: S;
 
@@ -39,7 +35,7 @@ export default abstract class MochigomaControlStrategy<S> extends Strategy {
  * チェックしない
  */
 class NormalMochigomaControlStrategy extends MochigomaControlStrategy<{}> {
-    static abstract = "通常";
+    abstract = "通常";
 
     execute(tebanDirection: Direction) {
     }
@@ -49,7 +45,7 @@ class NormalMochigomaControlStrategy extends MochigomaControlStrategy<{}> {
  * 3枚目なら勝ち
  */
 class WinThirdMochigomaControlStrategy extends MochigomaControlStrategy<{}> {
-    static abstract = "三枚目になると勝ち。";
+    abstract = "三枚目になると勝ち。";
 
     execute(tebanDirection: Direction) {
         if (this.mochigoma.count(tebanDirection) >= 3) {
@@ -57,26 +53,18 @@ class WinThirdMochigomaControlStrategy extends MochigomaControlStrategy<{}> {
             this.mochigoma.parent.gameEnd(lose, tebanDirection, "勝ち", "３枚目です。" + this.mochigoma.parent.teban.getName(tebanDirection) + "の勝ちです。");
         }
     }
-
-    toHTML() {
-        return this.abstract;
-    }
 }
 
 /**
  * 5枚目なら負け
  */
 class LoseFifthMochigomaControlStrategy extends MochigomaControlStrategy<{}> {
-    static abstract = "五枚目になると負け。";
+    abstract = "五枚目になると負け。";
 
     execute(tebanDirection: Direction) {
         if (this.mochigoma.count(tebanDirection) >= 5) {
             this.mochigoma.parent.gameEnd(tebanDirection, tebanDirection, "負け", "持ち駒が5枚に達しました。" + this.mochigoma.parent.teban.getName(tebanDirection) + "の負けです。");
         }
-    }
-
-    toHTML() {
-        return this.abstract;
     }
 }
 const nameToStrategy: {[variant: string]: (/*typeof MochigomaControlStrategy*/any)} = {

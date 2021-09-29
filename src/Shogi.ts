@@ -14,10 +14,6 @@ export {ShogitterCoreException};
 
 const DEBUG_ECHO_TIME = true;
 
-export const isPlaying = (data: ShogiSerialization) => (
-    data.status.num === Status.PLAYING && data.kifu.length > 0
-);
-
 /*
 enum Format {
     FORMAT_UNKNOWN = -1,
@@ -42,7 +38,8 @@ export enum Status {
     ENDED,
 }
 export type Player = {
-    user: UserInfo[],
+    // null when it's vacant
+    user: (UserInfo | null)[],
     mochigoma: {[species: string]: number},
     result?: Result,
 }
@@ -82,7 +79,7 @@ export type KifuCommand = {direction?: Direction} & (
     ResetCommand |
     StartCommand |
     PassCommand |
-    ChangeDirectionCommand |
+    // ChangeDirectionCommand | // Not used
     DrawCommand);
 export type MoveCommand = {
     type: "move",
@@ -95,12 +92,11 @@ export type PutCommand = {
     to: XYObj,
     direction: Direction;
     put: Species,
-    id: number,
+    id?: number, // Used for quantum shogi to distinguish individual pieces of a kind
 }
 export type RollbackCommand = {
     type: "rollback",
-    amount: number,
-    //direction: Direction;
+    direction?: Direction;
 }
 export type StartCommand = {
     type: "start"
@@ -114,9 +110,10 @@ export type ResignCommand = {
 export type DrawCommand = {
     type: "draw",
 }
+/*
 export type ChangeDirectionCommand = {
     type: "changedirection",
-}
+}*/
 export type ResetCommand = {
     type: "reset",
     ruleId: number;
@@ -205,7 +202,7 @@ export default class Shogi {
      * TODO: This should only check the status once we have a proper UI for starting games
      */
     isPlaying() {
-        return this.status['num'] == Status.PLAYING && this.kifu.getTesuu() > 0;
+        return this.status['num'] == Status.PLAYING;
     }
 
     isEnded() {
@@ -481,21 +478,12 @@ export default class Shogi {
 
     constructByJSON(arr: ShogiSerialization) {
         this.constructById(arr['ruleid']);
-        //if (arr.status.num !== null) {
-            this.status = arr.status;
-        /*} else {
-            //旧
-            if (arr['status'][1] === null) arr['status'][1] = "";
-            this.status = {
-                'num': arr['status'][0],
-                'message': arr['status'][1] || ""
-            };
-        }*/
+        this.status = arr.status;
         this.date = {
             start: new Date(arr.date?.start),
             end: new Date(arr.date?.end)
         };
-        this.teban.setMaxTurn(arr.players[0].user.length);
+        this.teban.setMaxTurn(arr.players[0].user?.length || 0);
         this.teban.set(arr.teban);
         this.teban.setTurn(arr.turn);
         this.jsonsystem = arr.system;
@@ -600,6 +588,7 @@ export default class Shogi {
      * @param <type> direction
      */
     resign(direction?: Direction) {
+        console.log("RESIGN", direction);
         if (!this.isPlaying()) throw new ShogitterCoreException("対局中ではありません．");
         let dirResign;
         if (typeof direction !== "undefined") {
@@ -810,7 +799,7 @@ export default class Shogi {
         if (movingTypes.indexOf(100) >= 0) {
             for (let xy of BanScanIterator.getBetween(this.ban, from, to)) {
                 if (this.ban.get(xy).isNull()) continue;
-                this.ban.strategy['Capture'].execute(XY, fromDirection);
+                this.ban.strategy['Capture'].execute(xy, fromDirection);
             }
         }
 
@@ -898,12 +887,17 @@ export default class Shogi {
                 this.draw();
                 return;
             case "pass":
+                if (typeof command.direction === "number") {
+                    this.teban.ensureDirection(command.direction);
+                }
                 this.pass();
                 return;
+                /*
             case "changedirection":
                 if(this.isPlaying()) throw new ShogitterCoreException("対局中は先後交代できません。");
                 this.teban.changeDirection();
                 return;
+                 */
         }
 
         if (this.isEnded()) {
@@ -911,6 +905,10 @@ export default class Shogi {
         }
         if (command.type === "resign") {
             return this.resign(command.direction);
+        }
+        if (command.type === "rollback") {
+            const amount = typeof command.direction !== "undefined" && this.teban.getNowDirection() === command.direction ? 2 : 1;
+            return this.rollback(Math.min(amount, this.kifu.getTesuu()))
         }
         if (typeof command.direction === "number") {
             this.teban.ensureDirection(command.direction);
@@ -929,11 +927,6 @@ export default class Shogi {
                     command.direction,
                     command.id
                 );
-            case "rollback":
-                if (command.amount === 1 || command.amount === 2) {
-                    return this.rollback(command.amount);
-                }
-                throw new ShogitterCoreException("Invalid amount to rollback", 1);
             default:
                 throw new ShogitterCoreException("Unknown command type: "+(command as any).type, 1);
         }

@@ -7,6 +7,7 @@ import {Kiki, Koma, KomaObj} from "./Koma";
 import Shogi from "./Shogi";
 import {BanScanIterator, NormalBanIterator} from "./Iterator";
 import {
+    BanStrategy, BanStrategyName, BanStrategyNameWithContainer, BanStrategyWithContainer,
     generateStrategy,
     generateStrategyContainer,
     IteratorConfig,
@@ -15,7 +16,7 @@ import {
     StrategyName
 } from "./strategy/StrategyFactory";
 import {Flags} from "./Flags";
-import {StrategySerialization} from "./strategy/Strategy";
+import Strategy, {StrategySerialization} from "./strategy/Strategy";
 import {MoveDiff} from "./Kifu";
 
 export enum Direction {
@@ -28,8 +29,9 @@ export type Species = string; // really?
 
 export type BanObj = KomaObj[][];
 
-const strategyNames: StrategyName[] = ['KomaSuggest', 'Nifu', 'Capture', 'Promotion', 'CaptureControl', 'TebanRotation', 'Destination'];
-const stratgyContainerNames: StrategyContainerName[] = ['Judge', 'MoveControl', 'MoveFilter', 'MoveEffect'];
+
+const strategyNames: BanStrategyName[] = ['KomaSuggest', 'Nifu', 'Capture', 'Promotion', 'CaptureControl', 'TebanRotation', 'Destination'];
+const stratgyContainerNames: BanStrategyNameWithContainer[] = ['Judge', 'MoveControl', 'MoveFilter', 'MoveEffect'];
 
 // TODO it was a iteratoraggregate. Call getIterator() for the iteration usage
 export default class Ban {
@@ -37,7 +39,7 @@ export default class Ban {
     parent: Shogi;
     x: number;
     y: number;
-    strategy: any; // TODO
+    strategy: BanStrategy;
     private banScanIterator: { name: string; option: any[] };
 
     constructor(x: number, y: number, parent: Shogi, strategy: StrategyConfig = {}, iterator: IteratorConfig = {}) {
@@ -49,13 +51,15 @@ export default class Ban {
             this.arrayBan[i] = [];
         }
 
-        this.strategy = {};
+        const generatedStrategy: any = {};
         for (let name of strategyNames) {
-            this.strategy[name] = generateStrategy(name, strategy[name], this);
+            generatedStrategy[name] = generateStrategy(name, strategy[name], this);
         }
         for (let name of stratgyContainerNames) {
-            this.strategy[name] = generateStrategyContainer(name, strategy[name], this);
+            generatedStrategy[name] = generateStrategyContainer(name, strategy[name], this);
         }
+
+        this.strategy = generatedStrategy;
 
         let name = "Normal";
         let option = [];

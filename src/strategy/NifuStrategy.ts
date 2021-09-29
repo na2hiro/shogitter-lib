@@ -5,7 +5,7 @@ import XY, {RelXY} from "../XY";
 import {ShogitterCoreException} from "../utils/phpCompat";
 
 export default abstract class NifuStrategy extends Strategy{
-    static abstract = "二歩";
+    strategyGenre = "二歩";
     protected ban: Ban;
     protected checker: ScanNifuStrategy;
     constructor(ban: Ban){
@@ -15,9 +15,6 @@ export default abstract class NifuStrategy extends Strategy{
     execute(to: XY){
         this.checker.execute(to);
     }
-    getStrategyGenre(){
-        return this.abstract;
-    }
 
     static create(name: string, ban: Ban, setting: any): NifuStrategy {
         const klass: any = nameToStrategy[name];
@@ -26,7 +23,7 @@ export default abstract class NifuStrategy extends Strategy{
 }
 //通常
 class NormalNifuStrategy extends NifuStrategy{
-    static abstract = "禁止";
+   abstract = "禁止";
     constructor(ban: Ban){
         super(ban);
         this.checker=new NormalScanNifuStrategy(this.ban, new NormalOnFoundNifuStrategy(this.ban));
@@ -34,43 +31,31 @@ class NormalNifuStrategy extends NifuStrategy{
 }
 //二歩ok
 class NoNifuStrategy extends NifuStrategy{
-    static abstract = "許可";
+    abstract = "許可";
     execute(to: XY){}
-    toHTML() {
-        return this.abstract;
-    }
 }
 //斜め将棋
 class NanameNifuStrategy extends NifuStrategy{
-    static abstract = "斜め方向の二歩が禁止";
+    abstract = "斜め方向の二歩が禁止";
     constructor(ban: Ban){
         super(ban);
         this.checker=new NanameScanNifuStrategy(this.ban, new NormalOnFoundNifuStrategy(this.ban));
     }
-    toHTML() {
-        return this.abstract;
-    }
 }
 //盤面全体
 class WholeNifuStrategy extends NifuStrategy{
-    static abstract = "着手した駒だけでなく全ての駒を調べる";
+    abstract = "着手した駒だけでなく全ての駒を調べる";
     constructor(ban: Ban){
         super(ban);
         this.checker=new WholeScanNifuStrategy(this.ban, new NormalOnFoundNifuStrategy(this.ban));
     }
-    toHTML() {
-        return this.abstract;
-    }
 }
 //盤面全体かつ二歩負け
 class PenaltyNifuStrategy extends NifuStrategy{
-    static abstract = "二歩は即負け。着手した駒だけでなく全ての駒を調べる。";
+    abstract = "二歩は即負け。着手した駒だけでなく全ての駒を調べる。";
     constructor(ban: Ban){
         super(ban);
         this.checker=new WholeScanNifuStrategy(this.ban, new FatalOnFoundNifuStrategy(this.ban));
-    }
-    toHTML() {
-        return this.abstract;
     }
 }
 

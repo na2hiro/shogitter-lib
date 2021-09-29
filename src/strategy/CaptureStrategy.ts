@@ -4,7 +4,7 @@ import Ban, {Direction} from "../Ban";
 import XY from "../XY";
 
 export default class CaptureStrategy extends Strategy{
-	static abstract="駒取り";
+	strategyGenre = "駒取り";
 	protected ban: Ban;
 	protected mochigoma: Mochigoma;
 	constructor(ban: Ban){
@@ -23,20 +23,16 @@ export default class CaptureStrategy extends Strategy{
 		//持ち駒禁則
 		this.mochigoma.strategy['MochigomaControl'].execute(direction);
 	}
-	getStrategyGenre(){
-		return this.abstract;
-	}
-
 	static create(name: string, ban: Ban, setting: any): CaptureStrategy {
 		const klass: any = nameToStrategy[name];
 		return new klass(ban, setting);
 	}
 }
 class NormalCaptureStrategy extends CaptureStrategy{
-	static abstract="通常";
+	abstract = "通常";
 }
 class KirukeCaptureStrategy extends CaptureStrategy{
-	static abstract="取られた駒の初期位置マスが空いていればそこに戻す";
+	abstract = "取られた駒の初期位置マスが空いていればそこに戻す";
 	execute(to: XY, direction: Direction){
 		const koma=this.ban.get(to);
 		if(koma.isNull()) return;
@@ -57,7 +53,7 @@ class KirukeCaptureStrategy extends CaptureStrategy{
 }
 /*
 class EnPassantCaptureStrategy extends CaptureStrategy{
-	static abstract = "アンパッサン．";
+	abstract = "アンパッサン．";
 	execute(to: XY, direction: Direction){
 		
 		//アンパッサン

@@ -7,7 +7,7 @@ import {shogitterDB} from "../ShogitterDB";
 
 export abstract class CaptureControlStrategy<S> extends Strategy {
     static strategyVariant: string;
-    public abstract = "駒取り";
+    strategyGenre = "駒取り";
     protected setting: S;
     protected ban: Ban;
 
@@ -18,10 +18,6 @@ export abstract class CaptureControlStrategy<S> extends Strategy {
     }
 
     abstract execute(captured: Koma, capturing: Koma): void;
-
-    getStrategyGenre() {
-        return this.abstract;
-    }
 
     static create<S>(name: string, ban: Ban, setting: any): CaptureControlStrategy<S> {
         const klass: any = nameToStrategy[name];
@@ -43,10 +39,6 @@ class NakamawareCaptureControlStrategy extends CaptureControlStrategy<{}> {
     public abstract = "味方の駒も取る事ができる";
 
     execute(captured: Koma, capturing: Koma) {
-    }
-
-    toHTML() {
-        return this.abstract;
     }
 }
 
@@ -104,10 +96,6 @@ class ToruichiCaptureControlStrategy extends CaptureControlStrategy<{}> {
         }
         return false;
     }
-
-    toHTML() {
-        return this.abstract;
-    }
 }
 type TorazuCaptureControlConfig = [Direction, Species][];
 class TorazuCaptureControlStrategy extends CaptureControlStrategy<TorazuCaptureControlConfig> {
@@ -131,7 +119,7 @@ class TorazuCaptureControlStrategy extends CaptureControlStrategy<TorazuCaptureC
             if (komaset[1] === null) {
                 ret += "駒";
             } else {
-                ret += "<a href='/koma/{komaset[1]}'>" + shogitterDB.getKoma(komaset[1], "name") + "</a> ";
+                ret += `<a href='/koma/${komaset[1]}'>${shogitterDB.getKoma(komaset[1], "name")}</a> `;
             }
 
         }
@@ -198,10 +186,6 @@ class ShishiCaptureControlStrategy extends CaptureControlStrategy<{}> {
     canTsukegui(species: Species) {
         return ['aa', 'cq'].indexOf(species)<0;
     }
-
-    toHTML() {
-        return this.abstract;
-    }
 }
 
 class SpeedCaptureControlStrategy extends CaptureControlStrategy<{}> {
@@ -216,10 +200,6 @@ class SpeedCaptureControlStrategy extends CaptureControlStrategy<{}> {
             const kif = kifu.get(tesuu - 1);
             if (kif[0] == capturing.direction) throw new ShogitterCoreException("連続して動かす場合は駒をとれません．");
         }
-    }
-
-    toHTML() {
-        return this.abstract;
     }
 }
 

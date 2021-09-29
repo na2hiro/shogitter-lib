@@ -13,13 +13,10 @@ import {shogitterDB} from "../ShogitterDB";
 import {MoveType, runQuantum} from "../utils/quantumUtils";
 
 export class MoveEffectStrategyContainer<S> extends BeforeAfterDropStrategyContainer<MoveEffectStrategy<S>>{
-	public static abstract = "移動処理";
-	getStrategyGenre(){
-		return this.abstract;
-	}
+	strategyGenre = "移動処理";
 }
 export default abstract class MoveEffectStrategy<S = {}> extends BeforeAfterDropStrategy{
-	static abstract = "移動処理";
+	strategyGenre = "移動処理";
 	protected ban: Ban;
 	protected setting: S & CommonConfig;
 	constructor(ban: Ban, setting: S & CommonConfig){
@@ -37,7 +34,7 @@ export default abstract class MoveEffectStrategy<S = {}> extends BeforeAfterDrop
 	}
 }
 class NormalMoveEffectStrategy extends MoveEffectStrategy{
-	static abstract = "通常";
+	abstract = "通常";
 	executeAfter(to: XY){}
 }
 type CoinMoveEffectConfig = {
@@ -47,7 +44,7 @@ type CoinMoveEffectConfig = {
  * コイン将棋
  */
 class CoinMoveEffectStrategy extends MoveEffectStrategy<CoinMoveEffectConfig>{
-	static abstract = "駒が動くと同時にコインもそれと平行移動する。コインが他の駒に重なるような手は指せない。";
+	abstract = "駒が動くと同時にコインもそれと平行移動する。コインが他の駒に重なるような手は指せない。";
 	protected relXY: RelXY;
 	private koma: Koma;
 	executeBefore(from: XY){
@@ -74,15 +71,12 @@ class CoinMoveEffectStrategy extends MoveEffectStrategy<CoinMoveEffectConfig>{
 			this.ban.set(cointo, this.koma);
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * はさみ将棋処理
  */
 class HasamiMoveEffectStrategy extends MoveEffectStrategy{
-	static abstract = "相手の駒を味方の駒で縦か横にはさむか、囲碁のように縦横全てを囲んだ時、その駒を取り去る。";
+	abstract = "相手の駒を味方の駒で縦か横にはさむか、囲碁のように縦横全てを囲んだ時、その駒を取り去る。";
 	executeAfter(to: XY){
 		// Ban#getNipped4に置き換え？
 		for(const relXY of RelXY.getVector(RelativeType.TATEYOKO)){
@@ -101,9 +95,6 @@ class HasamiMoveEffectStrategy extends MoveEffectStrategy{
 			}
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 type OthelloMoveEffectConfig = {
 	must: boolean; // オセロする必要がある
@@ -112,7 +103,7 @@ type OthelloMoveEffectConfig = {
  * オセロ
  */
 class OthelloMoveEffectStrategy extends MoveEffectStrategy<OthelloMoveEffectConfig>{
-	static abstract = "相手の駒を縦横斜めにはさんだ時、その駒を味方の駒にする。";
+	abstract = "相手の駒を縦横斜めにはさんだ時、その駒を味方の駒にする。";
 	executeAfter(to: XY){
 		const direction=this.ban.getDirection(to);
 		
@@ -128,16 +119,13 @@ class OthelloMoveEffectStrategy extends MoveEffectStrategy<OthelloMoveEffectConf
 	executeDrop(to: XY){
 		this.executeAfter(to);
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * どんでん返し処理
  * 対面したら駒を入れ替える
  */
 class DondenMoveEffectStrategy extends MoveEffectStrategy{
-	static abstract = "相手の駒の前のマスに味方の駒が移動した時、互いの駒の場所と向きが入れ替わる。2つの駒の間にどんでん返しがあり、180度回転するイメージ。";
+	abstract = "相手の駒の前のマスに味方の駒が移動した時、互いの駒の場所と向きが入れ替わる。2つの駒の間にどんでん返しがあり、180度回転するイメージ。";
 	executeAfter(to: XY){
 		const toKoma=this.ban.get(to);
 		if(toKoma.isNull()) return;
@@ -154,16 +142,13 @@ class DondenMoveEffectStrategy extends MoveEffectStrategy{
 			}
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * 水中将棋処理
  * 浮かんだ駒を消す
  */
 class UnderwaterMoveEffectStrategy extends MoveEffectStrategy{
-	static abstract = "外周1マスにある駒と、それらに縦横でつながった駒以外は消える。";
+	abstract = "外周1マスにある駒と、それらに縦横でつながった駒以外は消える。";
 	protected from: XY;
 	executeBefore(from: XY){
 		this.from=from;
@@ -192,16 +177,13 @@ class UnderwaterMoveEffectStrategy extends MoveEffectStrategy{
 			this.ban.remove(xy);
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * 核分裂処理
  * 利きにある駒を全て裏返す
  */
 class NuclearMoveEffectStrategy extends MoveEffectStrategy{
-	static abstract = "駒を動かした時、その駒の利きにある相手の駒を全て裏返す。";
+	abstract = "駒を動かした時、その駒の利きにある相手の駒を全て裏返す。";
 	executeAfter(to: XY){
 		const toKoma=this.ban.get(to);
 		for(const kiki of toKoma.getMovable()){
@@ -214,16 +196,13 @@ class NuclearMoveEffectStrategy extends MoveEffectStrategy{
 	executeDrop(to: XY){
 		this.executeAfter(to);
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * 囲碁
  * 囲んだら消す 自殺手禁止
  */
 class IgoMoveEffectStrategy extends MoveEffectStrategy{
-	static abstract = "相手の駒を縦横で囲んだら取る。";
+	abstract = "相手の駒を縦横で囲んだら取る。";
 	executeAfter(to: XY){
 		for(const relXY of RelXY.getVector(RelativeType.TATEYOKO)){
 			const tonari=to.getCloneRel(relXY);
@@ -238,15 +217,12 @@ class IgoMoveEffectStrategy extends MoveEffectStrategy{
 	executeDrop(to: XY){
 		this.executeAfter(to);
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /**
  * 重力を適用（重力将棋） どうするか
  */
 class GravityMoveEffectStrategy extends MoveEffectStrategy{
-	static abstract = "すべての駒は、盤の端か駒にぶつかるまで横方向(数字の小さい方)に滑る。";
+	abstract = "すべての駒は、盤の端か駒にぶつかるまで横方向(数字の小さい方)に滑る。";
 	executeAfter(to: XY){
 		for(let y=1;y<=this.ban.y;y++){
 			let tox=1;
@@ -261,12 +237,9 @@ class GravityMoveEffectStrategy extends MoveEffectStrategy{
 	executeDrop(to: XY){
 		this.executeAfter(to);
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 class CheckerMoveEffectStrategy extends MoveEffectStrategy{
-	static abstract = "飛び越えた駒を取る。飛び越えられる場合は必ず取らなくてはならない。";
+	abstract = "飛び越えた駒を取る。飛び越えられる場合は必ず取らなくてはならない。";
 	protected from: XY;
 	protected flagCanJump: boolean;
 	executeBefore(from: XY) {
@@ -292,15 +265,12 @@ class CheckerMoveEffectStrategy extends MoveEffectStrategy{
 		}
 		return false;
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 type FlipPutMoveEffectConfig = {
 	species: Species;
 }
 class FlipPutMoveEffectStrategy extends MoveEffectStrategy<FlipPutMoveEffectConfig>{
-	static abstract = "持ち駒を相手の駒のまま打つ";
+	abstract = "持ち駒を相手の駒のまま打つ";
 
 	public executeAfter(to: XY) {
 		
@@ -321,21 +291,18 @@ class FlipPutMoveEffectStrategy extends MoveEffectStrategy<FlipPutMoveEffectConf
  * はさみ天秤端落とし
  */
 class HasamiTenbinHashiotoshiMoveEffectStrategy extends MoveEffectStrategy{
-	static abstract = "はさみ：相手の駒を味方の駒で縦か横か斜めにはさむと取れる。天秤：相手にはさまれる手を指した時、はさんだ相手の駒を取れる。端落とし：自分の駒と盤の端ではさむと取れる。";
+	abstract = "はさみ：相手の駒を味方の駒で縦か横か斜めにはさむと取れる。天秤：相手にはさまれる手を指した時、はさんだ相手の駒を取れる。端落とし：自分の駒と盤の端ではさむと取れる。";
 	executeAfter(to: XY){
 		for(const xy of this.ban.getNipped8(to).concat(this.ban.getTenbined(to), this.ban.getHashiotoshied(to))){
 			this.ban.remove(xy);
 		}
-	}
-	toHTML() {
-		return this.abstract;
 	}
 }
 /**
  * てんびん処理
  * はさみ天秤端落とし用だが，同時に処理しないといけないのでこちらは使わない．
 class TenbinMoveEffectStrategy extends MoveEffectStrategy{
-	static abstract = "縦・横・斜めに相手に挟まれる位置に移動した場合、挟んでいる駒を取り去る。";
+	abstract = "縦・横・斜めに相手に挟まれる位置に移動した場合、挟んでいる駒を取り去る。";
 	executeAfter(to: XY){
 		foreach(this.ban.getTenbined(to) as XY){
 			this.ban.remove(XY);
@@ -344,7 +311,7 @@ class TenbinMoveEffectStrategy extends MoveEffectStrategy{
 }
  */
 class EpoxyMoveEffectStrategy extends MoveEffectStrategy{
-	public static abstract = "前後左右に敵駒がいると接着して同時に動く";
+	abstract = "前後左右に敵駒がいると接着して同時に動く";
 	private from: XY;
 	private moving: {piece: Koma, from: XY}[];
 	public executeBefore(from: XY) {
@@ -364,14 +331,11 @@ class EpoxyMoveEffectStrategy extends MoveEffectStrategy{
 			this.ban.set(dest, mov["piece"]);
 		}
 	}
-	toHTML() {
-		return this.abstract;
-	}
 }
 /*
  * 止まる時に焼くのだが，パスした時に焼く処理の書き方が不明．
 class CaptureKomaMoveEffectStrategy extends MoveEffectStrategy{
-	public static abstract = "周囲の駒を取る";
+	abstract = "周囲の駒を取る";
 	public executeAfter(\to: XY) {
 		if(!this.ban.exists(to)) return;
 		koma = this.ban.get(to);
@@ -423,7 +387,7 @@ class CaptureKomaMoveEffectStrategy extends MoveEffectStrategy{
  * 
  */
 class AntikirukeMoveEffectStrategy extends MoveEffectStrategy{
-	public static abstract = "駒を取った時に取った駒が初期位置に戻る。";
+	abstract = "駒を取った時に取った駒が初期位置に戻る。";
 	public executeAfter(to: XY, captured=false) {
 		if(!captured) return;
 		const koma=this.ban.get(to);
@@ -448,6 +412,7 @@ export type QuantumData = {
 	}
 }
 class QuantumMoveEffectStrategy extends MoveEffectStrategy{
+	abstract = "量子将棋的駒の動きをする";
 	prom: boolean;
 	promNow: boolean;
 	from: XY;
@@ -552,14 +517,14 @@ class QuantumMoveEffectStrategy extends MoveEffectStrategy{
 			const capturedDirection = 1 - this.direction;
 			if (!capturedPos) {
 				const capturedData = this.obj[capturedDirection];
-				if (capturedData.xys.length == 19 && capturedData.d.fulls.indexOf("ah") === -1 && capturedData.d.kinds.every(sp => sp.indexOf("ah") < 0)) {
+				if (capturedData.xys.length == 19 && capturedData.d.fulls.indexOf("Ou") === -1 && capturedData.d.kinds.every(sp => sp.indexOf("Ou") < 0)) {
 					this.ban.parent.gameEnd(capturedDirection, this.direction, "勝ち", "王に確定した駒を取りました");
 					end = true;
 				}
 				capturedPos = this.allocatePos(capturedDirection);
 			} else {
 				const kinds = this.obj[capturedPos.direction].d.kinds[capturedPos.position];
-				if (kinds.length == 1 && kinds[0] == "ah") {
+				if (kinds.length == 1 && kinds[0] == "Ou") {
 					this.ban.parent.gameEnd(capturedDirection, this.direction, "勝ち", "王に確定した駒を取りました");
 					end = true;
 				}

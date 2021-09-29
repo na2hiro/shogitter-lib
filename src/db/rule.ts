@@ -11484,6 +11484,9 @@ db.getCollection("rule").insert({
     },
     "KomaSuggest": {
       "Annan": true
+    },
+    "Destination": {
+      "Chain": true
     }
   },
   incomplete: true

@@ -9,7 +9,7 @@ import {Teban} from "../Teban";
 import {shogitterDB} from "../ShogitterDB";
 
 export class MochigomaIOStrategyContainer<S> extends StrategyContainer<MochigomaIOStrategy<S>> {
-    public abstract = "持ち駒";
+    strategyGenre = "持ち駒";
 
     executeIn(toPick: Koma, tebanDirection: Direction) {
         for (let strategy of this.arrayStrategies) {
@@ -26,14 +26,10 @@ export class MochigomaIOStrategyContainer<S> extends StrategyContainer<Mochigoma
             }
         }
     }
-
-    getStrategyGenre() {
-        return this.abstract;
-    }
 }
 
 export abstract class MochigomaIOStrategy<S> extends Strategy {
-    public abstract = "持ち駒";
+    strategyGenre = "持ち駒";
     protected mochigoma: Mochigoma;
     protected setting: S & CommonConfig;
 
@@ -79,10 +75,6 @@ class NoUseMochigomaIOStrategy extends MochigomaIOStrategy<{}> {
 
     executeIn(toPick: Koma, tebanDirection: Direction) {
     }
-
-    toHTML() {
-        return this.abstract;
-    }
 }
 
 /**
@@ -103,10 +95,6 @@ class ShareMochigomaIOStrategy extends MochigomaIOStrategy<{}> {
             this.mochigoma.remove(species, direction, 1);//clone
         }
     }
-
-    toHTML() {
-        return this.abstract;
-    }
 }
 
 /**
@@ -118,10 +106,6 @@ class DoubleMochigomaIOStrategy extends MochigomaIOStrategy<{}> {
     executeIn(toPick: Koma, tebanDirection: Direction) {
         toPick.promote(0);
         this.mochigoma.add(toPick.species, tebanDirection, 2);//clone
-    }
-
-    toHTML() {
-        return this.abstract;
     }
 }
 
@@ -150,10 +134,6 @@ class BothFaceMochigomaIOStrategy extends MochigomaIOStrategy<{}> {
             ret.push(backSpecies);
         }
         return ret;
-    }
-
-    toHTML() {
-        return this.abstract;
     }
 }
 
@@ -187,7 +167,8 @@ class InfinityMochigomaIOStrategy extends MochigomaIOStrategy<InfinityMochigomaI
 
     toHTML() {
         const sp = this.setting.species || "yo";
-        return (this.setting.common.directions ? this.setting.common.directions.map(dir => Teban.tebanName[0][dir]).join(" ") + "は" : "")
+        console.log("SETTING", this.setting);
+        return (this.setting.common?.directions ? this.setting.common.directions.map(dir => Teban.tebanName[0][dir]).join(" ") + "は" : "")
             + `<a href='/koma/${sp}'>` + shogitterDB.getKoma(sp, "name") + "</a>を無限に打てる";
     }
 }
@@ -220,17 +201,13 @@ class ExchangeMochigomaIOStrategy extends MochigomaIOStrategy<ExchangeMochigomaI
 
 class MochigomaControlStrategyContainer extends StrategyContainer<MochigomaControlStrategy<{}>> {
     public abstract = "持ち駒判定";
-
-    getStrategyGenre() {
-        return this.abstract;
-    }
 }
 
 /**
  * 持ち駒を取った後のチェックに関するStrategy
  */
 abstract class MochigomaControlStrategy<S> extends Strategy {
-    public abstract = "持ち駒判定";
+    strategyGenre = "持ち駒判定";
     protected mochigoma: Mochigoma;
     protected setting: S;
 
@@ -247,8 +224,6 @@ abstract class MochigomaControlStrategy<S> extends Strategy {
  * チェックしない
  */
 class NormalMochigomaControlStrategy extends MochigomaControlStrategy<{}> {
-    public abstract = "通常";
-
     execute(tebanDirection: Direction) {
     }
 }
@@ -265,10 +240,6 @@ class WinThirdMochigomaControlStrategy extends MochigomaControlStrategy<{}> {
             this.mochigoma.parent.gameEnd(lose, tebanDirection, "勝ち", "３枚目です。" + this.mochigoma.parent.teban.getName(tebanDirection) + "の勝ちです。");
         }
     }
-
-    toHTML() {
-        return this.abstract;
-    }
 }
 
 /**
@@ -281,10 +252,6 @@ class LoseFifthMochigomaControlStrategy extends MochigomaControlStrategy<{}> {
         if (this.mochigoma.count(tebanDirection) >= 5) {
             this.mochigoma.parent.gameEnd(tebanDirection, tebanDirection, "負け", "持ち駒が5枚に達しました。" + this.mochigoma.parent.teban.getName(tebanDirection) + "の負けです。");
         }
-    }
-
-    toHTML() {
-        return this.abstract;
     }
 }
 const nameToStrategy: {[variant: string]: (/*typeof MochigomaIOStrategy*/any)} = {
