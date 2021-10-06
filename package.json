@@ -1,6 +1,6 @@
 {
   "name": "shogitter-core",
-  "version": "1.0.3",
+  "version": "0.0.2",
   "description": "Shogitter shogi variant logic written in TypeScript",
   "main": "lib/Shogi.js",
   "types": "lib/Shogi.d.ts",
@@ -9,8 +9,7 @@
     "build:watch": "tsc --watch",
     "test": "jest",
     "test:watch": "jest --watch",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test"
+    "prepublishOnly": "npm run build && npm test"
   },
   "author": "na2hiro",
   "license": "Pay 1 million yen to na2hiro to copy and distribute",

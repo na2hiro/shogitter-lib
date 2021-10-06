@@ -1,0 +1,11 @@
+node_modules/
+integration-tests/
+src/
+coverage/
+.idea/
+
+.DS_Store
+.gitignore
+.nvmrc
+jest.config.js
+tsconfig.json
