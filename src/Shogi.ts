@@ -588,7 +588,6 @@ export default class Shogi {
      * @param <type> direction
      */
     resign(direction?: Direction) {
-        console.log("RESIGN", direction);
         if (!this.isPlaying()) throw new ShogitterCoreException("対局中ではありません．");
         let dirResign;
         if (typeof direction !== "undefined") {

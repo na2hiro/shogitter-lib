@@ -420,6 +420,9 @@ class QuantumMoveEffectStrategy extends MoveEffectStrategy{
 	direction: Direction;
 	obj: QuantumData[];
 	serialize(obj: StrategySerialization) {
+	    if (!this.obj) {
+	        this.loadLatestData();
+        }
 		obj["quantum"] = this.obj;
 
 		return obj;

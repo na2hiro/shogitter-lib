@@ -167,7 +167,6 @@ class InfinityMochigomaIOStrategy extends MochigomaIOStrategy<InfinityMochigomaI
 
     toHTML() {
         const sp = this.setting.species || "yo";
-        console.log("SETTING", this.setting);
         return (this.setting.common?.directions ? this.setting.common.directions.map(dir => Teban.tebanName[0][dir]).join(" ") + "は" : "")
             + `<a href='/koma/${sp}'>` + shogitterDB.getKoma(sp, "name") + "</a>を無限に打てる";
     }

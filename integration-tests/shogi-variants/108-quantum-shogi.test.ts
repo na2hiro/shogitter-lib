@@ -1,6 +1,7 @@
 import Shogi from "../../src/Shogi";
-import {move, rawMove, put, rawPut} from "../utils/shogiUtils";
+import {move, put} from "../utils/shogiUtils";
 import XY from "../../src/XY";
+import {Direction} from "../../src/Ban";
 
 describe("Quantum shogi", () => {
     let shogi: Shogi;
@@ -143,4 +144,22 @@ describe("Quantum shogi", () => {
         move(shogi, 1, 3, 1, 4)
         put(shogi, 4, 5, "ff", 0)
     })
+    it("Resign should contain quantum data", () => {
+        move(shogi, 7, 7, 7, 3, true);
+        const beforeResign = shogi.getObject();
+        shogi.runCommand({
+            direction: Direction.BLACK,
+            type: "resign"
+        });
+        // No quantum situation should be changed due to resign
+        expect(shogi.kifu.arrayKifu[0].data.quantum).toEqual(shogi.kifu.arrayKifu[1].data.quantum);
+
+        const shogi2 = Shogi.ofJkf(beforeResign);
+        shogi2.runCommand({
+            direction: Direction.BLACK,
+            type: "resign"
+        });
+        // No quantum situation should be changed due to resign
+        expect(shogi2.kifu.arrayKifu[0].data.quantum).toEqual(shogi2.kifu.arrayKifu[1].data.quantum);
+    });
 })
