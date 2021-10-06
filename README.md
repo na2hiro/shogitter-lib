@@ -4,15 +4,15 @@
 
 ## Status
 
-* This library is used by the shogitter website. 
+* This library is used by shogitter, to generate legal move for each shogi variant rules and validate users' moves.
 * Shogitter had been using PHP code (it wasn't an apparently bad choice in 2010 when I was an undergrad student!), and `shogitter-core` is an almost direct translation of PHP code to TypeScript.
   * Because of that, some code look not fluent in TypeScript.
 * The code is covered by some integration tests. You can see how to use it
 
 ## Plan
 
-* Integrate `shogitter-core` to the shogitter itself
-* (optional) Provide an example UI to play around with what `shogitter-core` can do
+- [x] Integrate `shogitter-core` to the shogitter itself
+- [ ] (optional) Provide an example UI to play around with what `shogitter-core` can do
 
 ## File structure
 * `integration-tests`: Integration tests
