@@ -259,7 +259,7 @@ export class Teban {
     }
 
     ensureDirection(direction: Direction) {
-        if (!this.isDirection(direction)) throw new ShogitterCoreException(`手番が守られていません。${this.getName(this.getNowDirection())}の手番です。 (${direction})`);
+        if (!this.isDirection(direction)) throw new ShogitterCoreException(`手番が守られていません。${this.getName(this.getNowDirection())}の手番です。`);
     }
 
     /**
