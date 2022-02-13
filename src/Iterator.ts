@@ -1,6 +1,6 @@
 import {ShogitterCoreException} from "./utils/phpCompat";
 import XY, {RelXY} from "./XY";
-import Ban, {Species} from "./Ban";
+import Ban, {Direction, Species} from "./Ban";
 import {Koma} from "./Koma";
 
 type Size = [number, number];
@@ -144,7 +144,9 @@ export class BanScanIterator implements Iterator<XY>, Iterable<XY> {
     }
 
     count() {
-        if (this.ban.exists(this.position) && this.ban.get(this.position).direction != 9) this.cntJump++;
+        if (this.ban.exists(this.position) && this.ban.get(this.position).direction != Direction.SOMETHING){
+            this.cntJump++;
+        }
         this.cnt++;
     }
 

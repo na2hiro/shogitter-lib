@@ -1,5 +1,3 @@
-import "./Iterator";
-
 import XY, {RelativeType, RelXY} from "./XY";
 import {ShogitterCoreException} from "./utils/phpCompat";
 import {Teban} from "./Teban";
@@ -11,9 +9,7 @@ import {
     generateStrategy,
     generateStrategyContainer,
     IteratorConfig,
-    StrategyConfig,
-    StrategyContainerName,
-    StrategyName
+    StrategyConfig
 } from "./strategy/StrategyFactory";
 import {Flags} from "./Flags";
 import Strategy, {StrategySerialization} from "./strategy/Strategy";
@@ -23,7 +19,9 @@ export enum Direction {
     BLACK,
     WHITE,
     LEFT,
-    RIGHT
+    RIGHT,
+
+    SOMETHING = 9, // TODO what is this?
 }
 export type Species = string; // really?
 
