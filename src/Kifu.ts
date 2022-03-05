@@ -118,13 +118,13 @@ export default class Kifu {
 
     addArray(array: KifuLine, flagCheckSennichite = false) {
         // 旧データ?
-        /*if (array[0]) {
+        if (Array.isArray(array)) {
             array = {
                 'move': array[0],
                 'disp': array[1],
                 'hash': array[2]
             };
-        }*/
+        }
         const num = this.getTesuu() - 1;
         if (num >= 0 && this.isResign(num)) {
             //既に終局サインが入っている場合は最後から二番目に入れる

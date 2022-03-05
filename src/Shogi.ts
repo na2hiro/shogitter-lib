@@ -38,8 +38,9 @@ export enum Status {
     ENDED,
 }
 export type Player = {
+    // Missing for live board
     // null when it's vacant
-    user: (UserInfo | null)[],
+    user?: (UserInfo | null)[],
     mochigoma: {[species: string]: number},
     result?: Result,
 }
