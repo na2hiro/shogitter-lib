@@ -52,8 +52,8 @@ export type PlayerInfo = {
 }
 
 export type UserInfo = {
-    name: string,
-    id: string,
+    name: string, // Screen name
+    id: number, // Twitter ID
 }
 
 export enum Result {
@@ -143,7 +143,7 @@ export class Teban {
         return this.arrayPlayerInfo;
     }
 
-    setPlayerInfo(direction: Direction, num: number, name: string, userId: string) {
+    setPlayerInfo(direction: Direction, num: number, name: string, userId: number) {
         this.arrayPlayerInfo[direction].user[num] = {name, id: userId}
     }
 
@@ -175,10 +175,10 @@ export class Teban {
         return arr;
     }
 
-    getDirectionById(id: string) {
+    getDirectionById(id: number) {
         for (let direction of this.getIterator()) {
             for (let userid of this.getPlayerIds(direction)) {
-                if (userid == id) {
+                if (userid === id) {
                     return direction;
                 }
             }
@@ -234,7 +234,7 @@ export class Teban {
         return this.getName(this.getNowDirection());
     }
 
-    isNowId(id: string, strict = false) {
+    isNowId(id: number, strict = false) {
         const ids = this.getPlayerIds(this.getNowDirection());
         if (strict) {
             return ids[this.getTurn()] == id;

@@ -72,6 +72,11 @@ type Moving = {
     status: number;
 }
 
+const TURN_AGNOSTIC_COMMANDS = ["rollback", "start", "resign", "draw", "changedirection", "reset"];
+export const isTurnAgnosticCommand = (command: KifuCommand) => {
+    return TURN_AGNOSTIC_COMMANDS.includes(command.type);
+}
+
 export type KifuCommand = {direction?: Direction} & (
     MoveCommand |
     PutCommand |
@@ -80,7 +85,7 @@ export type KifuCommand = {direction?: Direction} & (
     ResetCommand |
     StartCommand |
     PassCommand |
-    // ChangeDirectionCommand | // Not used
+    ChangeDirectionCommand |
     DrawCommand);
 export type MoveCommand = {
     type: "move",
@@ -111,10 +116,9 @@ export type ResignCommand = {
 export type DrawCommand = {
     type: "draw",
 }
-/*
 export type ChangeDirectionCommand = {
     type: "changedirection",
-}*/
+}
 export type ResetCommand = {
     type: "reset",
     ruleId: number;
@@ -892,12 +896,10 @@ export default class Shogi {
                 }
                 this.pass();
                 return;
-                /*
             case "changedirection":
                 if(this.isPlaying()) throw new ShogitterCoreException("対局中は先後交代できません。");
                 this.teban.changeDirection();
                 return;
-                 */
         }
 
         if (this.isEnded()) {
@@ -1077,7 +1079,7 @@ export default class Shogi {
         const playersWithMochigoma: Player[] = [];
         for (let direction of this.teban.getIterator()) {
             playersWithMochigoma[direction] = {...players[direction], mochigoma: {}} || {
-                user: [{name: "", id: ""}],
+                user: [{name: "", id: 0}],
                 mochigoma: {}
             }
             playersWithMochigoma[direction].mochigoma = {};
