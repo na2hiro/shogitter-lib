@@ -5599,7 +5599,35 @@ db.getCollection("rule").insert({
   "winkoma": [
     "ah",
     "bl"
-  ]
+  ],
+  "koma": [
+    "aa",
+    "ab",
+    "ac",
+    "ad",
+    "ae",
+    "af",
+    "ag",
+    "ah",
+    "ai",
+    "aj",
+    "ak",
+    "al",
+    "am",
+    "an",
+    "bl"
+  ],
+  "nari": {
+    "aa": "ai",
+    "ab": "aj",
+    "ac": "ak",
+    "ad": "al",
+    "ae": null,
+    "af": "am",
+    "ag": "an",
+    "ah": null,
+    "bl": null,
+  },
 });
 db.getCollection("rule").insert({
   "_id": 23,

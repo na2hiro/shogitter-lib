@@ -12,6 +12,9 @@ export default abstract class TebanRotationStrategy extends Strategy{
 	}
 	abstract execute(moving: Koma, nari: boolean, capture: boolean, to: XY, from: XY): void;
 	abstract canPass(): boolean;
+	canEverPass() {
+		return true;
+	};
 
 	static create(name: string, ban: Ban, setting: any): TebanRotationStrategy {
 		const klass: any = nameToStrategy[name];
@@ -28,6 +31,9 @@ class NormalTebanRotationStrategy extends TebanRotationStrategy{
 		}
 	}
 	canPass() {
+		return false;
+	}
+	canEverPass(): boolean {
 		return false;
 	}
 }

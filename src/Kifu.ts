@@ -14,7 +14,7 @@ export type KifuLine = {
 
 // direction, ...diff
 export type KifuMove = Diffs | End
-type End = ["_", [number]]
+type End = string // _(loser number)
 // x, y, beforeKoma, afterKoma
 type Diffs = [Direction, ...Diff[]];
 export type Diff = MoveDiff | PutDiff

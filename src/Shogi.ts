@@ -62,8 +62,7 @@ export interface ShogiSerialization extends Game {
     ban: BanObj,
     moving: Moving,
     players: Player[],
-    debug: string,
-    system: string,
+    system: any, // confirmation?
     kifu: KifuLine[],
 }
 
@@ -144,7 +143,7 @@ export default class Shogi {
         end?: Date;
     };
     private jsonsystem: any; // Used for showing confirmation
-    private end: { status: any; kifu: any[] };
+    private end: { status: string; kifu: [string, string] };
     fromDirection: Direction;
     private lastBan: KomaObj[][];		//移動前の盤面情報(変更しない)
     private lastMochigoma: MochigomaObj[];
