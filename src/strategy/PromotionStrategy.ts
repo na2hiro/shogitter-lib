@@ -2,10 +2,11 @@
  * 成
  */
 import Strategy from "./Strategy";
-import Ban, {Direction} from "../Ban";
+import Ban from "../Ban";
 import XY from "../XY";
 import {ShogitterCoreException} from "../utils/phpCompat";
 import {Koma} from "../Koma";
+import {Direction} from "../Direction";
 
 type Setting = {
 	dan: number; // 段

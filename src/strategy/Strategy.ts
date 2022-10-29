@@ -2,7 +2,8 @@
  * 処理の切替を担う
  */
 import XY from "../XY";
-import Ban, {Direction} from "../Ban";
+import Ban from "../Ban";
+import {Direction} from "../Direction";
 
 export type StrategySerialization = any; // TODO
 

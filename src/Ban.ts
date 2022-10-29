@@ -5,24 +5,19 @@ import {Kiki, Koma, KomaObj} from "./Koma";
 import Shogi from "./Shogi";
 import {BanScanIterator, NormalBanIterator} from "./Iterator";
 import {
-    BanStrategy, BanStrategyName, BanStrategyNameWithContainer, BanStrategyWithContainer,
+    BanStrategy,
+    BanStrategyName,
+    BanStrategyNameWithContainer,
     generateStrategy,
     generateStrategyContainer,
     IteratorConfig,
     StrategyConfig
 } from "./strategy/StrategyFactory";
 import {Flags} from "./Flags";
-import Strategy, {StrategySerialization} from "./strategy/Strategy";
+import {StrategySerialization} from "./strategy/Strategy";
 import {MoveDiff} from "./Kifu";
+import {Direction} from "./Direction";
 
-export enum Direction {
-    BLACK,
-    WHITE,
-    LEFT,
-    RIGHT,
-
-    SOMETHING = 9, // TODO what is this?
-}
 export type Species = string; // really?
 
 export type BanObj = KomaObj[][];

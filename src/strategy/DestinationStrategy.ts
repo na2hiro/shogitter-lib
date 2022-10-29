@@ -1,8 +1,9 @@
 import XY from "../XY";
-import Ban, {Direction, Species} from "../Ban";
+import Ban, {Species} from "../Ban";
 import {BeforeAfterDropStrategy} from "./Strategy";
 import {shuffle, ShogitterCoreException} from "../utils/phpCompat";
 import TebanRotationStrategy from "./TebanRotationStrategy";
+import {Direction} from "../Direction";
 
 export default abstract class DestinationStrategy extends BeforeAfterDropStrategy{
 	strategyGenre = "行き先";

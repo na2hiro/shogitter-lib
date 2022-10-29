@@ -1,7 +1,8 @@
 import {ShogitterCoreException} from "./utils/phpCompat";
 import XY, {RelXY} from "./XY";
-import Ban, {Direction, Species} from "./Ban";
+import Ban, {Species} from "./Ban";
 import {Koma} from "./Koma";
+import {Direction} from "./Direction";
 
 type Size = [number, number];
 export class BanIterator implements Iterator<Koma>, Iterable<Koma> {

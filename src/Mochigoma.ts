@@ -7,7 +7,8 @@ import {
     MochigomaStrategy, MochigomaStrategyNameWithContainer
 } from "./strategy/StrategyFactory";
 import {PutDiff} from "./Kifu";
-import {Direction, Species} from "./Ban";
+import {Species} from "./Ban";
+import {Direction} from "./Direction";
 
 function pad0(value: number) {
     return value>=10 ? `${value}` : `0${value}`;

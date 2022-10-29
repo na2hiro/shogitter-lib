@@ -1,9 +1,10 @@
 import Strategy, {StrategyContainer} from "./Strategy";
-import Ban, {Direction, Species} from "../Ban";
+import Ban, {Species} from "../Ban";
 import XY, {RelXY} from "../XY";
 import {shogitterDB} from "../ShogitterDB";
 import {Kiki} from "../Koma";
 import {Flags} from "../Flags";
+import {Direction} from "../Direction";
 
 export class MoveFilterStrategyContainer<S = {}> extends StrategyContainer<MoveFilterStrategy<S>>{
 	strategyGenre = "移動制限";

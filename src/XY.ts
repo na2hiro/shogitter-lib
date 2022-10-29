@@ -1,6 +1,7 @@
 import {ShogitterCoreException} from "./utils/phpCompat";
-import Ban, {Direction} from "./Ban";
+import Ban from "./Ban";
 import {num2kan_decimal} from "./MyLib";
+import {Direction} from "./Direction";
 
 export enum RelativeType {
     TATEYOKO = 1,

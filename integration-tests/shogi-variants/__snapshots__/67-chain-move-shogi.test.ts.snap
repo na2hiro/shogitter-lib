@@ -133,8 +133,7 @@ kifu:
   "teban": 1,
   "turn": 0,
   "date": {},
-  "moving": null,
-  "debug": ""
+  "moving": null
 }
 `;
 
@@ -165,7 +164,6 @@ kifu:
   "teban": 0,
   "turn": 0,
   "date": {},
-  "moving": null,
-  "debug": ""
+  "moving": null
 }
 `;

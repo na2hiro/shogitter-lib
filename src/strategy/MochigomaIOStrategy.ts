@@ -1,12 +1,13 @@
 /**
  * 持ち駒入出力に関するStrategy
  */
-import Ban, {Direction, Species} from "../Ban";
+import Ban, {Species} from "../Ban";
 import {Koma, PromotionMode} from "../Koma";
 import Strategy, {CommonConfig, StrategyContainer} from "./Strategy";
 import {Mochigoma} from "../Mochigoma";
 import {Teban} from "../Teban";
 import {shogitterDB} from "../ShogitterDB";
+import {Direction} from "../Direction";
 
 export class MochigomaIOStrategyContainer<S> extends StrategyContainer<MochigomaIOStrategy<S>> {
     strategyGenre = "持ち駒";

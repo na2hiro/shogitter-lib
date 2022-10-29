@@ -1,4 +1,4 @@
-import {Direction} from "./Ban";
+import {Direction} from "./Direction";
 
 export type Flags = {
     igai?: boolean;

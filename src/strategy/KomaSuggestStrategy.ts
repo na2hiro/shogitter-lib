@@ -2,8 +2,9 @@ import Strategy, {StrategySerialization} from "./Strategy";
 import XY, {RelXY} from "../XY";
 import {Koma} from "../Koma";
 import {array_diff} from "../utils/phpCompat";
-import Ban, {Direction, Species} from "../Ban";
+import Ban, {Species} from "../Ban";
 import {QuantumData} from "./MoveEffectStrategy";
+import {Direction} from "../Direction";
 
 /**
  * 駒の種類を教える

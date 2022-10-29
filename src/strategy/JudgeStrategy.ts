@@ -1,5 +1,5 @@
 import Strategy, {StrategyContainer} from "./Strategy";
-import Ban, {Direction, Species} from "../Ban";
+import Ban, {Species} from "../Ban";
 import XY, {RelativeType, RelXY} from "../XY";
 import {Koma} from "../Koma";
 import {shogitterDB} from "../ShogitterDB";
@@ -7,6 +7,7 @@ import {ShogitterCoreException} from "../utils/phpCompat";
 import {BanScanIterator} from "../Iterator";
 import {num2kan_decimal} from "../MyLib";
 import TebanRotationStrategy from "./TebanRotationStrategy";
+import {Direction} from "../Direction";
 
 export class JudgeStrategyContainer<S> extends StrategyContainer<JudgeStrategy<S>>{
 	strategyGenre = "勝利判定";

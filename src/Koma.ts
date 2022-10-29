@@ -3,10 +3,11 @@
 // What is this:   define("a", 100);
 
 import {ShogitterCoreException} from "./utils/phpCompat";
-import Ban, {Direction, Species} from "./Ban";
+import Ban, {Species} from "./Ban";
 import XY, {RelXY} from "./XY";
 import {shogitterDB} from "./ShogitterDB";
 import {Flags} from "./Flags";
+import {Direction} from "./Direction";
 
 export type Kiki = {
     XY: XY,

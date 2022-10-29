@@ -1,7 +1,7 @@
 import Shogi from "../../src/Shogi";
 import {move, put} from "../utils/shogiUtils";
 import XY from "../../src/XY";
-import {Direction} from "../../src/Ban";
+import {Direction} from "../../src/Direction";
 
 describe("Quantum shogi", () => {
     let shogi: Shogi;

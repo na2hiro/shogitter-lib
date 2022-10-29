@@ -1,9 +1,10 @@
 import Strategy from "./Strategy";
-import Ban, {Direction, Species} from "../Ban";
+import Ban, {Species} from "../Ban";
 import {Koma} from "../Koma";
 import {ShogitterCoreException} from "../utils/phpCompat";
 import {Teban} from "../Teban";
 import {shogitterDB} from "../ShogitterDB";
+import {Direction} from "../Direction";
 
 export abstract class CaptureControlStrategy<S> extends Strategy {
     static strategyVariant: string;

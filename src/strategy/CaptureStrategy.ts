@@ -1,7 +1,8 @@
 import Strategy from "./Strategy";
 import {Mochigoma} from "../Mochigoma";
-import Ban, {Direction} from "../Ban";
+import Ban from "../Ban";
 import XY from "../XY";
+import {Direction} from "../Direction";
 
 export default class CaptureStrategy extends Strategy{
 	strategyGenre = "駒取り";

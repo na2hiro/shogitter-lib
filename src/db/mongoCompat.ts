@@ -3,7 +3,7 @@ abstract class Collection {
     constructor() {
         this.map = {};
     }
-    ensureIndex(a: any) {
+    ensureIndex(a: any, b?: any) {
         // Noop
     }
     insert(obj: any) {

@@ -32,7 +32,6 @@ kifu:
   "teban": 3,
   "turn": 0,
   "date": {},
-  "moving": null,
-  "debug": ""
+  "moving": null
 }
 `;

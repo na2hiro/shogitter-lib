@@ -106,7 +106,7 @@ class ShogitterDB {
     }
 
     loadRule(ruleid: number) {
-        const rule = ruleColl.get(ruleid);
+        const rule = ruleColl.get(ruleid.toString());
         if (!rule) throw new ShogitterCoreException(`指定されたルールID「${ruleid}」が不正です。`);
         if ('extend' in rule) {
             //継承する

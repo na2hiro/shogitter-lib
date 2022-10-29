@@ -1,9 +1,10 @@
 /**
  * 持ち駒入出力に関するStrategy
  */
-import Ban, {Direction} from "../Ban";
+import Ban from "../Ban";
 import Strategy, {StrategyContainer} from "./Strategy";
 import {Mochigoma} from "../Mochigoma";
+import {Direction} from "../Direction";
 
 export class MochigomaControlStrategyContainer<S> extends StrategyContainer<MochigomaControlStrategy<S>> {
     strategyGenre = "持ち駒判定";

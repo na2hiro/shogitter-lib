@@ -1,7 +1,8 @@
 import Shogi from "../../src/Shogi";
 import XY from "../../src/XY";
-import {Direction, Species} from "../../src/Ban";
+import {Species} from "../../src/Ban";
 import {serialize} from "./ShogiSerializer";
+import {Direction} from "../../src/Direction";
 
 export function move(shogi: Shogi, fromX: number, fromY: number, toX: number, toY: number, nari = false) {
     try {

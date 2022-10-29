@@ -1,8 +1,9 @@
 import {Koma, KomaObj} from "./Koma";
 import XY from "./XY";
-import {Direction, Species} from "./Ban";
+import {Species} from "./Ban";
 import Shogi from "./Shogi";
 import {ShogitterCoreException} from "./utils/phpCompat";
+import {Direction} from "./Direction";
 
 export type KifuLine = {
     move: KifuMove,

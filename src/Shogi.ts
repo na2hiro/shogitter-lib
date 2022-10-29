@@ -2,13 +2,14 @@ import "./strategy/Strategy"
 import {ShogitterCoreException} from "./utils/phpCompat";
 import {Mochigoma, MochigomaObj} from "./Mochigoma";
 import {Result, Teban, UserInfo} from "./Teban";
-import Ban, {BanObj, Direction, Species} from "./Ban";
+import Ban, {BanObj, Species} from "./Ban";
 import XY, {XYObj} from "./XY";
 import {Koma, KomaObj, PromotionMode} from "./Koma";
 import Kifu, {KifuLine, KifuMove} from "./Kifu";
 import {BanScanIterator} from "./Iterator";
 import {Rule, shogitterDB} from "./ShogitterDB";
 import {javaHashCode} from "./utils/hash";
+import {Direction} from "./Direction";
 
 export {ShogitterCoreException};
 
@@ -748,7 +749,7 @@ export default class Shogi {
         // this.date['end'] = new Date();
         const loseDirection = this.end['kifu'][0][1];
         for (let direction of this.teban.getIterator()) {
-            this.teban.setResultToPlayer(direction, direction == loseDirection ? Result.LOSE : Result.WIN);
+            this.teban.setResultToPlayer(direction, direction.toString() == loseDirection ? Result.LOSE : Result.WIN);
         }
         this.end = null;
     }
@@ -1105,7 +1106,6 @@ export default class Shogi {
             ban,
             moving,
             players: playersWithMochigoma,
-            debug,
             system,
             kifu
         };

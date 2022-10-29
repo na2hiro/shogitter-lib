@@ -4,13 +4,14 @@ import {
 	CommonConfig,
 	StrategySerialization
 } from "./Strategy";
-import Ban, {Direction, Species} from "../Ban";
+import Ban, {Species} from "../Ban";
 import XY, {RelativeType, RelXY} from "../XY";
 import {Koma} from "../Koma";
 import {ShogitterCoreException} from "../utils/phpCompat";
 import {Teban} from "../Teban";
 import {shogitterDB} from "../ShogitterDB";
 import {MoveType, runQuantum} from "../utils/quantumUtils";
+import {Direction} from "../Direction";
 
 export class MoveEffectStrategyContainer<S> extends BeforeAfterDropStrategyContainer<MoveEffectStrategy<S>>{
 	strategyGenre = "移動処理";
