@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Basic can judge tsumi 1`] = `
+exports[`Basic > can judge tsumi 1`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1ad1ac1ab
@@ -28,7 +28,7 @@ kifu:
 }
 `;
 
-exports[`Basic can judge tsumi 2`] = `
+exports[`Basic > can judge tsumi 2`] = `
 ban:
 (1) 
 1ab1ac1ad1ae___1ae___1ac1ab
@@ -64,7 +64,7 @@ kifu:
 }
 `;
 
-exports[`Basic can move pieces 1`] = `
+exports[`Basic > can move pieces 1`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1ad1ac1ab
@@ -92,16 +92,16 @@ kifu:
 }
 `;
 
-exports[`Basic can move pieces 2`] = `
-Array [
-  Object {
+exports[`Basic > can move pieces 2`] = `
+[
+  {
     "XY": (7, 6),
     "type": 1,
   },
 ]
 `;
 
-exports[`Basic can move pieces 3`] = `
+exports[`Basic > can move pieces 3`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1ad1ac1ab
@@ -129,16 +129,16 @@ kifu:
 }
 `;
 
-exports[`Basic can move pieces 4`] = `
-Array [
-  Object {
+exports[`Basic > can move pieces 4`] = `
+[
+  {
     "XY": (3, 4),
     "type": 1,
   },
 ]
 `;
 
-exports[`Basic can move pieces 5`] = `
+exports[`Basic > can move pieces 5`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1ad1ac1ab
@@ -167,48 +167,48 @@ kifu:
 }
 `;
 
-exports[`Basic can move pieces 6`] = `
-Array [
-  Object {
+exports[`Basic > can move pieces 6`] = `
+[
+  {
     "XY": (9, 7),
     "type": 2,
   },
-  Object {
+  {
     "XY": (7, 7),
     "type": 2,
   },
-  Object {
+  {
     "XY": (6, 6),
     "type": 2,
   },
-  Object {
+  {
     "XY": (5, 5),
     "type": 2,
   },
-  Object {
+  {
     "XY": (4, 4),
     "type": 2,
   },
-  Object {
+  {
     "XY": (3, 3),
     "type": 2,
   },
-  Object {
+  {
     "XY": (2, 2),
     "type": 2,
   },
-  Object {
+  {
     "XY": (9, 9),
     "type": 2,
   },
-  Object {
+  {
     "XY": (7, 9),
     "type": 2,
   },
 ]
 `;
 
-exports[`Basic can move pieces 7`] = `
+exports[`Basic > can move pieces 7`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1ad1ac1ab
@@ -238,24 +238,24 @@ kifu:
 }
 `;
 
-exports[`Basic can move pieces 8`] = `
-Array [
-  Object {
+exports[`Basic > can move pieces 8`] = `
+[
+  {
     "XY": (2, 2),
     "type": 1,
   },
-  Object {
+  {
     "XY": (3, 2),
     "type": 1,
   },
-  Object {
+  {
     "XY": (4, 2),
     "type": 1,
   },
 ]
 `;
 
-exports[`Basic can move pieces 9`] = `
+exports[`Basic > can move pieces 9`] = `
 ban:
 (1) af1 
 1ab1ac1ad1ae1ah1ae___1ac1ab
@@ -286,7 +286,7 @@ kifu:
 }
 `;
 
-exports[`Basic can move pieces 10`] = `
+exports[`Basic > can move pieces 10`] = `
 ban:
 (1) af1 
 1ab1ac1ad1ae1ah1ae___1ac1ab
@@ -318,32 +318,32 @@ kifu:
 }
 `;
 
-exports[`Basic can move pieces 11`] = `
-Array [
-  Object {
+exports[`Basic > can move pieces 11`] = `
+[
+  {
     "XY": (3, 2),
     "type": 1,
   },
-  Object {
+  {
     "XY": (4, 2),
     "type": 1,
   },
-  Object {
+  {
     "XY": (5, 2),
     "type": 1,
   },
-  Object {
+  {
     "XY": (3, 1),
     "type": 1,
   },
-  Object {
+  {
     "XY": (5, 1),
     "type": 1,
   },
 ]
 `;
 
-exports[`Basic can move pieces 12`] = `
+exports[`Basic > can move pieces 12`] = `
 ban:
 (1) af1 
 1ab1ac1ad1ae1ah______1ac1ab
@@ -376,40 +376,40 @@ kifu:
 }
 `;
 
-exports[`Basic can move pieces 13`] = `
-Array [
-  Object {
+exports[`Basic > can move pieces 13`] = `
+[
+  {
     "XY": (5, 4),
     "type": 2,
   },
-  Object {
+  {
     "XY": (6, 3),
     "type": 2,
   },
-  Object {
+  {
     "XY": (3, 4),
     "type": 2,
   },
-  Object {
+  {
     "XY": (5, 6),
     "type": 2,
   },
-  Object {
+  {
     "XY": (6, 7),
     "type": 2,
   },
-  Object {
+  {
     "XY": (3, 6),
     "type": 2,
   },
-  Object {
+  {
     "XY": (2, 7),
     "type": 2,
   },
 ]
 `;
 
-exports[`Basic can move pieces 14`] = `
+exports[`Basic > can move pieces 14`] = `
 ban:
 (1) af1 
 1ab1ac1ad1ae1ah______1ac1ab
@@ -443,7 +443,7 @@ kifu:
 }
 `;
 
-exports[`Basic can move pieces 15`] = `
+exports[`Basic > can move pieces 15`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah______1ac1ab
@@ -478,24 +478,24 @@ kifu:
 }
 `;
 
-exports[`Basic can move pieces 16`] = `
-Array [
-  Object {
+exports[`Basic > can move pieces 16`] = `
+[
+  {
     "XY": (8, 8),
     "type": 1,
   },
-  Object {
+  {
     "XY": (7, 8),
     "type": 1,
   },
-  Object {
+  {
     "XY": (6, 8),
     "type": 1,
   },
 ]
 `;
 
-exports[`Basic can move pieces 17`] = `
+exports[`Basic > can move pieces 17`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah______1ac1ab

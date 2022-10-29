@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Volleyball shogi doesn't finish when it's checkmate at the moment 1`] = `
+exports[`Volleyball shogi > doesn't finish when it's checkmate at the moment 1`] = `
 ban:
 (1) ad1 
 1ab1ac1ad1ae_________1ac1ab

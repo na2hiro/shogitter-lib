@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Donden Gaeshi shogi can move 1`] = `
+exports[`Donden Gaeshi shogi > can move 1`] = `
 ban:
 (1) ac1 
 1ab1ac1ad1ae1ah1ae1ad___1ab

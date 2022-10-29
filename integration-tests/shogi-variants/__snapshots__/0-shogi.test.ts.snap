@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Shogi can move 1`] = `
+exports[`Shogi > can move 1`] = `
 ban:
 (1) af1 
 1ab1ac1ad1ae1ah1ae___1ac1ab
@@ -31,7 +31,7 @@ kifu:
 }
 `;
 
-exports[`Shogi can move 2`] = `
+exports[`Shogi > can move 2`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1ad1ac1ab

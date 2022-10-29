@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Quantum shogi can finish when all other pieces has been captured once 1`] = `
+exports[`Quantum shogi > can finish when all other pieces has been captured once 1`] = `
 ban:
 (1) 
 0fg________________________
@@ -67,7 +67,7 @@ kifu:
 }
 `;
 
-exports[`Quantum shogi can finish when everything is taken 1`] = `
+exports[`Quantum shogi > can finish when everything is taken 1`] = `
 ban:
 (1) 
 1ff________________________
@@ -131,7 +131,7 @@ kifu:
 }
 `;
 
-exports[`Quantum shogi can finish when everything is taken 2`] = `
+exports[`Quantum shogi > can finish when everything is taken 2`] = `
 ban:
 (1) 
 ___________________________
@@ -196,7 +196,7 @@ kifu:
 }
 `;
 
-exports[`Quantum shogi can finish when everything is taken 3`] = `
+exports[`Quantum shogi > can finish when everything is taken 3`] = `
 ban:
 (1) 
 ___________________________
@@ -264,7 +264,7 @@ kifu:
 }
 `;
 
-exports[`Quantum shogi can move 1`] = `
+exports[`Quantum shogi > can move 1`] = `
 ban:
 (1) 
 1ff1ff1ff1ff1ff1ff1ff1ff1ff
@@ -292,63 +292,63 @@ kifu:
 }
 `;
 
-exports[`Quantum shogi can move 2`] = `
-Array [
-  Object {
+exports[`Quantum shogi > can move 2`] = `
+[
+  {
     "XY": (7, 3),
     "type": 1,
   },
-  Object {
+  {
     "XY": (5, 3),
     "type": 1,
   },
 ]
 `;
 
-exports[`Quantum shogi can put piece with id 1`] = `
-Array [
-  Object {
+exports[`Quantum shogi > can put piece with id 1`] = `
+[
+  {
     "XY": (8, 7),
     "type": 1,
   },
 ]
 `;
 
-exports[`Quantum shogi can put piece with id 2`] = `
-Array [
-  Object {
+exports[`Quantum shogi > can put piece with id 2`] = `
+[
+  {
     "XY": (9, 6),
     "type": 2,
   },
-  Object {
+  {
     "XY": (9, 7),
     "type": 2,
   },
-  Object {
+  {
     "XY": (8, 5),
     "type": 2,
   },
-  Object {
+  {
     "XY": (7, 5),
     "type": 2,
   },
-  Object {
+  {
     "XY": (6, 5),
     "type": 2,
   },
-  Object {
+  {
     "XY": (9, 4),
     "type": 2,
   },
-  Object {
+  {
     "XY": (9, 3),
     "type": 2,
   },
-  Object {
+  {
     "XY": (9, 6),
     "type": 2,
   },
-  Object {
+  {
     "XY": (9, 7),
     "type": 2,
   },

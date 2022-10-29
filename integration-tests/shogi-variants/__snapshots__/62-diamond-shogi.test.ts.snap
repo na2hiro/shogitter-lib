@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Diamond shogi can move 1`] = `
+exports[`Diamond shogi > can move 1`] = `
 ban:
 (1) 
 1ab1ac1ad0ak1ah1ae1ad___1ab

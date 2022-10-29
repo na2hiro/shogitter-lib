@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Reflect bishop shogi can go back 1`] = `
+exports[`Reflect bishop shogi > can go back 1`] = `
 ban:
 (1) af1 
 1ab1ac1ad1ae1ah1ae___1ac1ab

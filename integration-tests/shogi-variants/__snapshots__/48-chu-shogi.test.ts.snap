@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Chu shogi can take shishi 2 pieces away which doesn't have kiki 1`] = `
+exports[`Chu shogi > can take shishi 2 pieces away which doesn't have kiki 1`] = `
 ban:
 (1) 
 1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
@@ -34,7 +34,7 @@ kifu:
 }
 `;
 
-exports[`Chu shogi can take shishi next to shishi 1`] = `
+exports[`Chu shogi > can take shishi next to shishi 1`] = `
 ban:
 (1) 
 1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
@@ -76,7 +76,7 @@ kifu:
 }
 `;
 
-exports[`Chu shogi can tsukegui 1`] = `
+exports[`Chu shogi > can tsukegui 1`] = `
 ban:
 (1) 
 1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
@@ -115,7 +115,7 @@ kifu:
 }
 `;
 
-exports[`Chu shogi cannot take shishi 2 pieces away which has kiki 1`] = `
+exports[`Chu shogi > cannot take shishi 2 pieces away which has kiki 1`] = `
 ban:
 (1) 
 1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
@@ -149,7 +149,7 @@ kifu:
 }
 `;
 
-exports[`Chu shogi cannot take shishi 2 pieces away which has kiki through the shishi to move 1`] = `
+exports[`Chu shogi > cannot take shishi 2 pieces away which has kiki through the shishi to move 1`] = `
 ban:
 (1) 
 1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
@@ -189,7 +189,7 @@ kifu:
 }
 `;
 
-exports[`Chu shogi cannot take shishi right after capturing shishi (Senjishi) 1`] = `
+exports[`Chu shogi > cannot take shishi right after capturing shishi (Senjishi) 1`] = `
 ban:
 (1) 
 1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
@@ -226,7 +226,7 @@ kifu:
 }
 `;
 
-exports[`Chu shogi cannot tsukegui with chunin 1`] = `
+exports[`Chu shogi > cannot tsukegui with chunin 1`] = `
 ban:
 (1) 
 1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab
@@ -268,7 +268,7 @@ kifu:
 }
 `;
 
-exports[`Chu shogi shishi can move 1`] = `
+exports[`Chu shogi > shishi can move 1`] = `
 ban:
 (1) 
 1ab1cl1ci1ad1ae1cf1ah1ae1ad1ci1cl1ab

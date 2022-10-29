@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Othello shogi can move 1`] = `
+exports[`Othello shogi > can move 1`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae___1ac1ab

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Haimen shogi can play in a row if you can capture with the same piece 1`] = `
+exports[`Haimen shogi > can play in a row if you can capture with the same piece 1`] = `
 ban:
 (1) 
 ___1yp___1yp___1yp___1yp

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Donut shogi can cross border 1`] = `
+exports[`Donut shogi > can cross border 1`] = `
 ban:
 (1) af1 
 0ad________________________

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Nakamaware shogi can take friend king and lose 1`] = `
+exports[`Nakamaware shogi > can take friend king and lose 1`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1ad1ac1ab
@@ -30,7 +30,7 @@ kifu:
 }
 `;
 
-exports[`Nakamaware shogi can take friend piece 1`] = `
+exports[`Nakamaware shogi > can take friend piece 1`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1ad1ac1ab

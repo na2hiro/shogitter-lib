@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Quantum utils determines OU after other pieces (new piece was captured) 1`] = `
-Object {
-  "fulls": Array [
+exports[`Quantum utils > determines OU after other pieces (new piece was captured) 1`] = `
+{
+  "fulls": [
     "Fu",
     "Gi",
     "Hi",
@@ -12,8 +12,8 @@ Object {
     "Ky",
     "Ou",
   ],
-  "kinds": Array [
-    Array [
+  "kinds": [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -22,12 +22,12 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Hi",
       "Ki",
       "Ou",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -36,7 +36,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -45,7 +45,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -54,7 +54,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -63,7 +63,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -72,7 +72,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -81,7 +81,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -90,7 +90,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -99,7 +99,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -108,7 +108,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -117,7 +117,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -126,7 +126,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -135,7 +135,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -144,7 +144,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -153,12 +153,12 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Hi",
       "Ki",
       "Ou",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -167,7 +167,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -176,7 +176,7 @@ Object {
       "Ki",
       "Ky",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -189,35 +189,35 @@ Object {
 }
 `;
 
-exports[`Quantum utils determines to 2 KEs and exhausts it 1`] = `
-Object {
-  "fulls": Array [
+exports[`Quantum utils > determines to 2 KEs and exhausts it 1`] = `
+{
+  "fulls": [
     "Ke",
   ],
-  "kinds": Array [
-    Array [
+  "kinds": [
+    [
       "Ke",
     ],
-    Array [
+    [
       "Ke",
     ],
   ],
 }
 `;
 
-exports[`Quantum utils determines to 2 KEs and exhausts it 2`] = `
-Object {
-  "fulls": Array [
+exports[`Quantum utils > determines to 2 KEs and exhausts it 2`] = `
+{
+  "fulls": [
     "Ke",
   ],
-  "kinds": Array [
-    Array [
+  "kinds": [
+    [
       "Ke",
     ],
-    Array [
+    [
       "Ke",
     ],
-    Array [
+    [
       "Fu",
       "Gi",
       "Hi",
@@ -230,35 +230,35 @@ Object {
 }
 `;
 
-exports[`Quantum utils determines to HI after doing HI move and exhausts it 1`] = `
-Object {
-  "fulls": Array [
+exports[`Quantum utils > determines to HI after doing HI move and exhausts it 1`] = `
+{
+  "fulls": [
     "Hi",
   ],
-  "kinds": Array [
-    Array [
+  "kinds": [
+    [
       "Hi",
     ],
   ],
 }
 `;
 
-exports[`Quantum utils determines to KE after doing KE jump 1`] = `
-Object {
-  "fulls": Array [],
-  "kinds": Array [
-    Array [
+exports[`Quantum utils > determines to KE after doing KE jump 1`] = `
+{
+  "fulls": [],
+  "kinds": [
+    [
       "Ke",
     ],
   ],
 }
 `;
 
-exports[`Quantum utils determines to KI,HI,OU after going bKekward 1`] = `
-Object {
-  "fulls": Array [],
-  "kinds": Array [
-    Array [
+exports[`Quantum utils > determines to KI,HI,OU after going bKekward 1`] = `
+{
+  "fulls": [],
+  "kinds": [
+    [
       "Hi",
       "Ki",
       "Ou",
@@ -267,11 +267,11 @@ Object {
 }
 `;
 
-exports[`Quantum utils doesn't determine without move 1`] = `
-Object {
-  "fulls": Array [],
-  "kinds": Array [
-    Array [
+exports[`Quantum utils > doesn't determine without move 1`] = `
+{
+  "fulls": [],
+  "kinds": [
+    [
       "Fu",
       "Gi",
       "Hi",

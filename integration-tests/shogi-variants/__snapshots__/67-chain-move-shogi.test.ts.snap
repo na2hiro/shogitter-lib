@@ -1,111 +1,111 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Chain move shogi can chain 1`] = `
-Array [
-  Object {
+exports[`Chain move shogi > can chain 1`] = `
+[
+  {
     "XY": (7, 8),
     "type": 1,
   },
-  Object {
+  {
     "XY": (6, 8),
     "type": 1,
   },
-  Object {
+  {
     "XY": (5, 8),
     "type": 1,
   },
-  Object {
+  {
     "XY": (7, 9),
     "type": 1,
   },
-  Object {
+  {
     "XY": (8, 8),
     "type": 1,
   },
-  Object {
+  {
     "XY": (9, 7),
     "type": 2,
   },
-  Object {
+  {
     "XY": (9, 6),
     "type": 1,
   },
-  Object {
+  {
     "XY": (7, 7),
     "type": 2,
   },
-  Object {
+  {
     "XY": (7, 6),
     "type": 1,
   },
-  Object {
+  {
     "XY": (9, 9),
     "type": 2,
   },
-  Object {
+  {
     "XY": (9, 8),
     "type": 2,
   },
-  Object {
+  {
     "XY": (5, 9),
     "type": 1,
   },
-  Object {
+  {
     "XY": (4, 8),
     "type": 1,
   },
-  Object {
+  {
     "XY": (4, 9),
     "type": 1,
   },
-  Object {
+  {
     "XY": (3, 8),
     "type": 1,
   },
-  Object {
+  {
     "XY": (3, 9),
     "type": 1,
   },
-  Object {
+  {
     "XY": (2, 8),
     "type": 1,
   },
-  Object {
+  {
     "XY": (2, 7),
     "type": 2,
   },
-  Object {
+  {
     "XY": (2, 6),
     "type": 1,
   },
-  Object {
+  {
     "XY": (1, 8),
     "type": 2,
   },
-  Object {
+  {
     "XY": (2, 9),
     "type": 2,
   },
-  Object {
+  {
     "XY": (3, 7),
     "type": 1,
   },
-  Object {
+  {
     "XY": (3, 6),
     "type": 1,
   },
-  Object {
+  {
     "XY": (1, 7),
     "type": 1,
   },
-  Object {
+  {
     "XY": (1, 6),
     "type": 1,
   },
 ]
 `;
 
-exports[`Chain move shogi can put with chain 1`] = `
+exports[`Chain move shogi > can put with chain 1`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1ad___1ab
@@ -137,7 +137,7 @@ kifu:
 }
 `;
 
-exports[`Chain move shogi has to chain to put piece 1`] = `
+exports[`Chain move shogi > has to chain to put piece 1`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1ad___1ab

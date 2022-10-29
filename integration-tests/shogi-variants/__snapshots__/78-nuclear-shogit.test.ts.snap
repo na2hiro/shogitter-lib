@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Nuclear shogi can move 1`] = `
+exports[`Nuclear shogi > can move 1`] = `
 ban:
 (1) 
 1ab1ac1ad1ae1ah1ae1al1ak1aj
@@ -30,7 +30,7 @@ kifu:
 }
 `;
 
-exports[`Nuclear shogi can move 2`] = `
+exports[`Nuclear shogi > can move 2`] = `
 ban:
 (1) af1 
 1ab1ac1ad1ae1ah1ae1al1ak1aj
@@ -62,7 +62,7 @@ kifu:
 }
 `;
 
-exports[`Nuclear shogi can move 3`] = `
+exports[`Nuclear shogi > can move 3`] = `
 ban:
 (1) af1 
 1ab1ac1ad1ae1ah1ae1ad1ak1ab

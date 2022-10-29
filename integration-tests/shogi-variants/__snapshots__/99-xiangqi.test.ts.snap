@@ -1,78 +1,78 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`Xiangqi moves: ma 1`] = `
-Array [
-  Object {
+exports[`Xiangqi > moves > ma 1`] = `
+[
+  {
     "XY": (9, 8),
     "type": 8,
   },
-  Object {
+  {
     "XY": (7, 8),
     "type": 8,
   },
 ]
 `;
 
-exports[`Xiangqi moves: pao 1`] = `
-Array [
-  Object {
+exports[`Xiangqi > moves > pao 1`] = `
+[
+  {
     "XY": (8, 7),
     "type": 4,
   },
-  Object {
+  {
     "XY": (8, 6),
     "type": 4,
   },
-  Object {
+  {
     "XY": (8, 5),
     "type": 4,
   },
-  Object {
+  {
     "XY": (8, 4),
     "type": 4,
   },
-  Object {
+  {
     "XY": (8, 1),
     "type": 7,
   },
-  Object {
+  {
     "XY": (9, 8),
     "type": 4,
   },
-  Object {
+  {
     "XY": (7, 8),
     "type": 4,
   },
-  Object {
+  {
     "XY": (6, 8),
     "type": 4,
   },
-  Object {
+  {
     "XY": (5, 8),
     "type": 4,
   },
-  Object {
+  {
     "XY": (4, 8),
     "type": 4,
   },
-  Object {
+  {
     "XY": (3, 8),
     "type": 4,
   },
-  Object {
+  {
     "XY": (8, 9),
     "type": 4,
   },
 ]
 `;
 
-exports[`Xiangqi moves: xiang 1`] = `
-Array [
-  Object {
+exports[`Xiangqi > moves > xiang 1`] = `
+[
+  {
     "XY": (9, 8),
     "type": 8,
   },
-  Object {
+  {
     "XY": (5, 8),
     "type": 8,
   },

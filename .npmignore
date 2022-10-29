@@ -7,5 +7,6 @@ coverage/
 .DS_Store
 .gitignore
 .nvmrc
-jest.config.js
+vitest.config.ts
 tsconfig.json
+.dependency-cruiser.js
