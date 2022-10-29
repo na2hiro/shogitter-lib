@@ -1,4 +1,4 @@
-var {db, ObjectId} = require("./mongoCompat");
+import {db, ObjectId} from "./mongoCompat";
 const coll = db.getCollection("rule");
 export default coll;
 

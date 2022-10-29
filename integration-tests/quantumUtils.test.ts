@@ -1,5 +1,5 @@
-import {MoveType, runQuantum} from "./quantumUtils";
-import {RelXY} from "../XY";
+import {MoveType, runQuantum} from "../src/utils/quantumUtils";
+import {RelXY} from "../src/XY";
 
 describe("Quantum utils", () => {
     it("doesn't determine without move", () => {

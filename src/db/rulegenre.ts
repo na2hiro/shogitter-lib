@@ -1,6 +1,5 @@
-import {RuleGenreCollection} from "./mongoCompat";
+import {RuleGenreCollection, db, ObjectId} from "./mongoCompat";
 
-var {db, ObjectId} = require("./mongoCompat");
 const coll = db.getCollection("rulegenre") as RuleGenreCollection;
 export default coll;
 
