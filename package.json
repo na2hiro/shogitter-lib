@@ -2,8 +2,8 @@
   "name": "shogitter-core",
   "version": "0.0.2",
   "description": "Shogitter shogi variant logic written in TypeScript",
-  "main": "lib/Shogi.js",
-  "types": "lib/Shogi.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",

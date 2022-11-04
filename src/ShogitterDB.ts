@@ -46,7 +46,7 @@ export type MoveAndType = {
     type: MoveType
 }
 
-export type Koma = {
+export type KomaInfo = {
     species: string,
     name: string,
     shortname?: string,
@@ -143,7 +143,7 @@ class ShogitterDB {
     }
      */
 
-    getKoma(species: Species): Koma;
+    getKoma(species: Species): KomaInfo;
     getKoma(species: Species, member: string): any;
     getKoma(species: Species, member?: string) {
         if (!this.arrayKoma[species]) {
