@@ -204,7 +204,6 @@ export default class Shogi {
 
     /**
      * If a move is already made.
-     * TODO: This should only check the status once we have a proper UI for starting games
      */
     isPlaying() {
         return this.status['num'] == Status.PLAYING;
@@ -611,7 +610,6 @@ export default class Shogi {
      *
      */
     draw() {
-        if(!this.isPlaying()) throw new ShogitterCoreException("対局中でないので操作できません。");
         this.gameEnd(9, 9, "引き分け", "合意により引き分け");
         this.gameEndFinalize();
     }
@@ -882,19 +880,11 @@ export default class Shogi {
     runCommand(command: KifuCommand) {
         switch(command.type) {
             case "reset":
+                if(this.isPlaying()) throw new ShogitterCoreException("対局中はルール変更できません。");
                 this.constructById(command.ruleId);
                 return;
             case "start":
                 this.start();
-                return;
-            case "draw":
-                this.draw();
-                return;
-            case "pass":
-                if (typeof command.direction === "number") {
-                    this.teban.ensureDirection(command.direction);
-                }
-                this.pass();
                 return;
             case "changedirection":
                 if(this.isPlaying()) throw new ShogitterCoreException("対局中は先後交代できません。");
@@ -902,20 +892,24 @@ export default class Shogi {
                 return;
         }
 
-        if (this.isEnded()) {
-            throw new ShogitterCoreException("対局中ではありません．");
+        if (!this.isPlaying()) {
+            throw new ShogitterCoreException("対局中ではありません。");
         }
-        if (command.type === "resign") {
-            return this.resign(command.direction);
-        }
-        if (command.type === "rollback") {
-            const amount = typeof command.direction !== "undefined" && this.teban.getNowDirection() === command.direction ? 2 : 1;
-            return this.rollback(Math.min(amount, this.kifu.getTesuu()))
+        switch (command.type) {
+            case "draw":
+                return this.draw();
+            case "resign":
+                return this.resign(command.direction);
+            case "rollback":
+                const amount = typeof command.direction !== "undefined" && this.teban.getNowDirection() === command.direction ? 2 : 1;
+                return this.rollback(Math.min(amount, this.kifu.getTesuu()))
         }
         if (typeof command.direction === "number") {
             this.teban.ensureDirection(command.direction);
         }
         switch (command.type) {
+            case "pass":
+                return this.pass();
             case "move":
                 return this.move(
                     new XY(command.from[0], command.from[1]),

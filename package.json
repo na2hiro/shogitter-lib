@@ -9,7 +9,7 @@
     "build:watch": "tsc --watch",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "test:watch": "test",
+    "test:watch": "pnpm test",
     "prepublishOnly": "pnpm build && pnpm test",
     "depcruise": "depcruise --config .dependency-cruiser.js src"
   },
