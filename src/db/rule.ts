@@ -16617,16 +16617,6 @@ db.getCollection("rule").insert({
   "name": "不成将棋"
 });
 db.getCollection("rule").insert({
-  "_id": 110,
-  "abstract": "(調整中)",
-  "extend": {
-    "$ref": "rule",
-    "$id": 0
-  },
-  "noRoom": true,
-  "name": "(調整中)"
-});
-db.getCollection("rule").insert({
   "_id": 0,
   "abstract": "普通の将棋。",
   "init": {
@@ -42873,6 +42863,39 @@ db.getCollection("rule").insert({
       "Random": [
         
       ]
+    }
+  }
+});
+db.getCollection("rule").insert({
+  "_id": 110,
+  "abstract": "5x5。1段目で成れる。変則チェスルール作家のVadrya Pokshtya氏 (@EryakErzya) による。",
+  "extend": {
+    "$ref": "rule",
+    "$id": 0
+  },
+  "init": {
+    "ban": [
+      [ [ 1, "ad" ], [ ], [ ], [ ], [ 0, "ad" ] ],
+      [ [ 1, "ae" ], [ ], [ ], [ ], [ 0, "ae" ] ],
+      [ [ 1, "ah" ], [ ], [ ], [ ], [ 0, "ah" ] ],
+      [ [ 1, "ae" ], [ ], [ ], [ ], [ 0, "ae" ] ],
+      [ [ 1, "ad" ], [ ], [ ], [ ], [ 0, "ad" ] ]
+    ],
+    "mochigoma": [
+      { "af": 1, "ag": 1 },
+      { "af": 1, "ag": 1 },
+    ]
+  },
+  "name": "5五将棋 金銀",
+  "size": [
+    5,
+    5
+  ],
+  "strategy": {
+    "Promotion": {
+      "Normal": {
+        "dan": 1
+      }
     }
   }
 });

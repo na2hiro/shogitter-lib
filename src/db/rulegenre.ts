@@ -347,7 +347,8 @@ db.getCollection("rulegenre").insert({
         98,
         103,
         104,
-        109
+        109,
+        110
     ]
 });
 db.getCollection("rulegenre").insert({
