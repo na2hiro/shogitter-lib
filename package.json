@@ -8,9 +8,10 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "test": "vitest",
+    "test:run": "vitest run",
     "coverage": "vitest run --coverage",
     "test:watch": "pnpm test",
-    "prepublishOnly": "pnpm build && pnpm test",
+    "prepublishOnly": "pnpm build; pnpm test:run",
     "depcruise": "depcruise --config .dependency-cruiser.js src"
   },
   "author": "na2hiro",
