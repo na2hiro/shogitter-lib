@@ -1,7 +1,7 @@
 import { ShogitterCoreException } from "./utils/phpCompat";
-import komaColl from "./db/koma";
-import ruleColl from "./db/rule";
-import ruleGenreColl from "./db/rulegenre";
+import komaConst, {KomaInfo} from "./db/koma";
+import ruleConst from "./db/rule";
+import ruleGenreConst from "./db/rulegenre";
 import { Species } from "./Ban";
 import { MochigomaObjDB } from "./Mochigoma";
 import { MoveType } from "./Koma";
@@ -45,27 +45,12 @@ export type MoveAndType = {
   type: MoveType;
 };
 
-export type KomaInfo = {
-  species: string;
-  name: string;
-  shortname?: string;
-  csaname?: string;
-  move: { move: [number, number]; type: MoveType | MoveType[] }[];
-  nifu?: number;
-  limit?: { [type: number]: number };
-  mustNotBeEmpty?: { [type: number]: MoveAndType | MoveAndType[] };
-  jumpException?: Species[];
-  change?: { [type: number]: number };
-};
 
 type KomaConfig = any;
 
 class ShogitterDB {
   // db;
   arrayRule: { [ruleid: string]: Rule } = {};
-  arrayRuleGenre: { [genreName: string]: number[] } = {};
-  arrayKoma: { [species: string]: KomaConfig } = {};
-  // arrayRuleGenre;
 
   nameRuleMap: { [ruleName: string]: Rule } = null;
 
@@ -101,7 +86,7 @@ class ShogitterDB {
   }
 
   loadRule(ruleid: number) {
-    const rule = ruleColl.get(ruleid.toString());
+    const rule = ruleConst[ruleid.toString()];
     if (!rule)
       throw new ShogitterCoreException(
         `指定されたルールID「${ruleid}」が不正です。`
@@ -128,53 +113,22 @@ class ShogitterDB {
     }
   }
 
-  /*
-    getRulePart(query = {}, part = {"name": 1, "_id": 1}) {
-        part['_id'] = 1;
-        const cursor = this.db.rule.find(query, part);
-        const ret = {};
-        while (cursor.hasNext()) {
-            const rule = cursor.getNext();
-            ret[rule['_id'].toString()] = rule;
-        }
-        return ret;
-    }
-     */
-
   getKoma(species: Species): KomaInfo;
   getKoma(species: Species, member: string): any;
   getKoma(species: Species, member?: string) {
-    if (!this.arrayKoma[species]) {
-      this.loadKoma(species);
+    const koma = komaConst[species];
+    if(!koma) {
+      throw new ShogitterCoreException(`駒 ${species} が不明です．` + 1);
     }
     if (member == null) {
-      return this.arrayKoma[species];
+      return koma;
     } else {
-      return this.arrayKoma[species][member];
+      return koma[member];
     }
-  }
-
-  loadKoma(species: Species) {
-    const result = komaColl.get(species);
-    if (result == null)
-      throw new ShogitterCoreException(`駒 ${species} が不明です．` + 1);
-    this.arrayKoma[species] = result;
   }
 
   getRuleGenre() {
-    if (Object.keys(this.arrayRuleGenre).length === 0) {
-      this.loadRuleGenre();
-    }
-    return this.arrayRuleGenre;
-  }
-
-  loadRuleGenre() {
-    ruleGenreColl.getAll().forEach((genre) => {
-      this.arrayRuleGenre[genre.name] = [];
-      for (let ruleid of genre["rules"]) {
-        this.arrayRuleGenre[genre.name].push(ruleid);
-      }
-    });
+    return ruleGenreConst;
   }
 }
 

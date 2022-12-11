@@ -117,7 +117,6 @@ module.exports = {
         dependencyTypesNot: ["type-only"],
       },
     },
-
     /* rules you might want to tweak for your specific situation: */
     {
       name: "not-to-test",
@@ -199,7 +198,6 @@ module.exports = {
     doNotFollow: {
       path: "node_modules",
     },
-
     /* conditions specifying which dependencies to exclude
        - path: a regular expression to match
        - dynamic: a boolean indicating whether to ignore dynamic (true) or static (false) dependencies.
@@ -209,7 +207,6 @@ module.exports = {
     //   path: '',
     //   dynamic: true
     // },
-
     /* pattern specifying which files to include (regular expression)
        dependency-cruiser will skip everything not matching this pattern
     */
@@ -263,7 +260,6 @@ module.exports = {
     tsConfig: {
       fileName: "tsconfig.json",
     },
-
     /* Webpack configuration to use to get resolve options from.
 
        The (optional) fileName attribute specifies which file to take (relative
@@ -279,7 +275,6 @@ module.exports = {
     //  env: {},
     //  args: {},
     // },
-
     /* Babel config ('.babelrc', '.babelrc.json', '.babelrc.json5', ...) to use
       for compilation (and whatever other naughty things babel plugins do to
       source code). This feature is well tested and usable, but might change
@@ -289,7 +284,6 @@ module.exports = {
     // babelConfig: {
     //   fileName: './.babelrc'
     // },
-
     /* List of strings you have in use in addition to cjs/ es6 requires
        & imports to declare module dependencies. Use this e.g. if you've
        re-declared require, use a require-wrapper or use window.require as
