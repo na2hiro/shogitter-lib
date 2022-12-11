@@ -20,7 +20,6 @@ export type Rule = {
     name: string,
     nari: {[species: string]: Species},
     players: number[],
-    refKoma: any[],
     size: number[],
     strategy: any, // TODO
     winkoma: Species[];
@@ -69,10 +68,6 @@ class ShogitterDB {
     // arrayRuleGenre;
 
     nameRuleMap: {[ruleName: string]: Rule} = null;
-
-    constructor(db: any) {
-        // this.db = db;
-    }
 
     getAllRules(): Rule[] {
         const rules: Rule[] = [];
@@ -162,27 +157,6 @@ class ShogitterDB {
         this.arrayKoma[species] = result;
     }
 
-    /*
-    loadKomaByRefs(refs) {
-        for (let ref of refs) {
-            const koma = this.db.getDBRef(ref);
-            this.arrayKoma[koma['species']] = koma;
-        }
-    }
-
-    loadKomaByRule(rule) {
-        if (rule['refKoma'] && rule['refKoma'].length > 0) {
-            this.loadKomaByRefs(rule['refKoma']);
-        }
-    }
-
-    loadKomaByRuleId(ruleid) {
-        const rule = this.getRule(ruleid);
-        if (rule['refKoma'] && rule['refKoma'].length > 0) {
-            this.loadKomaByRefs(rule['refKoma']);
-        }
-    }
-    */
     getRuleGenre() {
         if (Object.keys(this.arrayRuleGenre).length === 0) {
             this.loadRuleGenre();
@@ -200,12 +174,4 @@ class ShogitterDB {
     }
 }
 
-let mongo;
-export let shogitterDB: ShogitterDB;
-try {
-    /*mongo=new Mongo("mongodb://".Setting.db_user.":".Setting.db_pass."@".Setting.db_host.":".Setting.db_port."/".Setting.db_name);
-    db=mongo.selectDB(Setting.db_name);*/
-    shogitterDB = new ShogitterDB(null);
-} catch (e) {
-    throw "データベースエラー";
-}
+export const shogitterDB: ShogitterDB = new ShogitterDB();

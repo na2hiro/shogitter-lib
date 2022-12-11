@@ -3,9 +3,6 @@ abstract class Collection {
     constructor() {
         this.map = {};
     }
-    ensureIndex(a: any, b?: any) {
-        // Noop
-    }
     insert(obj: any) {
         this.map[this.getKey(obj)] = obj;
     }
@@ -55,5 +52,3 @@ export const db = {
         throw "unknown coll";
     }
 }
-
-export const ObjectId = (str: string) => str;

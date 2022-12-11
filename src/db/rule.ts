@@ -1,20 +1,6 @@
-import {db, ObjectId} from "./mongoCompat";
+import {db} from "./mongoCompat";
 const coll = db.getCollection("rule");
 export default coll;
-
-/** rule indexes **/
-db.getCollection("rule").ensureIndex({
-  "_id": 1
-},[
-  
-]);
-
-/** rule indexes **/
-db.getCollection("rule").ensureIndex({
-  "noRoom": 1
-},[
-  
-]);
 
 /** rule records **/
 db.getCollection("rule").insert({
@@ -249,44 +235,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000015")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000016")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000017")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000018")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000019")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00001a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00001b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00001c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00001d")
-    }
   ],
   "size": [
     7,
@@ -611,16 +559,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000037")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000038")
-    }
-  ],
   "size": [
     9,
     9
@@ -639,7 +577,6 @@ db.getCollection("rule").insert({
 db.getCollection("rule").insert({
   "_id": 47,
   "extend": {
-    "$ref": "rule",
     "$id": 46
   },
   "init": {
@@ -962,7 +899,6 @@ db.getCollection("rule").insert({
   "_id": 56,
   "abstract": "安南将棋を、常に駒の本来の動きもできるようにしたもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -1297,7 +1233,6 @@ db.getCollection("rule").insert({
   "_id": 58,
   "abstract": "歩はポーン、桂はナイトの働きをする。ポーンは１段目でクイーンに成る。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -1644,7 +1579,6 @@ db.getCollection("rule").insert({
   "_id": 70,
   "abstract": "味方の駒が縦に複数並んだとき、上からn番目の駒の性能が下からn番目の駒の性能になる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "ネコ鮮将棋",
@@ -1671,7 +1605,6 @@ db.getCollection("rule").insert({
   "_id": 78,
   "abstract": "駒を動かした時、その駒の利きにある敵の駒を裏返す。相手を二歩にしても勝ち。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "核分裂",
@@ -1955,16 +1888,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000195")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000196")
-    }
   ],
   "size": [
     8,
@@ -3148,12 +3071,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000194")
-    }
-  ],
   "size": [
     19,
     19
@@ -3504,64 +3421,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    }
-  ],
   "size": [
     9,
     9
@@ -3579,7 +3438,6 @@ db.getCollection("rule").insert({
   "_id": 2,
   "abstract": "普通の将棋から、上手側の角を落としたもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -3898,7 +3756,6 @@ db.getCollection("rule").insert({
   "_id": 3,
   "abstract": "普通の将棋から、上手側の飛車を落としたもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -4217,7 +4074,6 @@ db.getCollection("rule").insert({
   "_id": 5,
   "abstract": "普通の将棋から、上手側の飛車と角（＝二枚）を落としたもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -4535,7 +4391,6 @@ db.getCollection("rule").insert({
   "_id": 6,
   "abstract": "普通の将棋から、上手側の飛車・角を１枚ずつ、香車を１枚（＝四枚）を落としたもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -4851,7 +4706,6 @@ db.getCollection("rule").insert({
   "_id": 9,
   "abstract": "普通の将棋から、上手側の飛車・角を１枚ずつ、香・桂・銀・金を２枚ずつ（＝十枚）を落としたもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -5237,28 +5091,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000020")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000021")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000022")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000023")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000024")
-    }
-  ],
   "size": [
     3,
     4
@@ -5291,7 +5123,6 @@ db.getCollection("rule").insert({
   "_id": 22,
   "abstract": "裸王と同じ配置だが、裸の王が獅子王に置き換わっている。獅子王は、１度に２回動かすことができる。（１回でも可）１回だけの場合は１回目着手時に右クリック。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -5633,7 +5464,6 @@ db.getCollection("rule").insert({
   "_id": 23,
   "abstract": "平手の配置で５五にコインがおかれている。コインは駒の動きとシンクロし、コインが他の駒に重なったり盤外に出てしまうような手は指せない。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -5971,7 +5801,6 @@ db.getCollection("rule").insert({
   "_id": 26,
   "abstract": "真下のマスに味方の駒があった場合、その駒の動きになる。ない場合は普通の動き。初手に歩が成り込むのを防ぐため、飛車と角の前の歩は最初から１つ進んだ位置にある。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -6305,7 +6134,6 @@ db.getCollection("rule").insert({
   "incomplete": true,
   "abstract": "４人で時計回りに指す。ただし王手がかかった場合はかけられた人に手番が移る。最後まで詰まされなかった人の勝ち。裏王未実装。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "img": {
@@ -6636,7 +6464,6 @@ db.getCollection("rule").insert({
   "_id": 28,
   "abstract": "とれる駒があったら必ず取らなくてはならない。ただし、取る事で王が自殺してしまう場合は取らなくていい。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "取る一手将棋",
@@ -6658,7 +6485,6 @@ db.getCollection("rule").insert({
   "_id": 30,
   "abstract": "飛角金香を落とすが、上手の銀を取ることができない。ただし成銀なら取れる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -6989,7 +6815,6 @@ db.getCollection("rule").insert({
   "_id": 31,
   "abstract": "お互いに銀はとれない。ただし成銀なら取れる",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "相取らず銀",
@@ -7008,7 +6833,6 @@ db.getCollection("rule").insert({
   "_id": 32,
   "abstract": "斜めになっている。成れる位置は変則的なので未実装。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -7350,56 +7174,6 @@ db.getCollection("rule").insert({
     "bv": "cc",
     "bw": null
   },
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000029")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00002a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00002b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00002c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00002e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00002f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000031")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000032")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000033")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000034")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000035")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000036")
-    }
-  ],
   "strategy": {
     "Nifu": "Naname",
     "Promotion": {
@@ -7416,7 +7190,6 @@ db.getCollection("rule").insert({
   "_id": 34,
   "abstract": "先に王手すれば勝ち。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "王手将棋",
@@ -7435,7 +7208,6 @@ db.getCollection("rule").insert({
   "_id": 35,
   "abstract": "先に持ち駒を３枚にすれば勝ち",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "三枚目",
@@ -7454,7 +7226,6 @@ db.getCollection("rule").insert({
   "_id": 36,
   "abstract": "取られた駒は初期位置のうち最も近い所に戻る。もしそこが埋まっていたら取った方の持ち駒になる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "キルケ",
@@ -7476,7 +7247,6 @@ db.getCollection("rule").insert({
   "_id": 37,
   "abstract": "角は反射して移動できる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "iterator": {
@@ -7504,7 +7274,6 @@ db.getCollection("rule").insert({
   "_id": 38,
   "abstract": "王将だけ１筋から９筋へ移動できる。（王将のみループ将棋適用）",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "iterator": {
@@ -7529,7 +7298,6 @@ db.getCollection("rule").insert({
   "_id": 40,
   "abstract": "同士の駒（同じ駒）の利きがぶつかったらお互い動けない。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "マドラシ",
@@ -7551,7 +7319,6 @@ db.getCollection("rule").insert({
   "_id": 41,
   "abstract": "１筋と９筋、１段目と９段目がつながっている。(要バランス調整)",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -7945,7 +7712,6 @@ db.getCollection("rule").insert({
   "_id": 42,
   "abstract": "味方の駒で敵の駒を縦・横・斜めに挟んだ場合、その敵の駒は味方の向きにかわる。 ",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "オセロ将棋",
@@ -7969,7 +7735,6 @@ db.getCollection("rule").insert({
 db.getCollection("rule").insert({
   "_id": 45,
   "extend": {
-    "$ref": "rule",
     "$id": 44
   },
   "init": {
@@ -8984,160 +8749,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000025")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000039")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000040")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000041")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000042")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000043")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000044")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000045")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000046")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000047")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000048")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000049")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000052")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000053")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000054")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000055")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000057")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000058")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000059")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005a")
-    }
-  ],
   "size": [
     12,
     12
@@ -10107,196 +9718,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000025")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000039")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000040")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000041")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000042")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000043")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000044")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000045")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000046")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000047")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000048")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000049")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000052")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000053")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000054")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000055")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000057")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000058")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000059")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000060")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000061")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000062")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000063")
-    }
-  ],
   "size": [
     15,
     15
@@ -10835,132 +10256,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000064")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000065")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000066")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000067")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000068")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000069")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000070")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000071")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000072")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000073")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000074")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000075")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000076")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000077")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000078")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000079")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00007a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00007b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00007c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00007d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00007e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00007f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000080")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000081")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000082")
-    }
-  ],
   "size": [
     11,
     11
@@ -10978,7 +10273,6 @@ db.getCollection("rule").insert({
   "_id": 53,
   "abstract": "持ち駒が５枚に達すると負け。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "資本還元将棋",
@@ -10992,7 +10286,6 @@ db.getCollection("rule").insert({
   "_id": 54,
   "abstract": "持ち駒を使わない将棋。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "持ち駒不使用将棋",
@@ -11006,7 +10299,6 @@ db.getCollection("rule").insert({
   "_id": 55,
   "abstract": "真上のマスに味方の駒があった場合、その駒の動きになる。ない場合は普通の動き。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "安北将棋",
@@ -11371,64 +10663,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000044")
-    }
-  ],
   "size": [
     9,
     9
@@ -11442,7 +10676,6 @@ db.getCollection("rule").insert({
   "_id": 66,
   "abstract": "同じ駒を何手も動かせる。ただし、駒取りや成りは１手目のみ可能。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "スピード将棋",
@@ -11471,7 +10704,6 @@ db.getCollection("rule").insert({
   "_id": 67,
   "abstract": "ある駒の利きに味方の駒がある場合、元の駒がその駒の利きに移動できる(=連鎖)。再帰的に連鎖することも可能。最低１回は連鎖しなくてはならない。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "連鎖移動将棋",
@@ -11495,7 +10727,6 @@ db.getCollection("rule").insert({
   "_id": 68,
   "abstract": "安南と連鎖移動を同時に適用。つまり、ある駒の利きに味方の駒がある場合、元の駒がその駒の利きにも移動できる(=連鎖)。再帰的に連鎖することも可能。最低１回は連鎖しなくてはならない。また、ある駒の真後ろに味方の駒があった場合、その種類の駒の動きになる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "安南連鎖移動将棋",
@@ -11523,7 +10754,6 @@ db.getCollection("rule").insert({
   "_id": 71,
   "abstract": "敵味方関わらず駒が縦に複数並んだとき、上からn番目の駒の性能が下からn番目の駒の性能になる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "ネコネコ鮮将棋",
@@ -11550,7 +10780,6 @@ db.getCollection("rule").insert({
   "_id": 72,
   "abstract": "敵味方の駒が目の前に向かい合ったとき、性能がいれかわる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "対面将棋",
@@ -11577,7 +10806,6 @@ db.getCollection("rule").insert({
   "_id": 74,
   "abstract": "敵の駒が真後ろにあったとき、互いの性能がいれかわる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "背面将棋",
@@ -11604,7 +10832,6 @@ db.getCollection("rule").insert({
   "_id": 88,
   "abstract": "後方に下がるような手を指すことができない将棋。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "突撃将棋",
@@ -12770,12 +11997,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e490b014325a21249000059")
-    }
-  ],
   "size": [
     19,
     19
@@ -13278,64 +12499,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    }
-  ],
   "size": [
     11,
     11
@@ -13675,60 +12838,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    }
-  ],
   "size": [
     9,
     9
@@ -13742,7 +12851,6 @@ db.getCollection("rule").insert({
   "_id": 94,
   "abstract": "駒に対して八方桂の位置にある駒全ての種類の動きができる．",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "安騎将棋",
@@ -13764,7 +12872,6 @@ db.getCollection("rule").insert({
   "_id": 95,
   "abstract": "左右のマスに味方の駒があった場合、その駒の動きになる。どちらにもない場合は普通の動き。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "安東西将棋",
@@ -13928,32 +13035,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    }
   ],
   "size": [
     5,
@@ -14128,48 +13209,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    }
-  ],
   "size": [
     5,
     6
@@ -14300,44 +13339,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    }
   ],
   "size": [
     4,
@@ -14725,40 +13726,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000197")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000198")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000199")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019e")
-    }
-  ],
   "size": [
     9,
     10
@@ -14974,36 +13941,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000197")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000198")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000199")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019e")
-    }
   ],
   "size": [
     5,
@@ -15421,64 +14358,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    }
-  ],
   "size": [
     9,
     9
@@ -15854,16 +14733,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000037")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000038")
-    }
-  ],
   "size": [
     9,
     9
@@ -15884,7 +14753,6 @@ db.getCollection("rule").insert({
   "abstract": "前後左右に敵駒がいると接着して同時に動く。接着した駒が他の駒と重なるように動くことは出来ない。",
   "eatfriend": true,
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "iterator": {
@@ -15918,7 +14786,6 @@ db.getCollection("rule").insert({
   "_id": 69,
   "abstract": "駒を取った駒は初期位置のうち最も近い所に戻る。もしそこが埋まっていたら戻らずにそのままとなる",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "アンチキルケ",
@@ -16297,7 +15164,6 @@ db.getCollection("rule").insert({
   "_id": 109,
   "abstract": "歩を取り除いた普通の将棋。将棋の入門用に良いとされるルール。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -16601,7 +15467,6 @@ db.getCollection("rule").insert({
   "_id": 111,
   "abstract": "成れない将棋。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "nari": {
@@ -16963,64 +15828,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    }
-  ],
   "size": [
     9,
     9
@@ -17034,7 +15841,6 @@ db.getCollection("rule").insert({
   "_id": 1,
   "abstract": "普通の将棋から、上手側の左の香車を落としたもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -17353,7 +16159,6 @@ db.getCollection("rule").insert({
   "_id": 4,
   "abstract": "普通の将棋から、上手側の飛車と左の香車を落としたもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -17671,7 +16476,6 @@ db.getCollection("rule").insert({
   "_id": 7,
   "abstract": "普通の将棋から、上手側の飛車・角を１枚ずつ、香・桂を２枚ずつ（＝六枚）を落としたもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -17985,7 +16789,6 @@ db.getCollection("rule").insert({
   "_id": 8,
   "abstract": "普通の将棋から、上手側の飛車・角を１枚ずつ、香・桂・銀を２枚ずつ（＝八枚）を落としたもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -18297,7 +17100,6 @@ db.getCollection("rule").insert({
   "_id": 10,
   "abstract": "上手側は王将のみで、持ち駒が歩三枚。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -18606,7 +17408,6 @@ db.getCollection("rule").insert({
   "_id": 11,
   "abstract": "上手側は王将のみ。十九枚落ちともいう。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -18907,7 +17708,6 @@ db.getCollection("rule").insert({
   "_id": 12,
   "abstract": "平安時代に指された将棋。いくつか説があるなかで盤を8x8と想定したもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -19179,32 +17979,6 @@ db.getCollection("rule").insert({
     "ae": null,
     "ah": null
   },
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    }
-  ],
   "size": [
     8,
     8
@@ -19219,7 +17993,6 @@ db.getCollection("rule").insert({
   "_id": 13,
   "abstract": "平安時代に指された将棋。いくつか説があるなかで盤を9x8と想定したもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -19521,32 +18294,6 @@ db.getCollection("rule").insert({
     "ae": null,
     "ah": null
   },
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    }
-  ],
   "size": [
     9,
     8
@@ -19561,7 +18308,6 @@ db.getCollection("rule").insert({
   "_id": 14,
   "abstract": "平安時代に指された将棋。いくつか説があるなかで盤を9x9と想定したもの。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -19890,32 +18636,6 @@ db.getCollection("rule").insert({
     "ae": null,
     "ah": null
   },
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    }
-  ],
   "size": [
     9,
     9
@@ -19930,7 +18650,6 @@ db.getCollection("rule").insert({
   "_id": 15,
   "abstract": "13x13。平安時代に指された将棋。現代の本将棋にはない駒もいくつか見られる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -20587,92 +19306,6 @@ db.getCollection("rule").insert({
     "at": "ae",
     "au": "ae"
   },
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000010")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000011")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000012")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000013")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000014")
-    }
-  ],
   "size": [
     13,
     13
@@ -20687,7 +19320,6 @@ db.getCollection("rule").insert({
   "_id": 18,
   "abstract": "１手指すごとに、横に重力がかかったように駒が横にすべる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -21154,44 +19786,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    }
-  ],
   "size": [
     5,
     5
@@ -21224,7 +19818,6 @@ db.getCollection("rule").insert({
   "_id": 20,
   "abstract": "４枚落ちで、上手の側の桂馬が八方桂（４方向８カ所の桂馬の動き＝チェスのナイトの動きをする駒）になっている。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -21559,64 +20152,6 @@ db.getCollection("rule").insert({
     1,
     0
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00001e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00001f")
-    }
-  ],
   "strategy": {
     "Judge": {
       "Oute": {
@@ -21639,7 +20174,6 @@ db.getCollection("rule").insert({
   "_id": 21,
   "abstract": "形は平手で、すべての桂馬が八方桂になっている。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -21973,64 +20507,6 @@ db.getCollection("rule").insert({
     "ag": "an",
     "be": "bf"
   },
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00001e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00001f")
-    }
-  ],
   "strategy": {
     "Judge": {
       "Oute": {
@@ -22043,7 +20519,6 @@ db.getCollection("rule").insert({
   "_id": 25,
   "abstract": "２手ずつ指す。ただし最初の先手のみ１手だけ。１手目に王手、２手目に王将をとってもよい。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "二手指し将棋",
@@ -22068,7 +20543,6 @@ db.getCollection("rule").insert({
   "_id": 29,
   "abstract": "相手の利きがある駒は金縛りに遭い動けなくなる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "金縛り将棋",
@@ -22090,7 +20564,6 @@ db.getCollection("rule").insert({
   "_id": 33,
   "abstract": "１筋と９筋がつながっている。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "iterator": {
@@ -22460,72 +20933,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000039")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003a")
-    }
   ],
   "size": [
     9,
@@ -22967,80 +21374,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003e")
-    }
-  ],
   "size": [
     10,
     10
@@ -23400,72 +21733,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003d")
-    }
-  ],
   "size": [
     9,
     9
@@ -23479,7 +21746,6 @@ db.getCollection("rule").insert({
   "_id": 51,
   "abstract": "5x5。1段目で成れる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -23608,7 +21874,6 @@ db.getCollection("rule").insert({
   "_id": 52,
   "abstract": "6x6。2段目で成れる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
@@ -23774,7 +22039,6 @@ db.getCollection("rule").insert({
   "_id": 57,
   "abstract": "先手と後手で持ち駒を共有する。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "みんなの広場",
@@ -24868,260 +23132,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000025")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000039")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000040")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000041")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000042")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000043")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000045")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000046")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000047")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000048")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000049")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000051")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000052")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000053")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000054")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000055")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000057")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000059")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000083")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000084")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000085")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000086")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000089")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00008a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00008b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00008c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00008d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00008e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00008f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000090")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000091")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000092")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000025")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000027")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900002a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900002b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000030")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000031")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000032")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000033")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000037")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000038")
-    }
   ],
   "size": [
     16,
@@ -26405,292 +24415,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000025")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000040")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000042")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000043")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000045")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000046")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000047")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000055")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000060")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000061")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000062")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000063")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000089")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000099")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000aa")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000b7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000bb")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000bc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000bd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000be")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000bf")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000ca")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000cb")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000cc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000cd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000ce")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000cf")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000039")
-    }
   ],
   "size": [
     17,
@@ -28185,312 +25909,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000025")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000039")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000040")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000041")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000042")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000043")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000044")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000045")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000046")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000047")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000060")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000061")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000062")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000063")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000aa")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000b7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000ce")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000cf")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000da")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000db")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000dc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000dd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000de")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000df")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbba4325a2633e0000eb")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbba4325a2633e0000f8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000012")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000013")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000014")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000015")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000016")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000017")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000018")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000019")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000020")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000021")
-    }
-  ],
   "size": [
     19,
     19
@@ -28522,7 +25940,6 @@ db.getCollection("rule").insert({
   "_id": 62,
   "abstract": "駒の隣でその駒が動ける場所に駒が１つあった場合、飛び越えて進むことが出来る。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "iterator": {
@@ -31065,504 +28482,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000025")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000039")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000040")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000041")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000042")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000043")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000044")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000045")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000046")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000047")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000048")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000049")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000055")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000060")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000061")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000062")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000063")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000089")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000099")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00009f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000aa")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000b7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000b8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000ba")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000bc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000bd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000be")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000bf")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000ca")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000cb")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000cd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000cf")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000da")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000db")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000dc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000dd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000de")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000df")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbba4325a2633e0000eb")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbba4325a2633e0000f8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbba4325a2633e0000f9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbba4325a2633e0000fa")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000011")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000012")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000013")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000014")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000015")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000016")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000017")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000018")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000019")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900001f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000020")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000021")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000039")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000054")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000055")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000056")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000057")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000058")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000059")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900005c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900005d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900005e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900005f")
-    }
   ],
   "size": [
     25,
@@ -36939,1396 +33858,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000025")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000039")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00003f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000040")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000041")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000043")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000044")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000045")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000046")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000047")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000048")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000049")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00004c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000051")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000052")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000053")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000054")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000055")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000057")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000059")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00005f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000061")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000066")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000067")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000068")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000069")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00006e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000070")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000071")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000076")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000079")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00007a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00007b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00007f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000083")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000084")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e000089")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00008a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e00008b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000a9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000bc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000c2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000cd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000d9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000da")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000dc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000dd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000de")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48cbb94325a2633e0000e9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000013")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000014")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000015")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000017")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900002a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000030")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000032")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000056")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000057")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000059")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900005e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000060")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000061")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000062")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000063")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000064")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000065")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000066")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000067")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000068")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000069")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900006a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900006b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900006c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900006d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900006e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900006f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000070")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000071")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000072")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000073")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000074")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000075")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000076")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000077")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000078")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000079")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900007a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900007b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900007c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900007d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900007e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900007f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000080")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000081")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000082")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000083")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000084")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000085")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000086")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000087")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000088")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000089")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900008a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900008b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900008c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900008d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900008e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900008f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000090")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000091")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000092")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000093")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000094")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000095")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000096")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000097")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000098")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000099")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900009a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900009b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900009c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900009d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900009e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a2114900009f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000a0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000a1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000a2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000a3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000a4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000a5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000a6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000a7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000a8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000a9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000aa")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000ab")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000ac")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000ad")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000ae")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000af")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000b0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000b1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000b2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000b3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000b4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000b5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000b6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000b7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000b8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000b9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000ba")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000bb")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000bc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000bd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000be")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000bf")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000c0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000c1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000c2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000c3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000c4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000c5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000c6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000c7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000c8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000c9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000ca")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000cb")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000cc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a211490000cd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000ce")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000cf")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000d0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000d1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000d2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000d3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000d4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000d5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000d6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000d7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000d8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000d9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000da")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000db")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000dc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000dd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000de")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000df")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000e0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000e1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000e2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000e3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000e4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000e5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000e6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000e7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000e8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000e9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000ea")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000eb")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000ec")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000ed")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000ee")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000ef")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000f0")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000f1")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000f2")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000f3")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000f4")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000f5")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000f6")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000f7")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000f8")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000f9")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000fa")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000fb")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000fc")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000fd")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000fe")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a211490000ff")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000100")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000101")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000102")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000103")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000104")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000105")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000106")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000107")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000108")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000109")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900010a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900010b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900010c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900010d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900010e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900010f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000110")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000111")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000120")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000122")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000123")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000124")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000125")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000126")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000127")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000128")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000129")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900012a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900012b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900012c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900012d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900012e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900012f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000130")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000131")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000132")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000133")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000134")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000135")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000136")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000137")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000138")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000139")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900013a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900013b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900013c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900013d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900013e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900013f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000140")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000141")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000142")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000143")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000144")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000145")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000147")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000148")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000149")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900014a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900014b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900014c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900014d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900014e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900014f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000150")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000151")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000152")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000153")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000154")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000155")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000156")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000157")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000158")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000159")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900015b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900015c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900015d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900015e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900015f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000160")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000161")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000162")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000163")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000164")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000165")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000166")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000167")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000168")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000169")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900016a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900016b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900016c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900016d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900016e")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900016f")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000170")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000171")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000172")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000173")
-    }
-  ],
   "size": [
     36,
     36
@@ -38362,7 +33891,6 @@ db.getCollection("rule").insert({
   "_id": 73,
   "abstract": "敵味方の駒が目の前に向かい合ったとき、互いの駒が入れ替わる。向きは対面を保ったまま、駒の中間を中心に１８０度回転する。また、自分や相手が二歩になるような着手はできない。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "どんでん返し",
@@ -38392,7 +33920,6 @@ db.getCollection("rule").insert({
   "_id": 75,
   "abstract": "３手ずつ指す。ただし、３手とも別の駒でなくてはならない。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "バレーボール",
@@ -38701,32 +34228,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000022")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3214325a21149000024")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000121")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000146")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000190")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000191")
-    }
-  ],
   "size": [
     8,
     8
@@ -38749,7 +34250,6 @@ db.getCollection("rule").insert({
   "_id": 77,
   "abstract": "盤面の端とつながっていない駒は盤上から消える。駒が縦横に連なっていて端とつながっていればよい。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "水中将棋",
@@ -39060,64 +34560,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    }
-  ],
   "size": [
     9,
     7
@@ -39367,12 +34809,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e490b014325a21249000059")
-    }
   ],
   "size": [
     8,
@@ -40548,12 +35984,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e490b014325a21249000059")
-    }
-  ],
   "size": [
     19,
     19
@@ -40740,12 +36170,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e490b014325a21249000059")
-    }
   ],
   "size": [
     7,
@@ -41920,12 +37344,6 @@ db.getCollection("rule").insert({
     1,
     0
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e490b014325a21249000059")
-    }
-  ],
   "size": [
     19,
     19
@@ -41947,7 +37365,6 @@ db.getCollection("rule").insert({
   "_id": 86,
   "abstract": "味方の駒が横に複数並んだとき、左からn番目の駒の性能が右からn番目の駒の性能になる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "横ネコ鮮将棋",
@@ -41974,7 +37391,6 @@ db.getCollection("rule").insert({
   "_id": 87,
   "abstract": "敵味方関わらず駒が横に複数並んだとき、左からn番目の駒の性能が右からn番目の駒の性能になる。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "横ネコネコ鮮将棋",
@@ -42236,64 +37652,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000000")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000001")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000002")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000003")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000004")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000005")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000006")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000007")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000008")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f000009")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48b9cf4325a2053f00000d")
-    }
-  ],
   "size": [
     7,
     7
@@ -42307,7 +37665,6 @@ db.getCollection("rule").insert({
   "_id": 93,
   "abstract": "駒を取ると、駒台にその駒が２つ乗る。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "増殖将棋",
@@ -42473,40 +37830,6 @@ db.getCollection("rule").insert({
   "players": [
     0,
     1
-  ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000197")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000198")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000199")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019b")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019e")
-    }
   ],
   "size": [
     5,
@@ -42723,36 +38046,6 @@ db.getCollection("rule").insert({
     0,
     1
   ],
-  "refKoma": [
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000197")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000198")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a21149000199")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019a")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019c")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019d")
-    },
-    {
-      "$ref": "koma",
-      "$id": ObjectId("4e48d3224325a2114900019e")
-    }
-  ],
   "size": [
     5,
     6
@@ -42824,7 +38117,6 @@ db.getCollection("rule").insert({
   "abstract": "味方の駒も取って持ち駒にできる。",
   "eatfriend": true,
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "仲間割れ将棋",
@@ -42846,7 +38138,6 @@ db.getCollection("rule").insert({
   "_id": 107,
   "abstract": "持った駒が、移動可能範囲の中からランダムに選ばれたマスに移動する。持ち駒の打ち場所もランダム。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "name": "ランダム将棋",
@@ -42870,7 +38161,6 @@ db.getCollection("rule").insert({
   "_id": 110,
   "abstract": "5x5。1段目で成れる。変則チェスルール作家のVadrya Pokshtya氏 (@EryakErzya) による。",
   "extend": {
-    "$ref": "rule",
     "$id": 0
   },
   "init": {
