@@ -1,17 +1,17 @@
-import "./strategy/Strategy"
-import {ShogitterCoreException} from "./utils/phpCompat";
-import {Mochigoma, MochigomaObj} from "./Mochigoma";
-import {Result, Teban, UserInfo} from "./Teban";
-import Ban, {BanObj, Species} from "./Ban";
-import XY, {XYObj} from "./XY";
-import {Koma, KomaObj, PromotionMode} from "./Koma";
-import Kifu, {KifuLine, KifuMove} from "./Kifu";
-import {BanScanIterator} from "./Iterator";
-import {Rule, shogitterDB} from "./ShogitterDB";
-import {javaHashCode} from "./utils/hash";
-import {Direction} from "./Direction";
+import "./strategy/Strategy";
+import { ShogitterCoreException } from "./utils/phpCompat";
+import { Mochigoma, MochigomaObj } from "./Mochigoma";
+import { Result, Teban, UserInfo } from "./Teban";
+import Ban, { BanObj, Species } from "./Ban";
+import XY, { XYObj } from "./XY";
+import { Koma, KomaObj, PromotionMode } from "./Koma";
+import Kifu, { KifuLine, KifuMove } from "./Kifu";
+import { BanScanIterator } from "./Iterator";
+import { Rule, shogitterDB } from "./ShogitterDB";
+import { javaHashCode } from "./utils/hash";
+import { Direction } from "./Direction";
 
-export {ShogitterCoreException};
+export { ShogitterCoreException };
 
 const DEBUG_ECHO_TIME = true;
 
@@ -29,132 +29,140 @@ enum Format {
  */
 
 type StatusObj = {
-    num: Status;
-    message?: string
-}
+  num: Status;
+  message?: string;
+};
 
 export enum Status {
-    INITIAL,
-    PLAYING,
-    ENDED,
+  INITIAL,
+  PLAYING,
+  ENDED,
 }
 export type Player = {
-    // Missing for live board
-    // null when it's vacant
-    user?: (UserInfo | null)[],
-    mochigoma: {[species: string]: number},
-    result?: Result,
-}
+  // Missing for live board
+  // null when it's vacant
+  user?: (UserInfo | null)[];
+  mochigoma: { [species: string]: number };
+  result?: Result;
+};
 
 type Game = {
-    players: Player[],
-}
+  players: Player[];
+};
 
 export interface ShogiSerialization extends Game {
-    version: string,
-    status: StatusObj,
-    ruleid: number,
-    teban: number,
-    turn: number,
-    date: {
-        start?: string,
-        end?: string
-    },
-    ban: BanObj,
-    moving: Moving,
-    players: Player[],
-    system: any, // confirmation?
-    kifu: KifuLine[],
+  version: string;
+  status: StatusObj;
+  ruleid: number;
+  teban: number;
+  turn: number;
+  date: {
+    start?: string;
+    end?: string;
+  };
+  ban: BanObj;
+  moving: Moving;
+  players: Player[];
+  system: any; // confirmation?
+  kifu: KifuLine[];
 }
 
 type Moving = {
-    xy: [number, number],
-    status: number;
-}
+  xy: [number, number];
+  status: number;
+};
 
-const TURN_AGNOSTIC_COMMANDS = ["rollback", "start", "resign", "draw", "changedirection", "reset"];
+const TURN_AGNOSTIC_COMMANDS = [
+  "rollback",
+  "start",
+  "resign",
+  "draw",
+  "changedirection",
+  "reset",
+];
 export const isTurnAgnosticCommand = (command: KifuCommand) => {
-    return TURN_AGNOSTIC_COMMANDS.includes(command.type);
-}
+  return TURN_AGNOSTIC_COMMANDS.includes(command.type);
+};
 
-export type KifuCommand = {direction?: Direction} & (
-    MoveCommand |
-    PutCommand |
-    RollbackCommand |
-    ResignCommand |
-    ResetCommand |
-    StartCommand |
-    PassCommand |
-    ChangeDirectionCommand |
-    DrawCommand);
+export type KifuCommand = { direction?: Direction } & (
+  | MoveCommand
+  | PutCommand
+  | RollbackCommand
+  | ResignCommand
+  | ResetCommand
+  | StartCommand
+  | PassCommand
+  | ChangeDirectionCommand
+  | DrawCommand
+);
 export type MoveCommand = {
-    type: "move",
-    from: XYObj,
-    to: XYObj,
-    nari?: boolean,
-}
+  type: "move";
+  from: XYObj;
+  to: XYObj;
+  nari?: boolean;
+};
 export type PutCommand = {
-    type: "put",
-    to: XYObj,
-    direction: Direction;
-    put: Species,
-    id?: number, // Used for quantum shogi to distinguish individual pieces of a kind
-}
+  type: "put";
+  to: XYObj;
+  direction: Direction;
+  put: Species;
+  id?: number; // Used for quantum shogi to distinguish individual pieces of a kind
+};
 export type RollbackCommand = {
-    type: "rollback",
-    direction?: Direction;
-}
+  type: "rollback";
+  direction?: Direction;
+};
 export type StartCommand = {
-    type: "start"
-}
+  type: "start";
+};
 export type PassCommand = {
-    type: "pass"
-}
+  type: "pass";
+};
 export type ResignCommand = {
-    type: "resign",
-}
+  type: "resign";
+};
 export type DrawCommand = {
-    type: "draw",
-}
+  type: "draw";
+};
 export type ChangeDirectionCommand = {
-    type: "changedirection",
-}
+  type: "changedirection";
+};
 export type ResetCommand = {
-    type: "reset",
-    ruleId: number;
-}
+  type: "reset";
+  ruleId: number;
+};
 
 /**
  * 将棋のクラス
  */
 export default class Shogi {
-    ruleid: number;		//ルール番号
-    //対局の状態
-    status: StatusObj = {
-        num: Status.INITIAL
-    };		
-    kifu: Kifu;			//棋譜オブジェクト
-    mochigoma: Mochigoma;		//持ち駒オブジェクト
-    ban: Ban;			//盤オブジェクト
-    teban: Teban;			//手番オブジェクト
-    rule: Rule;
-    moving: Koma | undefined;
-    date: {
-        start?: Date;
-        end?: Date;
-    };
-    private jsonsystem: any; // Used for showing confirmation
-    private end: { status: string; kifu: [string, string] };
-    fromDirection: Direction;
-    private lastBan: KomaObj[][];		//移動前の盤面情報(変更しない)
-    private lastMochigoma: MochigomaObj[];
+  ruleid: number; //ルール番号
+  //対局の状態
+  status: StatusObj = {
+    num: Status.INITIAL,
+  };
+  kifu: Kifu; //棋譜オブジェクト
+  mochigoma: Mochigoma; //持ち駒オブジェクト
+  ban: Ban; //盤オブジェクト
+  teban: Teban; //手番オブジェクト
+  rule: Rule;
+  moving: Koma | undefined;
+  date: {
+    start?: Date;
+    end?: Date;
+  };
+  private jsonsystem: any; // Used for showing confirmation
+  private end: { status: string; kifu: [string, string] };
+  fromDirection: Direction;
+  private lastBan: KomaObj[][]; //移動前の盤面情報(変更しない)
+  private lastMochigoma: MochigomaObj[];
 
-    // statusMessage;		//対局の状態
-    // noCheckOthello;//オセロチェックをする
-    // kifulength;	//棋譜の長さ
-    // debug;
+  // statusMessage;		//対局の状態
+  // noCheckOthello;//オセロチェックをする
+  // kifulength;	//棋譜の長さ
+  // debug;
 
-    /*
+  /*
     static getFormatByFileName(filename: string) {
         const tmp = filename.split(".");
         switch (tmp[tmp.length - 1].toLowerCase()) {
@@ -174,79 +182,87 @@ export default class Shogi {
     }
      */
 
-    /**
-     * 将棋オブジェクトのクローンについてはディープコピー
-     * (コピーして別の局面として動かすため)
-     */
-    clone(): Shogi {
-        return Shogi.ofJkf(this.getObject());
-    }
+  /**
+   * 将棋オブジェクトのクローンについてはディープコピー
+   * (コピーして別の局面として動かすため)
+   */
+  clone(): Shogi {
+    return Shogi.ofJkf(this.getObject());
+  }
 
-    shufflePlayers() {
-        this.teban.shufflePlayers();
-    }
+  shufflePlayers() {
+    this.teban.shufflePlayers();
+  }
 
-    isReady() {
-        return this.status.num == Status.INITIAL;
-    }
+  isReady() {
+    return this.status.num == Status.INITIAL;
+  }
 
-    init() {
-        if (this.isPlaying()) throw new ShogitterCoreException("対局中は初期化できません");
-        this.status = {num: Status.INITIAL};
-        this.date = {}
-    }
+  init() {
+    if (this.isPlaying())
+      throw new ShogitterCoreException("対局中は初期化できません");
+    this.status = { num: Status.INITIAL };
+    this.date = {};
+  }
 
-    start() {
-        if (!this.isReady()) throw new ShogitterCoreException("初期化されておらず、開始できません。");
-        this.status = {num: Status.PLAYING};
-        // this.date['start'] = new Date();
-    }
+  start() {
+    if (!this.isReady())
+      throw new ShogitterCoreException("初期化されておらず、開始できません。");
+    this.status = { num: Status.PLAYING };
+    // this.date['start'] = new Date();
+  }
 
-    /**
-     * If a move is already made.
-     */
-    isPlaying() {
-        return this.status['num'] == Status.PLAYING;
-    }
+  /**
+   * If a move is already made.
+   */
+  isPlaying() {
+    return this.status["num"] == Status.PLAYING;
+  }
 
-    isEnded() {
-        return this.status['num'] == Status.ENDED;
-    }
+  isEnded() {
+    return this.status["num"] == Status.ENDED;
+  }
 
-    getRuleName() {
-        return this.rule['name'];
-    }
+  getRuleName() {
+    return this.rule["name"];
+  }
 
-    getPromoted(species: Species, mode: PromotionMode) {
-        for (let name in this.rule['nari']) {
-            const value = this.rule.nari[name];
-            if ((mode == PromotionMode.FRONT || mode == PromotionMode.FLIP) && species == value) {
-                return name;
-            }
-            if ((mode == PromotionMode.BACK || mode == PromotionMode.FLIP) && species == name) {
-                return value === null ? name : value;
-            }
-        }
-        return species;
+  getPromoted(species: Species, mode: PromotionMode) {
+    for (let name in this.rule["nari"]) {
+      const value = this.rule.nari[name];
+      if (
+        (mode == PromotionMode.FRONT || mode == PromotionMode.FLIP) &&
+        species == value
+      ) {
+        return name;
+      }
+      if (
+        (mode == PromotionMode.BACK || mode == PromotionMode.FLIP) &&
+        species == name
+      ) {
+        return value === null ? name : value;
+      }
     }
+    return species;
+  }
 
-    public static ofJkf(jkf: ShogiSerialization): Shogi {
-        const shogi = new Shogi();
-        shogi.constructByJSON(jkf);
-        return shogi;
-    }
+  public static ofJkf(jkf: ShogiSerialization): Shogi {
+    const shogi = new Shogi();
+    shogi.constructByJSON(jkf);
+    return shogi;
+  }
 
-    public static ofRuleId(ruleId: number): Shogi {
-        const shogi = new Shogi();
-        shogi.constructById(ruleId);
-        return shogi;
-    }
+  public static ofRuleId(ruleId: number): Shogi {
+    const shogi = new Shogi();
+    shogi.constructById(ruleId);
+    return shogi;
+  }
 
-    /**
-     * 盤を生成
-     */
-    constructor() {
-        /* case Format.FORMAT_XML:
+  /**
+   * 盤を生成
+   */
+  constructor() {
+    /* case Format.FORMAT_XML:
              this.constructByXml(data);
              break;
          case Format.FORMAT_CSA:
@@ -259,9 +275,9 @@ export default class Shogi {
              this.constructByKakinoki2Format(data);
              break;
          */
-    }
+  }
 
-    /*
+  /*
     constructByKakinoki2Format(data, nocheckoute=false){
         const lines =explode("\n", data);
         let ruleid=0;
@@ -355,11 +371,11 @@ export default class Shogi {
             print_r(unknown);
         }
     }*/
-    /**
-     * 柿木形式テキストによりコンストラクト
-     * @param <type> data
-     */
-    /*
+  /**
+   * 柿木形式テキストによりコンストラクト
+   * @param <type> data
+   */
+  /*
     constructByKakinokiFormat(data){
 
         preg_match_all("/手合割：(.*?)\n/u", data, matches);
@@ -405,12 +421,12 @@ export default class Shogi {
             this.move_d(kifu);
         }
     }*/
-    /**
-     * CSA形式テキストによりコンストラクト
-     * @param <type> data
-     */
+  /**
+   * CSA形式テキストによりコンストラクト
+   * @param <type> data
+   */
 
-    /*
+  /*
     constructByCSAFormat(data){
         preg_match_all("/N[+-].*?\n/", data, matches);
         if(count(matches[0])>0){
@@ -456,58 +472,64 @@ export default class Shogi {
         }
     }
      */
-    /**
-     * ルールidを用いてコンストラクト
-     * @param <type> ruleid
-     */
-    constructById(ruleid: number) {
-        this.rule = shogitterDB.getRule(ruleid);
-        this.ruleid = ruleid;
-        this.kifu = new Kifu(this);
-        this.mochigoma = new Mochigoma(this);
-        this.init();
-        this.teban = new Teban(0, this.rule['players'], this, this.teban);
-        this.teban.setFlags({'komaochi': this.rule['komaochi']});
+  /**
+   * ルールidを用いてコンストラクト
+   * @param <type> ruleid
+   */
+  constructById(ruleid: number) {
+    this.rule = shogitterDB.getRule(ruleid);
+    this.ruleid = ruleid;
+    this.kifu = new Kifu(this);
+    this.mochigoma = new Mochigoma(this);
+    this.init();
+    this.teban = new Teban(0, this.rule["players"], this, this.teban);
+    this.teban.setFlags({ komaochi: this.rule["komaochi"] });
 
-        this.ban = new Ban(this.rule['size'][0], this.rule['size'][1], this, this.rule.strategy || {}, this.rule.iterator || {});
-        this.ban.deserialize({});
-        this.mochigoma.setStrategy(this.rule['strategy'] || {});
-        //this.kifulength = strlen(max(this.rule['size'][1], this.rule['size'][0])); // TODO what does it mean?
+    this.ban = new Ban(
+      this.rule["size"][0],
+      this.rule["size"][1],
+      this,
+      this.rule.strategy || {},
+      this.rule.iterator || {}
+    );
+    this.ban.deserialize({});
+    this.mochigoma.setStrategy(this.rule["strategy"] || {});
+    //this.kifulength = strlen(max(this.rule['size'][1], this.rule['size'][0])); // TODO what does it mean?
 
-        //盤面，持ち駒，棋譜を読み込み
-        this.ban.update(this.rule.init.ban);
-        this.mochigoma.update(this.rule.init.mochigoma);
-        this.kifu.clear();
-    }
+    //盤面，持ち駒，棋譜を読み込み
+    this.ban.update(this.rule.init.ban);
+    this.mochigoma.update(this.rule.init.mochigoma);
+    this.kifu.clear();
+  }
 
-    constructByJSON(arr: ShogiSerialization) {
-        this.constructById(arr['ruleid']);
-        this.status = arr.status;
-        this.date = {
-            start: new Date(arr.date?.start),
-            end: new Date(arr.date?.end)
-        };
-        this.teban.setMaxTurn(arr.players[0].user?.length || 0);
-        this.teban.set(arr.teban);
-        this.teban.setTurn(arr.turn);
-        this.jsonsystem = arr.system;
-        this.ban.deserialize(arr.kifu?.[arr.kifu.length - 1]?.data || {});
+  constructByJSON(arr: ShogiSerialization) {
+    this.constructById(arr["ruleid"]);
+    this.status = arr.status;
+    this.date = {
+      start: new Date(arr.date?.start),
+      end: new Date(arr.date?.end),
+    };
+    this.teban.setMaxTurn(arr.players[0].user?.length || 0);
+    this.teban.set(arr.teban);
+    this.teban.setTurn(arr.turn);
+    this.jsonsystem = arr.system;
+    this.ban.deserialize(arr.kifu?.[arr.kifu.length - 1]?.data || {});
 
-        this.ban.updateByJSON(arr.ban);
-        this.mochigoma.updateByJSON(arr.players);
-        this.setMoving(arr.moving);
+    this.ban.updateByJSON(arr.ban);
+    this.mochigoma.updateByJSON(arr.players);
+    this.setMoving(arr.moving);
 
-        this.teban.setArrayPlayerInfo(arr.players);
+    this.teban.setArrayPlayerInfo(arr.players);
 
-        this.kifu.updateByJSON(arr.kifu);
-    }
+    this.kifu.updateByJSON(arr.kifu);
+  }
 
-    /**
-     * XMLを用いてコンストラクト
-     * @param <type> rawdata
-     */
+  /**
+   * XMLを用いてコンストラクト
+   * @param <type> rawdata
+   */
 
-    /*
+  /*
     constructByXml(rawdata){
 
         xml=new SimpleXMLElement(rawdata);
@@ -578,85 +600,100 @@ export default class Shogi {
     }
 
      */
-    setMoving(moving: Moving): void {
-        if (!moving) return null;
-        const xy = new XY(moving['xy'][0], moving['xy'][1]);
-        this.ban.ensureExists(xy);
-        const koma = this.ban.get(xy);
-        koma.status = moving['status'];
-        this.moving = koma;
+  setMoving(moving: Moving): void {
+    if (!moving) return null;
+    const xy = new XY(moving["xy"][0], moving["xy"][1]);
+    this.ban.ensureExists(xy);
+    const koma = this.ban.get(xy);
+    koma.status = moving["status"];
+    this.moving = koma;
+  }
+
+  /**
+   * 投了する
+   * @param <type> direction
+   */
+  resign(direction?: Direction) {
+    if (!this.isPlaying())
+      throw new ShogitterCoreException("対局中ではありません．");
+    let dirResign;
+    if (typeof direction !== "undefined") {
+      //手番があったらその人が投了
+      dirResign = direction;
+    } else {
+      //なかったら手番の人が投了
+      dirResign = this.teban.getNowDirection();
     }
+    this.gameEnd(
+      dirResign,
+      dirResign,
+      "投了",
+      `${this.teban.getName(dirResign)}が投了しました。`
+    );
+    this.gameEndFinalize();
+    this.teban.rotate();
+  }
 
-    /**
-     * 投了する
-     * @param <type> direction
-     */
-    resign(direction?: Direction) {
-        if (!this.isPlaying()) throw new ShogitterCoreException("対局中ではありません．");
-        let dirResign;
-        if (typeof direction !== "undefined") {
-            //手番があったらその人が投了
-            dirResign = direction;
-        } else {
-            //なかったら手番の人が投了
-            dirResign = this.teban.getNowDirection();
-        }
-        this.gameEnd(dirResign, dirResign, "投了", `${this.teban.getName(dirResign)}が投了しました。`);
-        this.gameEndFinalize();
-        this.teban.rotate();
-    }
+  /**
+   *
+   */
+  draw() {
+    this.gameEnd(9, 9, "引き分け", "合意により引き分け");
+    this.gameEndFinalize();
+  }
 
-    /**
-     *
-     */
-    draw() {
-        this.gameEnd(9, 9, "引き分け", "合意により引き分け");
-        this.gameEndFinalize();
-    }
+  /**
+   * n手戻す
+   * @param <type> number
+   */
+  rollback(number: number) {
+    if (!this.isPlaying())
+      throw new ShogitterCoreException("対局中でないので操作できません。");
+    const max = this.kifu.getTesuu();
+    if (max <= 0)
+      throw new ShogitterCoreException("初期局面なので待った出来ません。");
+    let te = 1;
+    let teban;
+    while (te <= number) {
+      const thiskifu = this.kifu.get(max - te);
 
-    /**
-     * n手戻す
-     * @param <type> number
-     */
-    rollback(number: number) {
-        if(!this.isPlaying()) throw new ShogitterCoreException("対局中でないので操作できません。");
-        const max = this.kifu.getTesuu();
-        if (max <= 0) throw new ShogitterCoreException("初期局面なので待った出来ません。");
-        let te = 1;
-        let teban;
-        while (te <= number) {
-            const thiskifu = this.kifu.get(max - te);
-
-            const now = 1;
-            teban = thiskifu[0];
-            if (teban === "_") {
-                //投了の場合は１回余分に減らす
-                number++;
+      const now = 1;
+      teban = thiskifu[0];
+      if (teban === "_") {
+        //投了の場合は１回余分に減らす
+        number++;
+      } else {
+        for (let value of this.kifu.getDataByKifu(thiskifu)) {
+          if (value["value"]) {
+            //持ち駒
+            this.mochigoma.add(
+              value.species,
+              value.direction,
+              value.value * -1
+            );
+          } else {
+            //駒の移動
+            if (value.before.direction === null /* === "_"*/) {
+              this.ban.remove(value["XY"]);
             } else {
-                for (let value of this.kifu.getDataByKifu(thiskifu)) {
-
-                    if (value['value']) {
-                        //持ち駒
-                        this.mochigoma.add(value.species, value.direction, value.value * -1);
-                    } else {
-                        //駒の移動
-                        if (value.before.direction === null/* === "_"*/) {
-                            this.ban.remove(value['XY']);
-                        } else {
-                            this.ban.add(value['XY'], value['before'].species, value['before'].direction);
-                        }
-                    }
-                }
+              this.ban.add(
+                value["XY"],
+                value["before"].species,
+                value["before"].direction
+              );
             }
-            this.kifu.remove();
-            te++;
-            if (this.kifu.getLastMoving()) number++; //移動中ならもう一手戻す
-            this.moving = null;
+          }
         }
-        this.teban.set(teban as number);
+      }
+      this.kifu.remove();
+      te++;
+      if (this.kifu.getLastMoving()) number++; //移動中ならもう一手戻す
+      this.moving = null;
     }
+    this.teban.set(teban as number);
+  }
 
-    /*
+  /*
     moveByKifu(mark, x, y, species, relative, movement, nari) {
         const direction = Teban.mark2direction(mark);
         try {
@@ -732,262 +769,311 @@ export default class Shogi {
     }
      */
 
-    gameEnd(loseDirection: Direction, markDirection: Direction, kifu: string, description: string) {
-        if (this.end) {
-            throw new ShogitterCoreException(`複数の終了条件にひっかかりました: ${this.end.status}, ${description}`);
-        }
-        this.end = {'status': description, 'kifu': [`_${loseDirection}`, Teban.getMark(markDirection) + kifu]};
+  gameEnd(
+    loseDirection: Direction,
+    markDirection: Direction,
+    kifu: string,
+    description: string
+  ) {
+    if (this.end) {
+      throw new ShogitterCoreException(
+        `複数の終了条件にひっかかりました: ${this.end.status}, ${description}`
+      );
+    }
+    this.end = {
+      status: description,
+      kifu: [`_${loseDirection}`, Teban.getMark(markDirection) + kifu],
+    };
+  }
+
+  gameEndFinalize() {
+    if (!this.end) return;
+
+    this.status = { num: 2, message: this.end["status"] };
+    this.kifu.add(this.end["kifu"][0], this.end["kifu"][1]);
+    // this.date['end'] = new Date();
+    const loseDirection = this.end["kifu"][0][1];
+    for (let direction of this.teban.getIterator()) {
+      this.teban.setResultToPlayer(
+        direction,
+        direction.toString() == loseDirection ? Result.LOSE : Result.WIN
+      );
+    }
+    this.end = null;
+  }
+
+  ensureNoMoving(from: XY = null) {
+    //移動中の駒があるがそれを動かそうとしていなかったらエラー
+    if (this.moving && (from === null || !this.moving.XY.equals(from))) {
+      throw new ShogitterCoreException(
+        "移動中の駒をもう一度動かしてください。"
+      );
+    }
+  }
+
+  move(from: XY, to: XY, nari = false, direction?: Direction) {
+    let fromDirection;
+    this.fromDirection = fromDirection = this.ban.get(from).direction;
+    if (typeof direction !== "undefined" && fromDirection !== direction) {
+      throw new ShogitterCoreException("It's not your turn");
+    }
+    this.teban.ensureDirection(fromDirection);
+
+    //駒ダンプ生成
+    this.lastBan = this.ban.getArray();
+    this.lastMochigoma = this.mochigoma.getArray();
+
+    //駒の動きの範疇かどうか
+    const movingTypes = this.ban.get(from).ensureMovable(to);
+
+    //移動中の駒
+    this.ensureNoMoving(from);
+
+    this.ban.strategy["Destination"].executeBefore(from, to);
+
+    //指し手postfix表記を生成
+    const record = {
+      mark: this.teban.getNowMark(),
+      name: this.ban.get(from).getShortName(),
+      postfix: this.ban.makePostfix(from, to),
+      naripostfix: "",
+    };
+
+    this.ban.strategy["MoveControl"].executeBefore(from);
+    this.ban.strategy["MoveEffect"].executeBefore(from);
+    this.ban.strategy["CaptureControl"].execute(
+      this.ban.get(to),
+      this.ban.get(from)
+    );
+
+    //移動元を拾う
+    const fromPick = this.ban.take(from);
+
+    //行き先に駒があれば拾って持ち駒に
+    const captured = this.ban.strategy["Capture"].execute(to, fromDirection);
+
+    //飛び越えた駒を取る
+    if (movingTypes.indexOf(100) >= 0) {
+      for (let xy of BanScanIterator.getBetween(this.ban, from, to)) {
+        if (this.ban.get(xy).isNull()) continue;
+        this.ban.strategy["Capture"].execute(xy, fromDirection);
+      }
     }
 
-    gameEndFinalize() {
-        if (!this.end) return;
+    //移動先に置く
+    this.ban.set(to, fromPick);
 
-        this.status = {'num': 2, 'message': this.end['status']};
-        this.kifu.add(this.end['kifu'][0], this.end['kifu'][1]);
-        // this.date['end'] = new Date();
-        const loseDirection = this.end['kifu'][0][1];
-        for (let direction of this.teban.getIterator()) {
-            this.teban.setResultToPlayer(direction, direction.toString() == loseDirection ? Result.LOSE : Result.WIN);
-        }
-        this.end = null;
+    //状態の変更があれば行う
+    fromPick.changeStatus(movingTypes, captured);
+
+    record.naripostfix =
+      this.ban.strategy.Promotion.execute(to, from, captured, nari) || "";
+    this.ban.strategy["MoveEffect"].executeAfter(to, captured);
+
+    //this.ban.strategy['Destination'].executeAfter(to);
+
+    this.ban.strategy["MoveControl"].executeAfter(to);
+    this.ban.strategy.Nifu.execute(to);
+    this.ban.strategy.Judge.execute(to);
+
+    const lastXY = this.kifu.getXYByTesuu(this.kifu.getTesuu() - 1);
+    this.kifu.add(
+      this.makeKifu(to, from),
+      `${record.mark}${lastXY && to.equals(lastXY.to) ? "同" : to.getFormat()}${
+        record.name
+      }${record.postfix}${record.naripostfix}`,
+      { hash: true }
+    );
+    this.ban.strategy["TebanRotation"].execute(
+      this.moving,
+      this.ban.strategy["Promotion"].flag,
+      captured,
+      to,
+      from
+    );
+
+    this.gameEndFinalize();
+  }
+
+  put(to: XY, species: Species, direction: Direction, id?: number) {
+    //駒ダンプ生成
+    this.fromDirection = direction;
+    this.teban.ensureDirection(direction);
+    this.lastBan = this.ban.getArray();
+    this.lastMochigoma = this.mochigoma.getArray();
+
+    //移動中の駒
+    this.ensureNoMoving();
+
+    this.ban.strategy["Destination"].executeDrop(to, species, direction);
+
+    const kifu2 = this.makePutKifuString(to, species);
+
+    this.mochigoma.strategy["MochigomaIO"].executeOut(species, direction);
+    this.ban.ensureNotExists(to);
+    this.ban.setAdd(to, species, direction);
+
+    this.ban.strategy.Promotion.executeLegal(to);
+
+    this.ban.strategy.MoveEffect.executeDrop(to, id);
+    this.ban.strategy.MoveControl.executeDrop(to);
+    this.ban.strategy.Nifu.execute(to);
+
+    this.ban.strategy.Judge.execute(to, true);
+
+    this.kifu.add(this.makeKifu(to, null), kifu2, { hash: true });
+
+    this.teban.rotate();
+    this.gameEndFinalize();
+  }
+
+  shouldAskPromotion(to: XY, from: XY) {
+    const captured = this.ban.exists(to);
+    const direction = this.ban.get(from).direction;
+    return this.ban.strategy.Promotion.shouldAskPromotion(
+      to,
+      from,
+      captured,
+      direction
+    );
+  }
+
+  /**
+   * データを読み込んでmove
+   * @param command
+   */
+  runCommand(command: KifuCommand) {
+    switch (command.type) {
+      case "reset":
+        if (this.isPlaying())
+          throw new ShogitterCoreException("対局中はルール変更できません。");
+        this.constructById(command.ruleId);
+        return;
+      case "start":
+        this.start();
+        return;
+      case "changedirection":
+        if (this.isPlaying())
+          throw new ShogitterCoreException("対局中は先後交代できません。");
+        this.teban.changeDirection();
+        return;
     }
 
-    ensureNoMoving(from: XY = null) {
-        //移動中の駒があるがそれを動かそうとしていなかったらエラー
-        if (this.moving && (from === null || !this.moving.XY.equals(from))) {
-            throw new ShogitterCoreException('移動中の駒をもう一度動かしてください。');
-        }
+    if (!this.isPlaying()) {
+      throw new ShogitterCoreException("対局中ではありません。");
     }
-
-    move(from: XY, to: XY, nari = false, direction?: Direction) {
-        let fromDirection;
-        this.fromDirection = fromDirection = this.ban.get(from).direction;
-        if (typeof direction !== "undefined" && fromDirection !== direction) {
-            throw new ShogitterCoreException("It's not your turn");
-        }
-        this.teban.ensureDirection(fromDirection);
-
-        //駒ダンプ生成
-        this.lastBan = this.ban.getArray();
-        this.lastMochigoma = this.mochigoma.getArray();
-
-        //駒の動きの範疇かどうか
-        const movingTypes = this.ban.get(from).ensureMovable(to);
-
-        //移動中の駒
-        this.ensureNoMoving(from);
-
-        this.ban.strategy['Destination'].executeBefore(from, to);
-
-        //指し手postfix表記を生成
-        const record = {
-            mark: this.teban.getNowMark(),
-            name: this.ban.get(from).getShortName(),
-            postfix: this.ban.makePostfix(from, to),
-            naripostfix: ""
-        };
-
-        this.ban.strategy['MoveControl'].executeBefore(from);
-        this.ban.strategy['MoveEffect'].executeBefore(from);
-        this.ban.strategy['CaptureControl'].execute(this.ban.get(to), this.ban.get(from));
-
-        //移動元を拾う
-        const fromPick = this.ban.take(from);
-
-        //行き先に駒があれば拾って持ち駒に
-        const captured = this.ban.strategy['Capture'].execute(to, fromDirection);
-
-        //飛び越えた駒を取る
-        if (movingTypes.indexOf(100) >= 0) {
-            for (let xy of BanScanIterator.getBetween(this.ban, from, to)) {
-                if (this.ban.get(xy).isNull()) continue;
-                this.ban.strategy['Capture'].execute(xy, fromDirection);
-            }
-        }
-
-        //移動先に置く
-        this.ban.set(to, fromPick);
-
-        //状態の変更があれば行う
-        fromPick.changeStatus(movingTypes, captured);
-
-        record.naripostfix = this.ban.strategy.Promotion.execute(to, from, captured, nari) || "";
-        this.ban.strategy['MoveEffect'].executeAfter(to, captured);
-
-        //this.ban.strategy['Destination'].executeAfter(to);
-
-        this.ban.strategy['MoveControl'].executeAfter(to);
-        this.ban.strategy.Nifu.execute(to);
-        this.ban.strategy.Judge.execute(to);
-
-        const lastXY = this.kifu.getXYByTesuu(this.kifu.getTesuu() - 1);
-        this.kifu.add(
-            this.makeKifu(to, from),
-            `${record.mark}${lastXY && to.equals(lastXY.to) ? "同" : to.getFormat()}${record.name}${record.postfix}${record.naripostfix}`,
-            {'hash': true}
+    switch (command.type) {
+      case "draw":
+        return this.draw();
+      case "resign":
+        return this.resign(command.direction);
+      case "rollback":
+        const amount =
+          typeof command.direction !== "undefined" &&
+          this.teban.getNowDirection() === command.direction
+            ? 2
+            : 1;
+        return this.rollback(Math.min(amount, this.kifu.getTesuu()));
+    }
+    if (typeof command.direction === "number") {
+      this.teban.ensureDirection(command.direction);
+    }
+    switch (command.type) {
+      case "pass":
+        return this.pass();
+      case "move":
+        return this.move(
+          new XY(command.from[0], command.from[1]),
+          new XY(command.to[0], command.to[1]),
+          command.nari
         );
-        this.ban.strategy['TebanRotation'].execute(this.moving, this.ban.strategy['Promotion'].flag, captured, to, from);
-
-        this.gameEndFinalize();
-    }
-
-    put(to: XY, species: Species, direction: Direction, id?: number) {
-        //駒ダンプ生成
-        this.fromDirection = direction;
-        this.teban.ensureDirection(direction);
-        this.lastBan = this.ban.getArray();
-        this.lastMochigoma = this.mochigoma.getArray();
-
-        //移動中の駒
-        this.ensureNoMoving();
-
-        this.ban.strategy['Destination'].executeDrop(to, species, direction);
-
-        const kifu2 = this.makePutKifuString(to, species);
-
-        this.mochigoma.strategy['MochigomaIO'].executeOut(species, direction);
-        this.ban.ensureNotExists(to);
-        this.ban.setAdd(to, species, direction);
-
-        this.ban.strategy.Promotion.executeLegal(to);
-
-        this.ban.strategy.MoveEffect.executeDrop(to, id);
-        this.ban.strategy.MoveControl.executeDrop(to);
-        this.ban.strategy.Nifu.execute(to);
-
-        this.ban.strategy.Judge.execute(to, true);
-
-        this.kifu.add(
-            this.makeKifu(to, null),
-            kifu2,
-            {'hash': true}
+      case "put":
+        return this.put(
+          new XY(command.to[0], command.to[1]),
+          command.put,
+          command.direction,
+          command.id
         );
+      default:
+        throw new ShogitterCoreException(
+          "Unknown command type: " + (command as any).type,
+          1
+        );
+    }
+    return true;
+  }
 
+  /**
+   * lastBanとbanの差分を取り棋譜を作る
+   * @return <type>
+   * @param to
+   * @param from 打つ場合はnull
+   */
+  makeKifu(to: XY, from?: XY): KifuMove {
+    const diffs = [
+      ...this.ban.getDifference(this.lastBan, to, from),
+      ...this.mochigoma.getDifference(this.lastMochigoma),
+    ];
+    return [this.teban.get(), ...diffs];
+  }
+
+  /**
+   * 持ち駒を使うときの棋譜表記
+   * @param <type> sashite
+   */
+  makePutKifuString(to: XY, species: Species) {
+    const direction = this.teban.getNowDirection();
+
+    //「打」　そのマスにその種類・向きの駒がある場合、打をつける
+    let utu = "";
+    for (let kiki of this.ban.arrayKikiInSpeDir(
+      species,
+      false,
+      direction,
+      false,
+      false
+    )) {
+      if (kiki["XY"].equals(to)) {
+        utu = "打";
+        break;
+      }
+    }
+    const name =
+      Koma.getStatelessData(species, "shortname") ||
+      Koma.getStatelessData(species, "name"); //略名があればそれを表示
+    return Teban.getMark(direction) + to.getFormat() + name + utu;
+  }
+
+  /////////////////////////////////変則将棋
+  /**
+   * パスする（移動中の駒を移動済みにして手番を渡す）
+   * @return <type>
+   */
+  pass() {
+    if (this.moving == null) {
+      if (this.ban.strategy["TebanRotation"].canPass()) {
+        this.kifu.unsetLastMoving();
         this.teban.rotate();
-        this.gameEndFinalize();
+      } else {
+        throw new ShogitterCoreException(
+          "移動中の駒がありません。このボタンは多段階移動をする駒の移動を終了して手番を渡す時に使います。"
+        );
+      }
+    } else {
+      if (this.ban.get(this.moving.XY).get("nopass")) {
+        throw new ShogitterCoreException("この駒で手番を渡すことはできません");
+      } else {
+        this.kifu.unsetLastMoving();
+        this.moving = null;
+        this.teban.rotate();
+      }
     }
+  }
 
-    shouldAskPromotion(to: XY, from: XY) {
-        const captured = this.ban.exists(to);
-        const direction = this.ban.get(from).direction;
-        return this.ban.strategy.Promotion.shouldAskPromotion(to, from, captured, direction);
-    }
-
-    /**
-     * データを読み込んでmove
-     * @param command
-     */
-    runCommand(command: KifuCommand) {
-        switch(command.type) {
-            case "reset":
-                if(this.isPlaying()) throw new ShogitterCoreException("対局中はルール変更できません。");
-                this.constructById(command.ruleId);
-                return;
-            case "start":
-                this.start();
-                return;
-            case "changedirection":
-                if(this.isPlaying()) throw new ShogitterCoreException("対局中は先後交代できません。");
-                this.teban.changeDirection();
-                return;
-        }
-
-        if (!this.isPlaying()) {
-            throw new ShogitterCoreException("対局中ではありません。");
-        }
-        switch (command.type) {
-            case "draw":
-                return this.draw();
-            case "resign":
-                return this.resign(command.direction);
-            case "rollback":
-                const amount = typeof command.direction !== "undefined" && this.teban.getNowDirection() === command.direction ? 2 : 1;
-                return this.rollback(Math.min(amount, this.kifu.getTesuu()))
-        }
-        if (typeof command.direction === "number") {
-            this.teban.ensureDirection(command.direction);
-        }
-        switch (command.type) {
-            case "pass":
-                return this.pass();
-            case "move":
-                return this.move(
-                    new XY(command.from[0], command.from[1]),
-                    new XY(command.to[0], command.to[1]),
-                    command.nari
-                );
-            case "put":
-                return this.put(
-                    new XY(command.to[0], command.to[1]),
-                    command.put,
-                    command.direction,
-                    command.id
-                );
-            default:
-                throw new ShogitterCoreException("Unknown command type: "+(command as any).type, 1);
-        }
-        return true;
-    }
-
-    /**
-     * lastBanとbanの差分を取り棋譜を作る
-     * @return <type>
-     * @param to
-     * @param from 打つ場合はnull
-     */
-    makeKifu(to: XY, from?: XY): KifuMove {
-        const diffs = [...this.ban.getDifference(this.lastBan, to, from),
-            ...this.mochigoma.getDifference(this.lastMochigoma)]
-        return [this.teban.get(), ...diffs];
-    }
-
-    /**
-     * 持ち駒を使うときの棋譜表記
-     * @param <type> sashite
-     */
-    makePutKifuString(to: XY, species: Species) {
-        const direction = this.teban.getNowDirection();
-
-        //「打」　そのマスにその種類・向きの駒がある場合、打をつける
-        let utu = "";
-        for (let kiki of this.ban.arrayKikiInSpeDir(species, false, direction, false, false)) {
-            if (kiki['XY'].equals(to)) {
-                utu = "打";
-                break;
-            }
-        }
-        const name = Koma.getStatelessData(species, 'shortname') || Koma.getStatelessData(species, 'name');//略名があればそれを表示
-        return Teban.getMark(direction) + to.getFormat() + name + utu;
-    }
-
-/////////////////////////////////変則将棋
-    /**
-     * パスする（移動中の駒を移動済みにして手番を渡す）
-     * @return <type>
-     */
-    pass() {
-        if (this.moving == null) {
-            if (this.ban.strategy['TebanRotation'].canPass()) {
-                this.kifu.unsetLastMoving();
-                this.teban.rotate();
-            } else {
-                throw new ShogitterCoreException("移動中の駒がありません。このボタンは多段階移動をする駒の移動を終了して手番を渡す時に使います。");
-            }
-        } else {
-            if (this.ban.get(this.moving.XY).get("nopass")) {
-                throw new ShogitterCoreException("この駒で手番を渡すことはできません");
-            } else {
-                this.kifu.unsetLastMoving();
-                this.moving = null;
-                this.teban.rotate();
-            }
-        }
-    }
-
-    /**
-     * 内部形式の棋譜ファイルを返す
-     */
-    /*
+  /**
+   * 内部形式の棋譜ファイルを返す
+   */
+  /*
     getFormat() {
         return this.ruleid + "\n"
             + this.status.join("|") + "\n"
@@ -998,15 +1084,15 @@ export default class Shogi {
     }
      */
 
-    getKyokumen() {
-        return this.ban.__toString() + this.mochigoma.__toString();
-    }
+  getKyokumen() {
+    return this.ban.__toString() + this.mochigoma.__toString();
+  }
 
-    getHash() {
-        return javaHashCode(this.getKyokumen()).toString(16);
-    }
+  getHash() {
+    return javaHashCode(this.getKyokumen()).toString(16);
+  }
 
-    /*
+  /*
     getHTMLFormat(tesuu){
         ret="<html><head><title>将棋ったー 観戦</title></head><body>";
 
@@ -1049,77 +1135,82 @@ export default class Shogi {
         return ret."</body></html>";
     }
      */
-    getObject(): ShogiSerialization {
-        let moving: Moving;
-        if (this.moving) {
-            moving = {xy: this.moving.XY.getArray(), 'status': this.moving.status};
+  getObject(): ShogiSerialization {
+    let moving: Moving;
+    if (this.moving) {
+      moving = { xy: this.moving.XY.getArray(), status: this.moving.status };
+    } else {
+      moving = null;
+    }
+    const ban: BanObj = [];
+    for (let i = 1; i <= this.rule["size"][0]; i++) {
+      ban.push([]);
+      for (let j = 1; j <= this.rule["size"][1]; j++) {
+        const koma = this.ban.get(new XY(i, j));
+        if (koma.isNull()) {
+          ban[i - 1][j - 1] = [];
         } else {
-            moving = null;
+          ban[i - 1][j - 1] = [koma.direction, koma.species];
         }
-        const ban: BanObj = [];
-        for (let i = 1; i <= this.rule['size'][0]; i++) {
-            ban.push([]);
-            for (let j = 1; j <= this.rule['size'][1]; j++) {
-                const koma = this.ban.get(new XY(i, j));
-                if (koma.isNull()) {
-                    ban[i - 1][j - 1] = [];
-                } else {
-                    ban[i - 1][j - 1] = [koma.direction, koma.species];
-                }
-            }
-        }
-        const players = this.teban.getArrayPlayerInfo();
-        const mochigoma = this.mochigoma.getArray();
-        const playersWithMochigoma: Player[] = [];
-        for (let direction of this.teban.getIterator()) {
-            playersWithMochigoma[direction] = {...players[direction], mochigoma: {}} || {
-                user: [{name: "", id: 0}],
-                mochigoma: {}
-            }
-            playersWithMochigoma[direction].mochigoma = {};
-            for (let species in mochigoma[direction]) {
-                playersWithMochigoma[direction].mochigoma[species] = mochigoma[direction][species];
-            }
-        }
+      }
+    }
+    const players = this.teban.getArrayPlayerInfo();
+    const mochigoma = this.mochigoma.getArray();
+    const playersWithMochigoma: Player[] = [];
+    for (let direction of this.teban.getIterator()) {
+      playersWithMochigoma[direction] = {
+        ...players[direction],
+        mochigoma: {},
+      } || {
+        user: [{ name: "", id: 0 }],
+        mochigoma: {},
+      };
+      playersWithMochigoma[direction].mochigoma = {};
+      for (let species in mochigoma[direction]) {
+        playersWithMochigoma[direction].mochigoma[species] =
+          mochigoma[direction][species];
+      }
+    }
 
-        // const max = this.kifu.getTesuu();
-        const kifu = this.kifu.getArray();
+    // const max = this.kifu.getTesuu();
+    const kifu = this.kifu.getArray();
 
-        const debug = ""/*this.debug.serialize(this)*/;
-        const system = this.jsonsystem;
-        return {
-            version: "0.0",
-            status: this.status,
-            ruleid: this.ruleid,
-            teban: this.teban.get(),
-            turn: this.teban.getTurn(),
-            date: {
-               /* start: this.date.start?.toISOString(),
+    const debug = ""; /*this.debug.serialize(this)*/
+    const system = this.jsonsystem;
+    return {
+      version: "0.0",
+      status: this.status,
+      ruleid: this.ruleid,
+      teban: this.teban.get(),
+      turn: this.teban.getTurn(),
+      date: {
+        /* start: this.date.start?.toISOString(),
                 end: this.date.end?.toISOString()*/
-            },
-            ban,
-            moving,
-            players: playersWithMochigoma,
-            system,
-            kifu
-        };
-    }
+      },
+      ban,
+      moving,
+      players: playersWithMochigoma,
+      system,
+      kifu,
+    };
+  }
 
-    getJSONFormat(): string {
-        return JSON.stringify(this.getObject());
-    }
+  getJSONFormat(): string {
+    return JSON.stringify(this.getObject());
+  }
 
-    getLoser() {
-        const kifu = this.kifu.get(this.kifu.getTesuu() - 1);
-        if (kifu[0] !== "_") throw new ShogitterCoreException("まだゲームは終了していません。");
-        return kifu[1];
-    }
+  getLoser() {
+    const kifu = this.kifu.get(this.kifu.getTesuu() - 1);
+    if (kifu[0] !== "_")
+      throw new ShogitterCoreException("まだゲームは終了していません。");
+    return kifu[1];
+  }
 
-    getEncodedXY(x: number, y: number) {
-        return (x - 1) * 9 + y - 1;
-    }
+  getEncodedXY(x: number, y: number) {
+    return (x - 1) * 9 + y - 1;
+  }
 
-    /*
+  /*
     getEncodedFormat(){
         //あたらしく
         const encoded=this.ban.getEncodedFormat();
@@ -1146,11 +1237,11 @@ export default class Shogi {
     }
 
      */
-    /**
-     * 当初予定のエンコード，可変長ハフマン符号
-     * @return type
-     */
-    /*
+  /**
+   * 当初予定のエンコード，可変長ハフマン符号
+   * @return type
+   */
+  /*
     getEncodedFormat2(){
         komaarr=array(
             '__'=>"0",
@@ -1218,12 +1309,12 @@ export default class Shogi {
     }
 
      */
-    /**
-     * 柿木形式の棋譜ファイルを返す
-     * @param <type> format
-     * @return <type>
-     */
-    /*
+  /**
+   * 柿木形式の棋譜ファイルを返す
+   * @param <type> format
+   * @return <type>
+   */
+  /*
     getKakinokiFormat(format){
         if(this.teban.getMaxTeban()!=2){
             throw new Exception("プレイヤーが２人の場合以外は柿木形式で出力する事はできません。");
@@ -1282,11 +1373,11 @@ export default class Shogi {
         return return;
     }
     */
-    /**
-     * CSA形式の棋譜ファイルを返す
-     * @return <type>
-     */
-    /*
+  /**
+   * CSA形式の棋譜ファイルを返す
+   * @return <type>
+   */
+  /*
     getCSAFormat(){
         return="' ------------ CSA形式棋譜ファイル\n"
             ."' -- 将棋ったー http://shogitter.com\n"
@@ -1340,13 +1431,13 @@ export default class Shogi {
     }
 
      */
-    /**
-     * 文字列からruleidに変換
-     * @param <type> teai
-     * @return <type>
-     */
+  /**
+   * 文字列からruleidに変換
+   * @param <type> teai
+   * @return <type>
+   */
 
-    /*
+  /*
     static teai2ruleid(teai){
         if(preg_match("/平手/", teai)) return 0;
         if(preg_match("/飛車香落/", teai) ||preg_match("/飛香落/", teai)) return 4;
@@ -1364,40 +1455,40 @@ export default class Shogi {
     }
 
      */
-    static numerize(string: string) {
-        switch (string) {
-            case "１":
-            case "一":
-                return 1;
-            case "２":
-            case "二":
-                return 2;
-            case "３":
-            case "三":
-                return 3;
-            case "４":
-            case "四":
-                return 4;
-            case "５":
-            case "五":
-                return 5;
-            case "６":
-            case "六":
-                return 6;
-            case "７":
-            case "七":
-                return 7;
-            case "８":
-            case "八":
-                return 8;
-            case "９":
-            case "九":
-                return 9;
-        }
-        throw new ShogitterCoreException("Not a Number: string");
+  static numerize(string: string) {
+    switch (string) {
+      case "１":
+      case "一":
+        return 1;
+      case "２":
+      case "二":
+        return 2;
+      case "３":
+      case "三":
+        return 3;
+      case "４":
+      case "四":
+        return 4;
+      case "５":
+      case "五":
+        return 5;
+      case "６":
+      case "六":
+        return 6;
+      case "７":
+      case "七":
+        return 7;
+      case "８":
+      case "八":
+        return 8;
+      case "９":
+      case "九":
+        return 9;
     }
+    throw new ShogitterCoreException("Not a Number: string");
+  }
 
-    /*
+  /*
     getRuleHTML(){
         ret="";
         foreach(array_merge(this.ban.strategy, this.mochigoma.strategy) as strategy){

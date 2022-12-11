@@ -1,4 +1,4 @@
-	/*
+/*
 define("REFERER_MUST_START", "http://(local\.)?shogitter\.com/");
 define("DB_USER_TABLE", "chatuser");
 define("DB_LOG_TABLE", "chat");
@@ -8,7 +8,7 @@ define("DELETE_SPAN", 60);
 define("JS_INCLUDE_POSTFIX", "20131029");
 	 */
 
-	/*
+/*
 function logRoom(roomid, data){
 	global db;
 
@@ -189,37 +189,61 @@ printErrorByString(message, type=null){
  *		小数、負数に対応；指数表記には未対応
  *		カンマは削除
  * @return	string 漢数字
-*/
+ */
 export function num2kan_decimal(instr: string | number) {
-	instr = instr.toString();
-	const kantbl1: {[num: string]: string} = {0: '', 1: '一', 2: '二', 3: '三', 4: '四', 5: '五', 6: '六', 7: '七', 8: '八', 9: '九', '.': '．', '-': '－'};
-	const kantbl2: {[num: string]: string} = {0: '', 1: '十', 2: '百', 3: '千'};
-	const kantbl3: {[num: string]: string} = {0: '' , 1: '万', 2: '億', 3: '兆', 4: '京'};
+  instr = instr.toString();
+  const kantbl1: { [num: string]: string } = {
+    0: "",
+    1: "一",
+    2: "二",
+    3: "三",
+    4: "四",
+    5: "五",
+    6: "六",
+    7: "七",
+    8: "八",
+    9: "九",
+    ".": "．",
+    "-": "－",
+  };
+  const kantbl2: { [num: string]: string } = {
+    0: "",
+    1: "十",
+    2: "百",
+    3: "千",
+  };
+  const kantbl3: { [num: string]: string } = {
+    0: "",
+    1: "万",
+    2: "億",
+    3: "兆",
+    4: "京",
+  };
 
-	let outstr = '';
-	const len = instr.length;
-	const m = Math.floor(len / 4);
-	//一、万、億、兆‥‥の繰り返し
-	for (let i = 0; i <= m; i++) {
-		let s2 = '';
-		//一、十、百、千の繰り返し
-		for (let j = 0; j < 4; j++) {
-			const pos = len - i * 4 - j - 1;
-			if (pos >= 0) {
-				const ch  = instr.substr(pos, 1);
-				const ch1 = kantbl1[ch] || '';
-				const ch2 = kantbl2[j]|| '';
-				//冒頭が「一」の場合の処理
-				if (ch1 != '') {
-					if (ch1 == '一' && ch2 != '') s2 = ch2 + s2;
-					else							s2 = ch1 + ch2 + s2;
-				}
-			}
-		}
-		if (s2 != '')	outstr = s2 + kantbl3[i] + outstr;
-	}
+  let outstr = "";
+  const len = instr.length;
+  const m = Math.floor(len / 4);
+  //一、万、億、兆‥‥の繰り返し
+  for (let i = 0; i <= m; i++) {
+    let s2 = "";
+    //一、十、百、千の繰り返し
+    for (let j = 0; j < 4; j++) {
+      const pos = len - i * 4 - j - 1;
+      if (pos >= 0) {
+        const ch = instr.substr(pos, 1);
+        const ch1 = kantbl1[ch] || "";
+        const ch2 = kantbl2[j] || "";
+        //冒頭が「一」の場合の処理
+        if (ch1 != "") {
+          if (ch1 == "一" && ch2 != "") s2 = ch2 + s2;
+          else s2 = ch1 + ch2 + s2;
+        }
+      }
+    }
+    if (s2 != "") outstr = s2 + kantbl3[i] + outstr;
+  }
 
-	return outstr;
+  return outstr;
 }
 
 /**
@@ -238,7 +262,7 @@ calcRating(winrate, loserate){
 /**
  * レーティングを元に段級を返す
  */
-	/*
+/*
 rate2dankyu(rate){
 	switch(1){
 		case rate>=2900:
@@ -295,7 +319,7 @@ rate2dankyu(rate){
 /**
  * radiusデザインを含めてエラーを表示して終了する
  */
-	/*
+/*
 die2(message){
 	echo "<div class='radius'>{message}</div>";
 	printFooterHTML();
@@ -327,7 +351,7 @@ botTweet(text, async=false){
  * @param type roomid
  * @param type comment 
  */
-	/*
+/*
 comment(roomid, comment){
 	return pushNode("chat",array('roomid': roomid,
 								 'comment': comment));

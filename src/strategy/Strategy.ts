@@ -3,96 +3,95 @@
  */
 import XY from "../XY";
 import Ban from "../Ban";
-import {Direction} from "../Direction";
+import { Direction } from "../Direction";
 
 export type StrategySerialization = any; // TODO
 
 export type CommonConfig = {
-    common?: {
-        directions: Direction[]
-    },
-}
+  common?: {
+    directions: Direction[];
+  };
+};
 
 export default abstract class Strategy {
-    public abstract: string;
-    strategyGenre: string;
-    protected commonSetting: {
-        directions?: Direction[];
-    };
+  public abstract: string;
+  strategyGenre: string;
+  protected commonSetting: {
+    directions?: Direction[];
+  };
 
-    setCommonSetting(setting = {}) {
-        this.commonSetting = setting;
-    }
+  setCommonSetting(setting = {}) {
+    this.commonSetting = setting;
+  }
 
-    checkDirection(direction: Direction) {
-        const dirs = this.commonSetting.directions;
-        return !dirs || dirs.indexOf(direction) >= 0;
-    }
+  checkDirection(direction: Direction) {
+    const dirs = this.commonSetting.directions;
+    return !dirs || dirs.indexOf(direction) >= 0;
+  }
 
-    toHTML(): string {
-        return this.abstract;
-        // return (this.constructor as any).abstract;
-    }
+  toHTML(): string {
+    return this.abstract;
+    // return (this.constructor as any).abstract;
+  }
 
-    getStrategyGenre() {
-        return this.strategyGenre;
-    }
+  getStrategyGenre() {
+    return this.strategyGenre;
+  }
 
-    isNormal() {
-        return this.constructor.name.startsWith("Normal");
-    }
+  isNormal() {
+    return this.constructor.name.startsWith("Normal");
+  }
 
-    serialize(obj: StrategySerialization): StrategySerialization {
-        return obj;
-    }
+  serialize(obj: StrategySerialization): StrategySerialization {
+    return obj;
+  }
 
-    deserialize(obj: StrategySerialization) {
-        return;
-    }
+  deserialize(obj: StrategySerialization) {
+    return;
+  }
 
-    abstract execute(a: any, b: any, c: any, d: any, e: any): void;
+  abstract execute(a: any, b: any, c: any, d: any, e: any): void;
 
-    // TODO create factory class
-    // static abstract create();
+  // TODO create factory class
+  // static abstract create();
 }
 
 export abstract class BeforeAfterDropStrategy extends Strategy {
-    execute(a: any, b: any) {
-        throw "shouldn't be called";
-    }
+  execute(a: any, b: any) {
+    throw "shouldn't be called";
+  }
 
-    abstract executeBefore(from: XY, to: XY): void;
+  abstract executeBefore(from: XY, to: XY): void;
 
-    abstract executeAfter(to: XY, captured?: boolean): void;
+  abstract executeAfter(to: XY, captured?: boolean): void;
 
-    abstract executeDrop(to: XY, additional1?: any, additional2?: any): void;
+  abstract executeDrop(to: XY, additional1?: any, additional2?: any): void;
 }
 
 /**
  * Strategyを複数保つ
  */
 export abstract class StrategyContainer<T extends Strategy> {
-    public abstract: string;
-    strategyGenre: string;
-    static defaultSetting = {};
-    protected arrayStrategies: T[] = [];
-    public ban: Ban;
+  public abstract: string;
+  strategyGenre: string;
+  static defaultSetting = {};
+  protected arrayStrategies: T[] = [];
+  public ban: Ban;
 
-    constructor() {
+  constructor() {}
 
+  execute(): any {
+    for (let strategy of this.arrayStrategies) {
+      if (strategy.checkDirection(this.ban.parent.fromDirection))
+        strategy.execute.apply(strategy, arguments);
     }
+  }
 
-    execute(): any {
-        for (let strategy of this.arrayStrategies) {
-            if (strategy.checkDirection(this.ban.parent.fromDirection)) strategy.execute.apply(strategy, arguments);
-        }
-    }
+  add(strategy: T) {
+    this.arrayStrategies.push(strategy);
+  }
 
-    add(strategy: T) {
-        this.arrayStrategies.push(strategy);
-    }
-
-    /*
+  /*
     has(name) {
         const className = name+get_class(this);
         for (let strategy of this.arrayStrategies) {
@@ -102,65 +101,77 @@ export abstract class StrategyContainer<T extends Strategy> {
         return false;
     }*/
 
-    toHTML() {
-        const ret = [];
-        for (let strategy of this.arrayStrategies) {
-            const val = strategy.toHTML();
-            if (val !== null) ret.push(strategy.toHTML());
-        }
-        if (ret.length >= 2) {
-            return "<ul>" + ret.filter((ret) => ret !== null).map(str => "<li>" + str).join("") + "</ul>";
-        }
-        return ret[0];
+  toHTML() {
+    const ret = [];
+    for (let strategy of this.arrayStrategies) {
+      const val = strategy.toHTML();
+      if (val !== null) ret.push(strategy.toHTML());
     }
-
-    getAbstract() {
-        return this.abstract;
-
-        // return (this.constructor as any).abstract;
+    if (ret.length >= 2) {
+      return (
+        "<ul>" +
+        ret
+          .filter((ret) => ret !== null)
+          .map((str) => "<li>" + str)
+          .join("") +
+        "</ul>"
+      );
     }
+    return ret[0];
+  }
 
-    getStrategyGenre() {
-        return this.strategyGenre;
-    }
+  getAbstract() {
+    return this.abstract;
 
-    isNormal() {
-        for (let strategy of this.arrayStrategies) {
-            if(!strategy.isNormal()) return false;
-        }
-        return true;
-    }
+    // return (this.constructor as any).abstract;
+  }
 
-    deserialize(obj: StrategySerialization) {
-        for (let strategy of this.arrayStrategies) {
-            obj = strategy.deserialize(obj);
-        }
-    }
+  getStrategyGenre() {
+    return this.strategyGenre;
+  }
 
-    serialize(obj: StrategySerialization): StrategySerialization {
-        for (let strategy of this.arrayStrategies) {
-            obj = strategy.serialize(obj);
-        }
-        return obj;
+  isNormal() {
+    for (let strategy of this.arrayStrategies) {
+      if (!strategy.isNormal()) return false;
     }
+    return true;
+  }
+
+  deserialize(obj: StrategySerialization) {
+    for (let strategy of this.arrayStrategies) {
+      obj = strategy.deserialize(obj);
+    }
+  }
+
+  serialize(obj: StrategySerialization): StrategySerialization {
+    for (let strategy of this.arrayStrategies) {
+      obj = strategy.serialize(obj);
+    }
+    return obj;
+  }
 }
 
-export abstract class BeforeAfterDropStrategyContainer<T extends BeforeAfterDropStrategy> extends StrategyContainer<T> {
-    executeBefore(from: XY = null, to: XY = null) {
-        for (let strategy of this.arrayStrategies) {
-            if (strategy.checkDirection(this.ban.parent.fromDirection)) strategy.executeBefore(from, to);
-        }
+export abstract class BeforeAfterDropStrategyContainer<
+  T extends BeforeAfterDropStrategy
+> extends StrategyContainer<T> {
+  executeBefore(from: XY = null, to: XY = null) {
+    for (let strategy of this.arrayStrategies) {
+      if (strategy.checkDirection(this.ban.parent.fromDirection))
+        strategy.executeBefore(from, to);
     }
+  }
 
-    executeAfter(to: XY = null, captured = false) {
-        for (let strategy of this.arrayStrategies) {
-            if (strategy.checkDirection(this.ban.parent.fromDirection)) strategy.executeAfter(to, captured);
-        }
+  executeAfter(to: XY = null, captured = false) {
+    for (let strategy of this.arrayStrategies) {
+      if (strategy.checkDirection(this.ban.parent.fromDirection))
+        strategy.executeAfter(to, captured);
     }
+  }
 
-    executeDrop(to: XY = null, additional1?: any, additional2?: any) {
-        for (let strategy of this.arrayStrategies) {
-            if (strategy.checkDirection(this.ban.parent.fromDirection)) strategy.executeDrop(to, additional1, additional2);
-        }
+  executeDrop(to: XY = null, additional1?: any, additional2?: any) {
+    for (let strategy of this.arrayStrategies) {
+      if (strategy.checkDirection(this.ban.parent.fromDirection))
+        strategy.executeDrop(to, additional1, additional2);
     }
+  }
 }

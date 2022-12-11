@@ -1,8 +1,8 @@
 export enum Direction {
-    BLACK,
-    WHITE,
-    LEFT,
-    RIGHT,
+  BLACK,
+  WHITE,
+  LEFT,
+  RIGHT,
 
-    SOMETHING = 9, // TODO what is this?
+  SOMETHING = 9, // TODO what is this?
 }

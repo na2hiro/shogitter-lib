@@ -1,56 +1,59 @@
 import Strategy from "./Strategy";
-import {Mochigoma} from "../Mochigoma";
+import { Mochigoma } from "../Mochigoma";
 import Ban from "../Ban";
 import XY from "../XY";
-import {Direction} from "../Direction";
+import { Direction } from "../Direction";
 
-export default class CaptureStrategy extends Strategy{
-	strategyGenre = "駒取り";
-	protected ban: Ban;
-	protected mochigoma: Mochigoma;
-	constructor(ban: Ban){
-	    super();
-		this.ban=ban;
-		this.mochigoma=ban.parent.mochigoma;
-	}
-	execute(to: XY, direction: Direction){
-		if(!this.ban.exists(to)) return;
-		this.capture(to, direction);
-		return true;
-	}
-	capture(to: XY, direction: Direction){
-		//持ち駒input
-		this.mochigoma.strategy['MochigomaIO'].executeIn(this.ban.take(to), direction);
-		//持ち駒禁則
-		this.mochigoma.strategy['MochigomaControl'].execute(direction);
-	}
-	static create(name: string, ban: Ban, setting: any): CaptureStrategy {
-		const klass: any = nameToStrategy[name];
-		return new klass(ban, setting);
-	}
+export default class CaptureStrategy extends Strategy {
+  strategyGenre = "駒取り";
+  protected ban: Ban;
+  protected mochigoma: Mochigoma;
+  constructor(ban: Ban) {
+    super();
+    this.ban = ban;
+    this.mochigoma = ban.parent.mochigoma;
+  }
+  execute(to: XY, direction: Direction) {
+    if (!this.ban.exists(to)) return;
+    this.capture(to, direction);
+    return true;
+  }
+  capture(to: XY, direction: Direction) {
+    //持ち駒input
+    this.mochigoma.strategy["MochigomaIO"].executeIn(
+      this.ban.take(to),
+      direction
+    );
+    //持ち駒禁則
+    this.mochigoma.strategy["MochigomaControl"].execute(direction);
+  }
+  static create(name: string, ban: Ban, setting: any): CaptureStrategy {
+    const klass: any = nameToStrategy[name];
+    return new klass(ban, setting);
+  }
 }
-class NormalCaptureStrategy extends CaptureStrategy{
-	abstract = "通常";
+class NormalCaptureStrategy extends CaptureStrategy {
+  abstract = "通常";
 }
-class KirukeCaptureStrategy extends CaptureStrategy{
-	abstract = "取られた駒の初期位置マスが空いていればそこに戻す";
-	execute(to: XY, direction: Direction){
-		const koma=this.ban.get(to);
-		if(koma.isNull()) return;
-		const species=koma.getPromoted(0);
-		for(let now of this.ban.getNearestInitPlace(koma.direction, species, to)){
-			if(this.ban.get(now).isNull()){
-				koma.species=species;
-				this.ban.move(now, to);
-				return false;
-			}
-		}
-		this.capture(to, direction);
-		return true;
-	}
-	toHTML() {
-		return `キルケ(${this.abstract})`;
-	}
+class KirukeCaptureStrategy extends CaptureStrategy {
+  abstract = "取られた駒の初期位置マスが空いていればそこに戻す";
+  execute(to: XY, direction: Direction) {
+    const koma = this.ban.get(to);
+    if (koma.isNull()) return;
+    const species = koma.getPromoted(0);
+    for (let now of this.ban.getNearestInitPlace(koma.direction, species, to)) {
+      if (this.ban.get(now).isNull()) {
+        koma.species = species;
+        this.ban.move(now, to);
+        return false;
+      }
+    }
+    this.capture(to, direction);
+    return true;
+  }
+  toHTML() {
+    return `キルケ(${this.abstract})`;
+  }
 }
 /*
 class EnPassantCaptureStrategy extends CaptureStrategy{
@@ -72,7 +75,7 @@ class EnPassantCaptureStrategy extends CaptureStrategy{
 
  */
 
-const nameToStrategy: {[variant: string]: (typeof CaptureStrategy)} = {
-	Normal: NormalCaptureStrategy,
-	Kiruke: KirukeCaptureStrategy,
+const nameToStrategy: { [variant: string]: typeof CaptureStrategy } = {
+  Normal: NormalCaptureStrategy,
+  Kiruke: KirukeCaptureStrategy,
 };

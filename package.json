@@ -12,7 +12,9 @@
     "coverage": "vitest run --coverage",
     "test:watch": "pnpm test",
     "prepublishOnly": "pnpm build; pnpm test:run",
-    "depcruise": "depcruise --config .dependency-cruiser.js src"
+    "depcruise": "depcruise --config .dependency-cruiser.js src",
+    "lint": "prettier --check .",
+    "lint:fix": "prettier --write --loglevel warn ."
   },
   "author": "na2hiro",
   "license": "Pay 1 million yen to na2hiro to copy and distribute",
@@ -21,5 +23,8 @@
     "dependency-cruiser": "^11.18.0",
     "typescript": "^4.5.5",
     "vitest": "^0.24.3"
+  },
+  "dependencies": {
+    "prettier": "^2.8.1"
   }
 }
