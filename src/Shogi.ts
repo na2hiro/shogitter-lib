@@ -198,13 +198,6 @@ export default class Shogi {
     return this.status.num == Status.INITIAL;
   }
 
-  init() {
-    if (this.isPlaying())
-      throw new ShogitterCoreException("対局中は初期化できません");
-    this.status = { num: Status.INITIAL };
-    this.date = {};
-  }
-
   start() {
     if (!this.isReady())
       throw new ShogitterCoreException("初期化されておらず、開始できません。");
@@ -477,11 +470,15 @@ export default class Shogi {
    * @param <type> ruleid
    */
   constructById(ruleid: number) {
+    if (this.isPlaying())
+      throw new ShogitterCoreException("対局中は初期化できません");
     this.rule = shogitterDB.getRule(ruleid);
     this.ruleid = ruleid;
     this.kifu = new Kifu(this);
     this.mochigoma = new Mochigoma(this);
-    this.init();
+    this.status = { num: Status.INITIAL };
+    this.date = {};
+    this.moving = undefined;
     this.teban = new Teban(0, this.rule["players"], this, this.teban);
     this.teban.setFlags({ komaochi: this.rule["komaochi"] });
 
