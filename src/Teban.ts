@@ -171,7 +171,7 @@ export class Teban {
   getJoinedPlayerName(direction: Direction) {
     const arr = [];
     for (let user of this.arrayPlayerInfo[direction]["user"]) {
-      arr.push(`@${user["name"]}`);
+      arr.push(user ? `@${user["name"]}` : "-");
     }
     return arr.join(", ");
   }
