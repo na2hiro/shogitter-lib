@@ -2,6 +2,8 @@ import Shogi from "../src/Shogi";
 import XY, { XYMatcher } from "../src/XY";
 import { Species } from "../src/Ban";
 import { move, rawMove, put } from "./utils/shogiUtils";
+import { beforeEach } from "vitest";
+import { PlayerInfo } from "../src";
 
 describe("Basic", () => {
   it("can move pieces", () => {
@@ -66,6 +68,48 @@ describe("Basic", () => {
       expect(obj).toEqual(obj2);
       return shogi2;
     }
+  });
+
+  describe("player info", function () {
+    const playerWithUser1: PlayerInfo = {
+      user: [{ name: "na2hiro", id: 12345 }],
+    };
+    const playerWithUser2: PlayerInfo = {
+      user: [{ name: "SHOSTAKOVI_CH", id: 67890 }],
+    };
+    const playerWithoutUser: PlayerInfo = { user: [null] };
+    describe.each([
+      {
+        name: "when both players sit",
+        playerInfo: [playerWithUser1, playerWithUser2],
+      },
+      {
+        name: "when one of the players sits",
+        playerInfo: [playerWithUser1, playerWithoutUser],
+      },
+    ])("$name", ({ playerInfo }) => {
+      let shogi: Shogi;
+      beforeEach(() => {
+        shogi = Shogi.ofRuleId(0);
+        shogi.teban.setArrayPlayerInfo(JSON.parse(JSON.stringify(playerInfo)));
+      });
+
+      it("can be read", () => {
+        expect(shogi.teban.getArrayPlayerInfo()).toEqual(playerInfo);
+      });
+
+      it("is kept after reset", () => {
+        shogi.constructById(1);
+        const actual = shogi.teban.getArrayPlayerInfo();
+        expect(actual).toEqual(playerInfo);
+      });
+
+      it("is kept after changing turn", () => {
+        shogi.teban.changeDirection();
+        const actual = shogi.teban.getArrayPlayerInfo();
+        expect(actual).toEqual([playerInfo[1], playerInfo[0]]);
+      });
+    });
   });
 
   function moveAndSnapshot(

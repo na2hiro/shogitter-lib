@@ -119,9 +119,9 @@ export class Teban {
     const previousPlayerInfo = previousTeban?.getArrayPlayerInfo();
     for (const direction of this.arrayUniqueDirection) {
       this.arrayPlayerInfo[direction] = { user: [] };
-      if (previousPlayerInfo?.[direction]?.user?.[0]) {
-        const { name, id } = previousPlayerInfo[direction]?.user[0];
-        this.arrayPlayerInfo[direction].user.push({ name, id });
+      if (previousPlayerInfo?.[direction]) {
+        this.arrayPlayerInfo[direction].user =
+          previousPlayerInfo?.[direction].user;
       }
     }
     this.shogi = shogi;
