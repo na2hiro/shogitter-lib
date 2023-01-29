@@ -4,7 +4,6 @@ import ruleConst from "./db/rule";
 import ruleGenreConst from "./db/rulegenre";
 import { Species } from "./Ban";
 import { MochigomaObjDB } from "./Mochigoma";
-import { MoveType } from "./Koma";
 
 const MAX_RULE_ID = 111;
 
@@ -35,16 +34,19 @@ export type Rule = {
   noRoom?: boolean; // under construction TODO: difference from incomplete?
   eatfriend?: boolean;
   noreverse?: "ban" | "koma";
-  rewriteall?: boolean;
   css?: string;
   yonin?: boolean;
 };
 
-export type MoveAndType = {
+export type MoveAndPieceType = {
   move: [number, number];
-  type: MoveType;
+  type: PieceType;
 };
 
+enum PieceType {
+  FRIEND = 1,
+  ENEMY = 2,
+}
 
 type KomaConfig = any;
 

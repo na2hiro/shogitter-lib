@@ -1,7 +1,7 @@
 import {MoveType} from "../Koma";
 
 import {Species} from "../Ban";
-import {MoveAndType} from "../ShogitterDB";
+import {MoveAndPieceType} from "../ShogitterDB";
 export type KomaInfo = {
   species: string;
   name: string;
@@ -10,7 +10,7 @@ export type KomaInfo = {
   move: { move: [number, number]; type: MoveType | MoveType[] }[];
   nifu?: number;
   limit?: { [type: number]: number };
-  mustNotBeEmpty?: { [type: number]: MoveAndType | MoveAndType[] };
+  mustNotBeEmpty?: { [type: number]: MoveAndPieceType | MoveAndPieceType[] };
   jumpException?: Species[];
   change?: { [type: number]: number };
 };

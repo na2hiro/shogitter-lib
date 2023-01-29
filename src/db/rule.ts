@@ -706,7 +706,6 @@ const rule = {
       ff: "fg",
     },
     players: [0, 1],
-    rewriteall: true,
     size: [9, 9],
     strategy: {
       Judge: {
