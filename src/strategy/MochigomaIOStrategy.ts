@@ -172,14 +172,11 @@ class InfinityMochigomaIOStrategy extends MochigomaIOStrategy<InfinityMochigomaI
   toHTML() {
     const sp = this.setting.species || "yo";
     return (
-      (this.setting.common?.directions
-        ? this.setting.common.directions
-            .map((dir) => Teban.tebanName[0][dir])
-            .join(" ") + "は"
-        : "") +
-      `<a href='/koma/${sp}'>` +
-      shogitterDB.getKoma(sp, "name") +
-      "</a>を無限に打てる"
+      `${this.setting.common?.directions
+          ? this.setting.common.directions
+          .map((dir) => Teban.tebanName[0][dir])
+          .join(" ") + "は"
+          : ""}<a href='/koma/${sp}'>${shogitterDB.getKoma(sp, "name")}</a>を無限に打てる`
     );
   }
 }
@@ -204,13 +201,7 @@ class ExchangeMochigomaIOStrategy extends MochigomaIOStrategy<ExchangeMochigomaI
       for (let from in s) {
         const to = s[from];
         ret +=
-          " " +
-          Teban.tebanName[0][dir] +
-          "の<a href='/koma/{from}'>" +
-          shogitterDB.getKoma(from, "name") +
-          "</a>は<a href='/koma/{to}'>" +
-          shogitterDB.getKoma(to, "name") +
-          "</a>に";
+          ` ${Teban.tebanName[0][dir]}の<a href='/koma/${from}'>${shogitterDB.getKoma(from, "name")}</a>は<a href='/koma/${to}'>${shogitterDB.getKoma(to, "name")}</a>に`;
       }
     }
     return ret + "置き換えられる";

@@ -189,7 +189,7 @@ class NoTaimenMoveControlStrategy extends MoveControlStrategy<NoTaimenMoveContro
   toHTML() {
     return `${this.setting["species"]
       .map(
-        (sp) => `<a href='/koma/{sp}'>${shogitterDB.getKoma(sp, "name")}</a>`
+        (sp) => `<a href='/koma/${sp}'>${shogitterDB.getKoma(sp, "name")}</a>`
       )
       .join(" ")}どうしが対面してはいけない`;
   }

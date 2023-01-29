@@ -141,7 +141,7 @@ class RestrictedMoveFilterStrategy extends MoveFilterStrategy<RestrictedMoveFilt
     let ret = "";
     for (const place of this.setting["place"]) {
       ret += ` ${place["species"].map(
-        (sp) => `<a href='/koma/{sp}'>${shogitterDB.getKoma(sp, "name")}</a>`
+        (sp) => `<a href='/koma/${sp}'>${shogitterDB.getKoma(sp, "name")}</a>`
       )}は${place["min"]["x"]}〜${place["max"]["x"]}列${place["min"]["y"]}〜${
         place["max"]["y"]
       }段`;
