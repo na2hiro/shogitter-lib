@@ -1,11 +1,11 @@
 import { ShogitterCoreException } from "./utils/phpCompat";
-import komaConst, {KomaInfo} from "./db/koma";
+import komaConst, { KomaInfo } from "./db/koma";
 import ruleConst from "./db/rule";
 import ruleGenreConst from "./db/rulegenre";
 import { Species } from "./Ban";
 import { MochigomaObjDB } from "./Mochigoma";
 
-const MAX_RULE_ID = 111;
+const MAX_RULE_ID = 113;
 
 type KomaObj = [] | [number, Species];
 export type Rule = {
@@ -119,7 +119,7 @@ class ShogitterDB {
   getKoma(species: Species, member: string): any;
   getKoma(species: Species, member?: string) {
     const koma = komaConst[species];
-    if(!koma) {
+    if (!koma) {
       throw new ShogitterCoreException(`駒 ${species} が不明です．` + 1);
     }
     if (member == null) {

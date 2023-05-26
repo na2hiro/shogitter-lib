@@ -26,6 +26,10 @@ export abstract class CaptureControlStrategy<S> extends Strategy {
     setting: any
   ): CaptureControlStrategy<S> {
     const klass: any = nameToStrategy[name];
+    if (!klass)
+      throw new ShogitterCoreException(
+        `CaptureControlStrategy: ${name} is not defined.`
+      );
     return new klass(ban, setting);
   }
 }
@@ -244,6 +248,40 @@ class SpeedCaptureControlStrategy extends CaptureControlStrategy<{}> {
   }
 }
 
+class PatrolCaptureControlStrategy extends CaptureControlStrategy<{}> {
+  static strategyVariant = "Patrol";
+  public abstract =
+    "味方の駒の利きで紐が付いていない駒は、相手の駒を取ることができない。";
+
+  execute(captured: Koma, capturing: Koma) {
+    if (captured.isNull()) return;
+    const direction = capturing.direction;
+
+    if (!this.ban.existsMovable(capturing.XY, capturing.direction)) {
+      throw new ShogitterCoreException(
+        "この駒は味方の利きがないため、駒を取れません。"
+      );
+    }
+  }
+}
+
+class LortapCaptureControlStrategy extends CaptureControlStrategy<{}> {
+  static strategyVariant = "Lortap";
+  public abstract =
+    "味方の駒の利きで紐が付いている駒は、相手の駒を取ることができない。Portalの逆。";
+
+  execute(captured: Koma, capturing: Koma) {
+    if (captured.isNull()) return;
+    const direction = capturing.direction;
+
+    if (this.ban.existsMovable(capturing.XY, capturing.direction)) {
+      throw new ShogitterCoreException(
+        "この駒は味方の利きがあるため、駒を取れません。"
+      );
+    }
+  }
+}
+
 const nameToStrategy: {
   [variant: string]: /*typeof CaptureControlStrategy)*/ any;
 } = {
@@ -253,4 +291,6 @@ const nameToStrategy: {
   Torazu: TorazuCaptureControlStrategy,
   Shishi: ShishiCaptureControlStrategy,
   Speed: SpeedCaptureControlStrategy,
+  Patrol: PatrolCaptureControlStrategy,
+  Lortap: LortapCaptureControlStrategy,
 };

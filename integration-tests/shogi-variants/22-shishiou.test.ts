@@ -16,7 +16,7 @@ describe("Shishiou", () => {
   });
   it("can reset without issues when resigned while shishiou is moving", () => {
     move(shogi, 5, 1, 5, 2);
-    shogi.resign(1)
+    shogi.resign(1);
     Shogi.ofJkf(shogi.getObject());
     shogi.constructById(22);
     Shogi.ofJkf(shogi.getObject());

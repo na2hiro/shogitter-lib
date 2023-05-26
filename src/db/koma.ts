@@ -1,7 +1,7 @@
-import {MoveType} from "../Koma";
+import { MoveType } from "../Koma";
 
-import {Species} from "../Ban";
-import {MoveAndPieceType} from "../ShogitterDB";
+import { Species } from "../Ban";
+import { MoveAndPieceType } from "../ShogitterDB";
 export type KomaInfo = {
   species: string;
   name: string;

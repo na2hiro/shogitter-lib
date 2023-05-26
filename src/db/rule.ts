@@ -822,6 +822,34 @@ const rule = {
     },
     name: "不成将棋",
   },
+  112: {
+    _id: 112,
+    abstract:
+      "味方の駒の利きで紐が付いていない駒は、相手の駒を取ることができない。",
+    extend: {
+      $id: 0,
+    },
+    name: "Patrol将棋",
+    strategy: {
+      CaptureControl: {
+        Patrol: true,
+      },
+    },
+  },
+  113: {
+    _id: 113,
+    abstract:
+      "味方の駒の利きで紐が付いている駒は、相手の駒を取ることができない。",
+    extend: {
+      $id: 0,
+    },
+    name: "Lortap将棋",
+    strategy: {
+      CaptureControl: {
+        Lortap: true,
+      },
+    },
+  },
   12: {
     _id: 12,
     abstract:

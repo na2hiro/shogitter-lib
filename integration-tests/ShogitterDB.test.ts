@@ -1,15 +1,15 @@
-import {describe} from "vitest";
-import {shogitterDB} from "../src";
+import { describe } from "vitest";
+import { shogitterDB } from "../src";
 
-describe('shogitterDB', function () {
-    describe("getAllRules", ()=>{
-        it("has all values", () => {
-            expect(shogitterDB.getAllRules().map(i=>i._id)).toHaveLength(112);
-        })
-    })
-    describe('getRuleGenre', function () {
-        it("matches snapshot", ()=>{
-            expect(shogitterDB.getRuleGenre()).toMatchInlineSnapshot(`
+describe("shogitterDB", function () {
+  describe("getAllRules", () => {
+    it("has all values", () => {
+      expect(shogitterDB.getAllRules().map((i) => i._id)).toHaveLength(114);
+    });
+  });
+  describe("getRuleGenre", function () {
+    it("matches snapshot", () => {
+      expect(shogitterDB.getRuleGenre()).toMatchInlineSnapshot(`
               {
                 "世界の将棋": [
                   76,
@@ -80,6 +80,8 @@ describe('shogitterDB', function () {
                   94,
                   95,
                   107,
+                  112,
+                  113,
                 ],
                 "古将棋": [
                   12,
@@ -143,7 +145,7 @@ describe('shogitterDB', function () {
                   11,
                 ],
               }
-            `)
-        })
+            `);
     });
+  });
 });
