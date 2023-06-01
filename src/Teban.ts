@@ -71,8 +71,14 @@ export class Teban {
   protected flags: TebanFlags = {};
   protected arrayPlayerInfo: PlayerInfo[] = [];
   protected shogi: Shogi;
-  protected teban: Increment; // teban to increment
-  protected turn: Increment; // Player number in pair shogi, incremented after a whole teban rotation
+  /**
+   * Teban is an enumeration of turns in a game. Note that it's not a direction. arrayTeban holds the mapping from teban to direction.
+   */
+  protected teban: Increment;
+  /**
+   * Player number in pair shogi, incremented after a whole teban rotation.
+   */
+  protected turn: Increment;
 
   public getIterator() {
     return this.arrayUniqueDirection;

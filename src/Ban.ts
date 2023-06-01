@@ -768,13 +768,19 @@ export default class Ban {
    */
   checkOuteByDirection(direction: Direction) {
     if (!this.parent.rule["winkoma"]) return false;
-    for (let enemyKoma of this.getIterator()) {
-      if (enemyKoma.isNull() || enemyKoma.direction == direction) continue; //敵のみ
-      for (let kiki of enemyKoma.getMovable()) {
-        const nowkoma = this.get(kiki["XY"]);
-        if (nowkoma.isNull() || nowkoma.direction != direction) continue; //味方のみ
-        if (this.parent.rule["winkoma"].indexOf(nowkoma.species) >= 0) {
-          return true;
+    for (let capturing of this.getIterator()) {
+      if (capturing.isNull() || capturing.direction == direction) continue; //敵のみ
+      for (let kiki of capturing.getMovable()) {
+        const captured = this.get(kiki["XY"]);
+        if (captured.isNull() || captured.direction != direction) continue; //味方のみ
+        if (this.parent.rule["winkoma"].indexOf(captured.species) >= 0) {
+          try{
+            // 駒取り禁の確認
+            this.strategy.CaptureControl.execute(captured, capturing)
+            return true;
+          } catch (e) {
+            // It is not possible
+          }
         }
       }
     }

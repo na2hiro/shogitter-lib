@@ -143,57 +143,48 @@ export class Koma {
   }
 
   /**
-   * x,yにいる駒の利きを配列で返す
-   * @param <type> x
-   * @param <type> y
-   * @param <type> flagIgnoreOu 王をいないものとして考える場合は1
-   * @param <type> flagRensa 普通は0。連鎖中の場合は内部的に1を使う。また-1の場合は強制的に通常の利きを返す。
+   * 駒の利きを配列で返す
+   * flagsの内訳(TODO: 今は使われていない模様)
+   *
+   * <ul>
+   * <li>ignoreOu 王をいないものとして考える</li>
+   * <li>reverse ?</li>
+   * </ul>
    * @return <type>
    */
   public getMovable(flags: Flags = {}): Kiki[] {
     if (this.ban.parent.rule.rensa) {
-      //連鎖移動将棋
-      const originalKoma = this.ban.get(this.XY);
-      const arrayChecked: XY[] = [];
-      const returnMovable: Kiki[] = [];
+      return this.getMovableRensa(flags);
+    }
 
-      const search = (xy: XY) => {
-        arrayChecked.push(xy.clone());
-        const currentKoma = this.ban.get(xy);
-        //動ける場所それぞれにある駒の動ける場所をチェック。
-        for (const kiki of currentKoma.getMovableVirtual(
-          currentKoma.species,
-          currentKoma.direction,
-          { ignoreOu: flags.ignoreOu }
-        )) {
-          const kikiXY = kiki.XY;
-          if (
-            arrayChecked.some(
-              (checked) => checked.x == kikiXY.x && checked.y == kikiXY.y
-            )
-          ) {
-            //チェック済みリストに入っていたらそこは調べない。
-            continue;
-          }
-          if (
-            !returnMovable.some(
-              (movable) => movable.XY.x == kikiXY.x && movable.XY.y == kikiXY.y
-            )
-          ) {
-            returnMovable.push(kiki);
-          }
-          if (
-            this.ban.exists(kikiXY) &&
-            this.ban.getDirection(kikiXY) == originalKoma.direction
-          ) {
-            search(kikiXY);
-          }
-        }
-      };
+    //普通
+    let arrayMovable: Kiki[] = [];
+    const { ignoreOu, reverse } = flags;
+    for (let species of this.ban.komaSuggest(this)) {
+      arrayMovable = arrayMovable.concat(
+        this.getMovableVirtual(species, this.direction, { ignoreOu, reverse })
+      );
+    }
+    return arrayMovable;
+  }
 
-      for (const kiki of originalKoma.getMovableVirtual(
-        originalKoma.species,
-        originalKoma.direction,
+  /**
+   * 連鎖移動将棋用の利きを返す
+   * @param flags
+   * @private
+   */
+  private getMovableRensa(flags: Flags) {
+    const originalKoma = this.ban.get(this.XY);
+    const arrayChecked: XY[] = [];
+    const returnMovable: Kiki[] = [];
+
+    const search = (xy: XY) => {
+      arrayChecked.push(xy.clone());
+      const currentKoma = this.ban.get(xy);
+      //動ける場所それぞれにある駒の動ける場所をチェック。
+      for (const kiki of currentKoma.getMovableVirtual(
+        currentKoma.species,
+        currentKoma.direction,
         { ignoreOu: flags.ignoreOu }
       )) {
         const kikiXY = kiki.XY;
@@ -206,25 +197,44 @@ export class Koma {
           continue;
         }
         if (
+          !returnMovable.some(
+            (movable) => movable.XY.x == kikiXY.x && movable.XY.y == kikiXY.y
+          )
+        ) {
+          returnMovable.push(kiki);
+        }
+        if (
           this.ban.exists(kikiXY) &&
           this.ban.getDirection(kikiXY) == originalKoma.direction
         ) {
           search(kikiXY);
         }
       }
+    };
 
-      return returnMovable;
+    for (const kiki of originalKoma.getMovableVirtual(
+      originalKoma.species,
+      originalKoma.direction,
+      { ignoreOu: flags.ignoreOu }
+    )) {
+      const kikiXY = kiki.XY;
+      if (
+        arrayChecked.some(
+          (checked) => checked.x == kikiXY.x && checked.y == kikiXY.y
+        )
+      ) {
+        //チェック済みリストに入っていたらそこは調べない。
+        continue;
+      }
+      if (
+        this.ban.exists(kikiXY) &&
+        this.ban.getDirection(kikiXY) == originalKoma.direction
+      ) {
+        search(kikiXY);
+      }
     }
 
-    //普通
-    let arrayMovable: Kiki[] = [];
-    const { ignoreOu, reverse } = flags;
-    for (let species of this.ban.komaSuggest(this)) {
-      arrayMovable = arrayMovable.concat(
-        this.getMovableVirtual(species, this.direction, { ignoreOu, reverse })
-      );
-    }
-    return arrayMovable;
+    return returnMovable;
   }
 
   public getMovableVirtual(

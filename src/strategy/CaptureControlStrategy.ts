@@ -18,6 +18,11 @@ export abstract class CaptureControlStrategy<S> extends Strategy {
     this.ban = ban;
   }
 
+  /**
+   * capturingでcapturedを取れるかどうか判定する。取れなければ例外を投げる。
+   * @param captured
+   * @param capturing
+   */
   abstract execute(captured: Koma, capturing: Koma): void;
 
   static create<S>(

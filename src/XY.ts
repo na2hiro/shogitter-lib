@@ -210,6 +210,14 @@ export default class XY extends RelXY {
     super(x, y);
   }
 
+  static fromArray([x, y]: XYObj) {
+    return new XY(x, y);
+  }
+
+  toArray(): XYObj {
+    return [this.x, this.y];
+  }
+
   toString() {
     return `(${this.x}, ${this.y})`;
   }

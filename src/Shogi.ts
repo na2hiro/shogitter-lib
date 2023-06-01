@@ -61,7 +61,7 @@ export interface ShogiSerialization extends Game {
     end?: string;
   };
   ban: BanObj;
-  moving: Moving;
+  moving: Moving | null;
   players: Player[];
   system: any; // confirmation?
   kifu: KifuLine[];
@@ -131,6 +131,17 @@ export type ResetCommand = {
   type: "reset";
   ruleId: number;
 };
+
+export type Move = {
+  type: "move",
+  from: XYObj,
+  to: XYObj,
+  nari?: boolean,
+} | {
+  type: "put",
+  to: XYObj,
+  species: string
+}
 
 /**
  * 将棋のクラス
@@ -1205,6 +1216,65 @@ export default class Shogi {
 
   getEncodedXY(x: number, y: number) {
     return (x - 1) * 9 + y - 1;
+  }
+
+  public generateMoves(): Move[] {
+    const turn = this.teban.getNowDirection();
+    const moves: Move[] = []
+    const promotionStrategy = this.ban.strategy.Promotion;
+    // move
+    for (let koma of this.ban.getIterator()) {
+      if (koma.isNull() || koma.direction != turn) continue;
+      const from = koma.XY.getArray();
+      koma.getMovable().forEach((kiki) => {
+        const move = {
+          type: "move" as const,
+          from,
+          to: kiki.XY.toArray(),
+          nari: false,
+        };
+        if (
+          promotionStrategy.shouldAskPromotion(
+            kiki.XY,
+            koma.XY,
+            false,
+            turn
+          )
+        ) {
+          moves.push({ ...move, nari: true });
+        }
+        moves.push(move);
+      });
+    }
+    // put
+    const kinds = this.mochigoma.unique(turn);
+    if (kinds.length > 0) {
+      for (let cell of this.ban.getIterator()) {
+        if (!cell.isNull()) continue;
+        const to = cell.XY.toArray();
+        moves.push(
+          ...kinds.map((kind) => ({
+            type: "put" as const,
+            to,
+            species: kind,
+          }))
+        );
+      }
+    }
+
+    // TODO: other moves like pass
+
+    return moves;
+  }
+
+  public doMove(move: Move): void {
+    switch (move.type) {
+      case "move":
+        this.move(XY.fromArray(move.from), XY.fromArray(move.to), move.nari);
+        break;
+      case "put":
+        this.put(XY.fromArray(move.to), move.species, this.teban.getNowDirection());
+    }
   }
 
   /*

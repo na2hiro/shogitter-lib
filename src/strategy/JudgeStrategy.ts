@@ -46,10 +46,14 @@ export default abstract class JudgeStrategy<S> extends Strategy {
     return new klass(ban, setting);
   }
 }
-class WinKomaJudgeStrategy extends JudgeStrategy<{}> {
+
+/**
+ * winkomaが存在しないことによる終局判定
+ */
+class WinKomaJudgeStrategy extends JudgeStrategy<{ignore?: boolean}> {
   abstract = "玉がない";
   execute(to: XY) {
-    //winkomaが存在しないことによる終局判定
+    if (this.setting.ignore) return;
     if (!this.ban.parent.rule["winkoma"]) return;
 
     const countSpecies = this.ban.countSpecies();

@@ -192,7 +192,7 @@ export class Mochigoma {
 
   /**
    * その人の持っている駒の数を数える
-   * @param unknown_type direction
+   * @param direction
    */
   count(direction: Direction) {
     let ret = 0;
@@ -200,6 +200,15 @@ export class Mochigoma {
       ret += this.arrayMochigoma[direction][species];
     }
     return ret;
+  }
+
+  /**
+   * その人の持っている駒の種類
+   */
+  unique(direction: Direction) {
+    return Object.entries(this.arrayMochigoma[direction])
+      .filter(([, count]) => count > 0)
+      .map(([species]) => species);
   }
 
   /**
