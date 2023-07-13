@@ -77,14 +77,15 @@ class WinKomaJudgeStrategy extends JudgeStrategy<{ignore?: boolean}> {
   }
   toHTML() {
     if (!this.ban.parent.rule["winkoma"]) return null;
-    let ret = "王将駒 =";
+    let ret = "王将駒: ";
+    let first=true;
     for (let value2 of this.ban.parent.rule["winkoma"]) {
-      ret += ` <a href='/koma/${value2}'>${shogitterDB.getKoma(
+      ret += `${first?"":"、"}<a href='/koma/${value2}'>${shogitterDB.getKoma(
         value2,
         "name"
       )}</a>`;
+      first=false;
     }
-    ret += "";
     return ret;
   }
 }

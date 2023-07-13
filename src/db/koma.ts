@@ -1,18 +1,41 @@
-import { MoveType } from "../Koma";
+import {MoveType, VariantName} from "../Koma";
 
 import { Species } from "../Ban";
 import { MoveAndPieceType } from "../ShogitterDB";
+
+type KomaInfoMove = { move: [number, number]; type: MoveType | MoveType[] }[];
+type KomaInfoChange = { [type: number]: number };
 export type KomaInfo = {
   species: string;
   name: string;
   shortname?: string;
   csaname?: string;
-  move: { move: [number, number]; type: MoveType | MoveType[] }[];
+  move: KomaInfoMove;
   nifu?: number;
   limit?: { [type: number]: number };
+  jumpLimit?: { [type: number]: number };
+  /**
+   * Move consists of non-positive numbers, which indicates there must be a piece relative to the destination, in the direction closer to the original position
+   */
   mustNotBeEmpty?: { [type: number]: MoveAndPieceType | MoveAndPieceType[] };
+  mustBeEmpty?: { [type: number]: {moves: [number, number][]} };
   jumpException?: Species[];
-  change?: { [type: number]: number };
+  change?: KomaInfoChange;
+  status?: {
+    [type: number]: {
+      move: KomaInfoMove;
+      change: KomaInfoChange;
+    };
+  };
+  initial?: Partial<KomaInfo>
+  /**
+   * Class name for custom logic
+   */
+  class?: VariantName;
+  /**
+   * Finish the move when capture
+   */
+  stopWhenCapture?: boolean;
 };
 
 const koma: { [species: string]: KomaInfo } = {
@@ -4230,7 +4253,7 @@ const koma: { [species: string]: KomaInfo } = {
   },
   fl: {
     change: {
-      "8": "0",
+      "8": 0,
     },
     jumpException: ["ah", "cg", "fk", "kz", "fl"],
     move: [
@@ -10097,6 +10120,22 @@ const koma: { [species: string]: KomaInfo } = {
         type: 11,
       },
       {
+        move: [-3, -3],
+        type: 1,
+      },
+      {
+        move: [-3, 3],
+        type: 1,
+      },
+      {
+        move: [3, -3],
+        type: 1,
+      },
+      {
+        move: [3, 3],
+        type: 1,
+      },
+      {
         move: [5, 5],
         type: 10,
       },
@@ -10104,13 +10143,29 @@ const koma: { [species: string]: KomaInfo } = {
         move: [-5, 5],
         type: 10,
       },
+      {
+        move: [-1, -1],
+        type: 2,
+      },
+      {
+        move: [-1, 1],
+        type: 2,
+      },
+      {
+        move: [1, -1],
+        type: 2,
+      },
+      {
+        move: [1, 1],
+        type: 2,
+      },
     ],
     mustBeEmpty: {
       "10": {
-        move: [-2, -2],
+        moves: [[-2, -2], [-1, -1]],
       },
       "11": {
-        move: [-1, -1],
+        moves: [[-1, -1]],
       },
     },
     limit: {
@@ -18653,7 +18708,7 @@ const koma: { [species: string]: KomaInfo } = {
     },
     mustBeEmpty: {
       "8": {
-        move: [0, 0],
+        moves: [[0, 0]],
       },
     },
   },
@@ -18703,7 +18758,7 @@ const koma: { [species: string]: KomaInfo } = {
     },
     mustBeEmpty: {
       "8": {
-        move: [0, 0],
+        moves: [[0, 0]],
       },
     },
   },
@@ -18790,7 +18845,7 @@ const koma: { [species: string]: KomaInfo } = {
     ],
     mustBeEmpty: {
       "8": {
-        move: [-1, -1],
+        moves: [[-1, -1]],
       },
     },
   },
@@ -18815,7 +18870,7 @@ const koma: { [species: string]: KomaInfo } = {
     ],
     mustBeEmpty: {
       "8": {
-        move: [-1, -1],
+        moves: [[-1, -1]],
       },
     },
     name: "相",

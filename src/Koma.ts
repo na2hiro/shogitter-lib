@@ -5,7 +5,7 @@
 import { ShogitterCoreException } from "./utils/phpCompat";
 import Ban, { Species } from "./Ban";
 import XY, { RelXY } from "./XY";
-import { shogitterDB } from "./ShogitterDB";
+import {MoveAndPieceType, shogitterDB} from "./ShogitterDB";
 import { Flags } from "./Flags";
 import { Direction } from "./Direction";
 
@@ -23,7 +23,7 @@ export enum MoveType {
   FLY = 6, // 駒を飛び越えてそっちにいける
   FLY_CAPTURE = 100, // 飛び越えた駒を取る
   FLY_NOCAPTURE = 101, // 駒を飛び越えてそっちにいける。駒は取れない。 TODO: fix
-  XIANGQI_PAO_CAPTURE = 7, // シャンチーの砲が取る場合　飛車の動きで一度飛び越え、駒を取らなくてはならない
+  XIANGQI_PAO_CAPTURE = 7, // シャンチーの砲が取る場合　飛車の動きで一度飛び越え、駒を取らなくてはならない。常に4と一緒に使われる。
 }
 
 export type KomaObj = [] | [Direction, Species];
@@ -265,8 +265,8 @@ export class Koma {
             flags = { mustPick: true, limit: 1 }; //駒を取らなければならない
             break;
           case MoveType.FLY_NOCAPTURE:
-          //flags = {'limitJump': 1000, noPick: true};//いくつでも飛べる
-          //break;
+            flags = { limitJump: 1000, noPick: true }; //いくつでも飛べる
+            break;
           case MoveType.FLY:
           case MoveType.FLY_CAPTURE:
             flags = { limitJump: 1000 }; //いくつでも飛べる
@@ -289,16 +289,13 @@ export class Koma {
         flags.skip = this.getDataByType(species, "skip", type) || null;
         flags.jumpException = this.getData(species, "jumpException");
 
-        let empties;
+        let empties: {moves: [number, number][]};
         if ((empties = this.getDataByType(species, "mustBeEmpty", type))) {
-          if (empties["move"]) {
-            empties = [empties];
-          }
-          for (let empty of empties) {
+          for (let empty of empties.moves) {
             const emptyXY = this.XY.getCloneRel(
               vec.getClone(
-                (vec.x > 0 ? 1 : -1) * empty["move"][0],
-                (vec.y > 0 ? 1 : -1) * empty["move"][1]
+                (vec.x > 0 ? 1 : -1) * empty[0],
+                (vec.y > 0 ? 1 : -1) * empty[1]
               )
             );
             if (!this.ban.isLegal(emptyXY)) {
@@ -311,16 +308,17 @@ export class Koma {
           }
         }
 
-        if ((empties = this.getDataByType(species, "mustNotBeEmpty", type))) {
+        let nonEmpties: MoveAndPieceType[];
+        if ((nonEmpties = this.getDataByType(species, "mustNotBeEmpty", type))) {
           //echo species, direction, this.XY;
           //1:味方 2:敵
-          if (empties["move"]) {
-            empties = [empties];
+          if (nonEmpties["move"]) {
+            nonEmpties = [nonEmpties];
           }
-          for (let empty of empties) {
+          for (let nonEmpty of nonEmpties) {
             const v = vec.getClone(
-              (vec.x > 0 ? 1 : -1) * empty["move"][0],
-              (vec.y > 0 ? 1 : -1) * empty["move"][1]
+              (vec.x > 0 ? 1 : -1) * nonEmpty["move"][0],
+              (vec.y > 0 ? 1 : -1) * nonEmpty["move"][1]
             );
             const emptyXY = this.XY.getCloneRel(v);
 
@@ -330,8 +328,8 @@ export class Koma {
             const koma = this.ban.get(emptyXY);
             if (
               koma.isNull() ||
-              (empty["type"] == 1 && koma.direction != this.direction) ||
-              (empty["type"] == 2 && koma.direction == this.direction)
+              (nonEmpty["type"] == 1 && koma.direction != this.direction) ||
+              (nonEmpty["type"] == 2 && koma.direction == this.direction)
             ) {
               arrayDenyHash.push(this.XY.getCloneRel(vec).getHash());
               continue typeLoop;
@@ -493,12 +491,18 @@ export class Koma {
 }
 
 class UnmovableKoma extends Koma {
+  static describe() {
+    return "動けない。"
+  }
   isLegal() {
     return true;
   }
 }
 
 class JizaitennoKoma extends Koma {
+  static describe() {
+    return "盤上の任意のマスのうち、空きマスか、ヒモのついていない敵駒のいるマスに移動できる。"
+  }
   isLegal() {
     return true;
   }
@@ -528,7 +532,7 @@ class JizaitennoKoma extends Koma {
   }
 }
 
-type VariantName = "" | "Unmovable" | "Jizaitenno";
+export type VariantName = "" | "Unmovable" | "Jizaitenno";
 
 const nameToClass: { [variantName in VariantName]: typeof Koma } = {
   "": Koma,

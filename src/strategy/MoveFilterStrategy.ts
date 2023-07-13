@@ -5,11 +5,13 @@ import { shogitterDB } from "../ShogitterDB";
 import { Kiki } from "../Koma";
 import { Flags } from "../Flags";
 import { Direction } from "../Direction";
+import { num2kan_decimal } from "../MyLib";
 
 export class MoveFilterStrategyContainer<S = {}> extends StrategyContainer<
   MoveFilterStrategy<S>
 > {
   strategyGenre = "移動制限";
+
   // @ts-ignore
   execute(arrayMovable, to: XY, direction: Direction, species: Species, flags) {
     for (const strategy of this.arrayStrategies) {
@@ -24,15 +26,18 @@ export class MoveFilterStrategyContainer<S = {}> extends StrategyContainer<
     return arrayMovable;
   }
 }
+
 export default abstract class MoveFilterStrategy<S = {}> extends Strategy {
   strategyGenre = "移動制限";
   protected ban: Ban;
   protected setting: S;
+
   constructor(ban: Ban, setting: S) {
     super();
     this.ban = ban;
     this.setting = setting;
   }
+
   abstract execute(
     arrayMovable: Kiki[],
     to: XY,
@@ -46,8 +51,10 @@ export default abstract class MoveFilterStrategy<S = {}> extends Strategy {
     return new klass(ban, setting);
   }
 }
+
 class NormalMoveFilterStrategy extends MoveFilterStrategy {
   abstract = "特になし";
+
   execute(
     arrayMovable: Kiki[],
     to: XY,
@@ -58,8 +65,10 @@ class NormalMoveFilterStrategy extends MoveFilterStrategy {
     return arrayMovable;
   }
 }
+
 class DashMoveFilterStrategy extends MoveFilterStrategy {
   abstract = "後方に進む事が出来ない";
+
   execute(
     arrayMovable: Kiki[],
     to: XY,
@@ -79,6 +88,7 @@ class DashMoveFilterStrategy extends MoveFilterStrategy {
     });
   }
 }
+
 type RestrictedMoveFilterConfig = {
   place: {
     species: Species[]; //[種類]
@@ -96,6 +106,7 @@ type RestrictedMoveFilterConfig = {
  */
 class RestrictedMoveFilterStrategy extends MoveFilterStrategy<RestrictedMoveFilterConfig> {
   abstract = "決まった領域にしか動く事ができない";
+
   execute(
     arrayMovable: Kiki[],
     to: XY,
@@ -137,19 +148,21 @@ class RestrictedMoveFilterStrategy extends MoveFilterStrategy<RestrictedMoveFilt
 
     return arrayMovable;
   }
+
   toHTML() {
     let ret = "";
     for (const place of this.setting["place"]) {
       ret += ` ${place["species"].map(
         (sp) => `<a href='/koma/${sp}'>${shogitterDB.getKoma(sp, "name")}</a>`
-      )}は${place["min"]["x"]}〜${place["max"]["x"]}列${place["min"]["y"]}〜${
-        place["max"]["y"]
-      }段`;
+      ).join("、")}は${place["min"]["x"]}〜${place["max"]["x"]}列${num2kan_decimal(
+        place["min"]["y"]
+      )}〜${num2kan_decimal(place["max"]["y"])}段`;
     }
     ret += "のみ移動可能";
     return ret;
   }
 }
+
 const nameToStrategy: {
   [variant: string]: /*(typeof MoveFilterStrategy)*/ any;
 } = {
