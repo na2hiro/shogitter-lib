@@ -5,7 +5,7 @@ import { array_diff } from "../utils/phpCompat";
 import Ban, { Species } from "../Ban";
 import { QuantumData } from "./MoveEffectStrategy";
 import { Direction } from "../Direction";
-import {QuantumPiece} from "../utils/quantumUtils";
+import { QuantumPiece } from "../utils/quantumUtils";
 
 /**
  * 駒の種類を教える

@@ -1,6 +1,6 @@
 import Shogi from "../../src/Shogi";
 import { move, rawMove } from "../utils/shogiUtils";
-import {describe, expect, it, beforeEach} from "vitest";
+import { describe, expect, it, beforeEach } from "vitest";
 
 describe("Chu shogi", () => {
   let shogi: Shogi;

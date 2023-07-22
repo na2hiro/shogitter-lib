@@ -125,7 +125,10 @@ class NormalPromotionStrategy extends PromotionStrategy<NormalPromotionConfig> {
     let extra = [];
     for (let species in this.setting.species || {}) {
       extra.push(
-        `<a href="/koma/${Koma.getStatelessData(species, "species")}">${Koma.getStatelessData(species, "name")}</a>` +
+        `<a href="/koma/${Koma.getStatelessData(
+          species,
+          "species"
+        )}">${Koma.getStatelessData(species, "name")}</a>` +
           "は" +
           this.setting.species[species] +
           "段目"

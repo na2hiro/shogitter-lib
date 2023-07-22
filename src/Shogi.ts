@@ -10,7 +10,7 @@ import { BanScanIterator } from "./Iterator";
 import { Rule, shogitterDB } from "./ShogitterDB";
 import { javaHashCode } from "./utils/hash";
 import { Direction } from "./Direction";
-import {KifuCommand, Move} from "./Command";
+import { KifuCommand, Move } from "./Command";
 
 export { ShogitterCoreException };
 
@@ -737,7 +737,7 @@ export default class Shogi {
 
   public generateMoves(): Move[] {
     const turn = this.teban.getNowDirection();
-    const moves: Move[] = []
+    const moves: Move[] = [];
     const promotionStrategy = this.ban.strategy.Promotion;
     // move
     for (let koma of this.ban.getIterator()) {
@@ -751,12 +751,7 @@ export default class Shogi {
           nari: false,
         };
         if (
-          promotionStrategy.shouldAskPromotion(
-            kiki.XY,
-            koma.XY,
-            false,
-            turn
-          )
+          promotionStrategy.shouldAskPromotion(kiki.XY, koma.XY, false, turn)
         ) {
           moves.push({ ...move, nari: true });
         }

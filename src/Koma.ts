@@ -5,10 +5,10 @@
 import { ShogitterCoreException } from "./utils/phpCompat";
 import Ban, { Species } from "./Ban";
 import XY, { RelXY } from "./XY";
-import {MoveAndPieceType, shogitterDB} from "./ShogitterDB";
+import { MoveAndPieceType, shogitterDB } from "./ShogitterDB";
 import { Flags } from "./Flags";
 import { Direction } from "./Direction";
-import {KomaInfo} from "./db/koma";
+import { KomaInfo } from "./db/koma";
 
 export type Kiki = {
   XY: XY;
@@ -46,7 +46,7 @@ export class Koma {
     return nameToClass[className] || Koma;
   }
 
-  static describe () {
+  static describe() {
     return "";
   }
 
@@ -294,7 +294,7 @@ export class Koma {
         flags.skip = this.getDataByType(species, "skip", type) || null;
         flags.jumpException = this.getData(species, "jumpException");
 
-        let empties: {moves: [number, number][]};
+        let empties: { moves: [number, number][] };
         if ((empties = this.getDataByType(species, "mustBeEmpty", type))) {
           for (let empty of empties.moves) {
             const emptyXY = this.XY.getCloneRel(
@@ -491,7 +491,7 @@ export class Koma {
 
 class UnmovableKoma extends Koma {
   static describe() {
-    return "動けない。"
+    return "動けない。";
   }
   isLegal() {
     return true;
@@ -500,7 +500,7 @@ class UnmovableKoma extends Koma {
 
 class JizaitennoKoma extends Koma {
   static describe() {
-    return "盤上の任意のマスのうち、空きマスか、ヒモのついていない敵駒のいるマスに移動できる。"
+    return "盤上の任意のマスのうち、空きマスか、ヒモのついていない敵駒のいるマスに移動できる。";
   }
   isLegal() {
     return true;

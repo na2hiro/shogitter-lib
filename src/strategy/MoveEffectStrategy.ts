@@ -10,7 +10,7 @@ import { Koma } from "../Koma";
 import { ShogitterCoreException } from "../utils/phpCompat";
 import { Teban } from "../Teban";
 import { shogitterDB } from "../ShogitterDB";
-import {MoveType, QuantumPiece, runQuantum} from "../utils/quantumUtils";
+import { MoveType, QuantumPiece, runQuantum } from "../utils/quantumUtils";
 import { Direction } from "../Direction";
 
 export class MoveEffectStrategyContainer<

@@ -1,8 +1,10 @@
-import {Rule} from "../ShogitterDB";
+import { Rule } from "../ShogitterDB";
 
-type RuleDb = {[ruleId: string]: RuleConfig}
-type RuleConfig = RuleExtended | Rule
-type RuleExtended = {extend: {$id: number}} & Partial<Omit<Rule, "init">> & {init?: Partial<Rule["init"]>}
+type RuleDb = { [ruleId: string]: RuleConfig };
+type RuleConfig = RuleExtended | Rule;
+type RuleExtended = { extend: { $id: number } } & Partial<
+  Omit<Rule, "init">
+> & { init?: Partial<Rule["init"]> };
 
 const rule: RuleDb = {
   0: {
@@ -8928,7 +8930,7 @@ const rule: RuleDb = {
         Othello: true,
       },
     },
-    koma: ["yo"]
+    koma: ["yo"],
   } satisfies Rule,
   81: {
     _id: 81,
@@ -9362,7 +9364,7 @@ const rule: RuleDb = {
         },
       },
     },
-    koma: ["yo"]
+    koma: ["yo"],
   } satisfies Rule,
   82: {
     _id: 82,
@@ -9836,7 +9838,7 @@ const rule: RuleDb = {
         },
       },
     },
-    koma: ["yo"]
+    koma: ["yo"],
   } satisfies Rule,
   84: {
     _id: 84,
@@ -10836,7 +10838,7 @@ const rule: RuleDb = {
         Igo: true,
       },
     },
-    koma: ["yo"]
+    koma: ["yo"],
   } satisfies Rule,
   9: {
     _id: 9,

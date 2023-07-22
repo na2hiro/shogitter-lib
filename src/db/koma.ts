@@ -1,9 +1,12 @@
-import {MoveType, VariantName} from "../Koma";
+import { MoveType, VariantName } from "../Koma";
 
 import { Species } from "../Ban";
 import { MoveAndPieceType } from "../ShogitterDB";
 type MoveTypeConfig = MoveType | number;
-type KomaInfoMove = { move: [number, number]; type: MoveTypeConfig | MoveTypeConfig[] }[];
+type KomaInfoMove = {
+  move: [number, number];
+  type: MoveTypeConfig | MoveTypeConfig[];
+}[];
 type KomaInfoChange = { [type: number]: number };
 export type KomaInfo = {
   species: string;
@@ -19,7 +22,7 @@ export type KomaInfo = {
    * Move consists of non-positive numbers, which indicates there must be a piece relative to the destination, in the direction closer to the original position
    */
   mustNotBeEmpty?: { [type: number]: MoveAndPieceType | MoveAndPieceType[] };
-  mustBeEmpty?: { [type: number]: {moves: [number, number][]} };
+  mustBeEmpty?: { [type: number]: { moves: [number, number][] } };
   jumpException?: Species[];
   change?: KomaInfoChange;
   status?: {
@@ -28,7 +31,7 @@ export type KomaInfo = {
       change: KomaInfoChange;
     };
   };
-  initial?: Pick<KomaInfo, "move" | "limit">
+  initial?: Pick<KomaInfo, "move" | "limit">;
   /**
    * Class name for custom logic
    */
@@ -10164,7 +10167,10 @@ const koma: { [species: string]: KomaInfo } = {
     ],
     mustBeEmpty: {
       "10": {
-        moves: [[-2, -2], [-1, -1]],
+        moves: [
+          [-2, -2],
+          [-1, -1],
+        ],
       },
       "11": {
         moves: [[-1, -1]],

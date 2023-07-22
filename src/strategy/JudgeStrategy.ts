@@ -50,7 +50,7 @@ export default abstract class JudgeStrategy<S> extends Strategy {
 /**
  * winkomaが存在しないことによる終局判定
  */
-class WinKomaJudgeStrategy extends JudgeStrategy<{ignore?: boolean}> {
+class WinKomaJudgeStrategy extends JudgeStrategy<{ ignore?: boolean }> {
   abstract = "玉がない";
   execute(to: XY) {
     if (this.setting.ignore) return;
@@ -78,13 +78,12 @@ class WinKomaJudgeStrategy extends JudgeStrategy<{ignore?: boolean}> {
   toHTML() {
     if (!this.ban.parent.rule.winkoma) return null;
     let ret = "王将駒: ";
-    let first=true;
+    let first = true;
     for (let value2 of this.ban.parent.rule.winkoma) {
-      ret += `${first?"":"、"}<a href='/koma/${value2}'>${shogitterDB.getKoma(
-        value2,
-        "name"
-      )}</a>`;
-      first=false;
+      ret += `${
+        first ? "" : "、"
+      }<a href='/koma/${value2}'>${shogitterDB.getKoma(value2, "name")}</a>`;
+      first = false;
     }
     return ret;
   }

@@ -755,7 +755,10 @@ export default class Ban {
       for (let kiki of koma.getMovable()) {
         const toKoma = this.get(kiki["XY"]);
         if (toKoma.isNull() || toKoma.isFriend(koma)) continue;
-        if (this.parent.rule.winkoma && this.parent.rule.winkoma.indexOf(toKoma.species) >= 0) {
+        if (
+          this.parent.rule.winkoma &&
+          this.parent.rule.winkoma.indexOf(toKoma.species) >= 0
+        ) {
           ret[toKoma.direction] = true;
         }
       }
@@ -774,9 +777,9 @@ export default class Ban {
         const captured = this.get(kiki["XY"]);
         if (captured.isNull() || captured.direction != direction) continue; //味方のみ
         if (this.parent.rule["winkoma"].indexOf(captured.species) >= 0) {
-          try{
+          try {
             // 駒取り禁の確認
-            this.strategy.CaptureControl.execute(captured, capturing)
+            this.strategy.CaptureControl.execute(captured, capturing);
             return true;
           } catch (e) {
             // It is not possible

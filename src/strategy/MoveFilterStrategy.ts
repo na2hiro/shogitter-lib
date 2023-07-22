@@ -152,11 +152,15 @@ class RestrictedMoveFilterStrategy extends MoveFilterStrategy<RestrictedMoveFilt
   toHTML() {
     let ret = "";
     for (const place of this.setting["place"]) {
-      ret += ` ${place["species"].map(
-        (sp) => `<a href='/koma/${sp}'>${shogitterDB.getKoma(sp, "name")}</a>`
-      ).join("、")}は${place["min"]["x"]}〜${place["max"]["x"]}列${num2kan_decimal(
-        place["min"]["y"]
-      )}〜${num2kan_decimal(place["max"]["y"])}段`;
+      ret += ` ${place["species"]
+        .map(
+          (sp) => `<a href='/koma/${sp}'>${shogitterDB.getKoma(sp, "name")}</a>`
+        )
+        .join("、")}は${place["min"]["x"]}〜${
+        place["max"]["x"]
+      }列${num2kan_decimal(place["min"]["y"])}〜${num2kan_decimal(
+        place["max"]["y"]
+      )}段`;
     }
     ret += "のみ移動可能";
     return ret;
