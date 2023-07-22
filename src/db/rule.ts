@@ -1,4 +1,10 @@
-const rule = {
+import {Rule} from "../ShogitterDB";
+
+type RuleDb = {[ruleId: string]: RuleConfig}
+type RuleConfig = RuleExtended | Rule
+type RuleExtended = {extend: {$id: number}} & Partial<Omit<Rule, "init">> & {init?: Partial<Rule["init"]>}
+
+const rule: RuleDb = {
   0: {
     _id: 0,
     abstract: "普通の将棋。",
@@ -433,8 +439,7 @@ const rule = {
     },
     koma: ["af", "ah"],
     name: "角将棋",
-    nari: [],
-    override: 0,
+    nari: {},
     players: [0, 1],
     size: [9, 9],
     strategy: {
@@ -516,7 +521,6 @@ const rule = {
       ah: null,
       yn: null,
     },
-    override: 0,
     players: [0, 1],
     size: [9, 9],
     strategy: {
@@ -605,7 +609,7 @@ const rule = {
         HasamiTenbinHashiotoshi: true,
       },
     },
-  },
+  } satisfies Rule,
   106: {
     _id: 106,
     abstract:
@@ -727,7 +731,7 @@ const rule = {
         },
       },
     },
-  },
+  } satisfies Rule,
   109: {
     _id: 109,
     abstract: "歩を取り除いた普通の将棋。将棋の入門用に良いとされるルール。",
@@ -1304,7 +1308,8 @@ const rule = {
       },
     },
     winkoma: ["bj"],
-  },
+    koma: ["bg", "bh", "bi", "bj", "bk"],
+  } satisfies Rule,
   18: {
     _id: 18,
     abstract: "１手指すごとに、横に重力がかかったように駒が横にすべる。",
@@ -1868,7 +1873,7 @@ const rule = {
     noRoom: true,
     players: [0, 2, 1, 3],
     strategy: null,
-    yonin: 1,
+    yonin: true,
   },
   28: {
     _id: 28,
@@ -2217,7 +2222,7 @@ const rule = {
         Hasami: true,
       },
     },
-  },
+  } satisfies Rule,
   4: {
     _id: 4,
     abstract: "普通の将棋から、上手側の飛車と左の香車を落としたもの。",
@@ -8901,7 +8906,7 @@ const rule = {
       mochigoma: [[], []],
     },
     name: "オセロ",
-    nari: [],
+    nari: {},
     noreverse: "koma",
     players: [0, 1],
     size: [8, 8],
@@ -8923,7 +8928,8 @@ const rule = {
         Othello: true,
       },
     },
-  },
+    koma: ["yo"]
+  } satisfies Rule,
   81: {
     _id: 81,
     incomplete: true,
@@ -9339,7 +9345,7 @@ const rule = {
       mochigoma: [[], []],
     },
     name: "五目並べ",
-    nari: [],
+    nari: {},
     noreverse: "ban",
     players: [0, 1],
     size: [19, 19],
@@ -9356,7 +9362,8 @@ const rule = {
         },
       },
     },
-  },
+    koma: ["yo"]
+  } satisfies Rule,
   82: {
     _id: 82,
     incomplete: true,
@@ -9378,7 +9385,7 @@ const rule = {
       mochigoma: [[], []],
     },
     name: "重力四目並べ",
-    nari: [],
+    nari: {},
     noreverse: "ban",
     players: [0, 1],
     size: [7, 6],
@@ -9397,7 +9404,8 @@ const rule = {
         },
       },
     },
-  },
+    koma: ["yo"],
+  } satisfies Rule,
   83: {
     _id: 83,
     incomplete: true,
@@ -9812,7 +9820,7 @@ const rule = {
       mochigoma: [[], []],
     },
     name: "六目並べ",
-    nari: [],
+    nari: {},
     noreverse: "ban",
     players: [0, 1, 1, 0],
     size: [19, 19],
@@ -9828,7 +9836,8 @@ const rule = {
         },
       },
     },
-  },
+    koma: ["yo"]
+  } satisfies Rule,
   84: {
     _id: 84,
     abstract: "チェッカー。",
@@ -9880,7 +9889,7 @@ const rule = {
         Checker: true,
       },
     },
-  },
+  } satisfies Rule,
   85: {
     _id: 85,
     incomplete: true,
@@ -10297,7 +10306,7 @@ const rule = {
     },
     koma: ["yo"],
     name: "純碁",
-    nari: [],
+    nari: {},
     noreverse: "koma",
     players: [0, 1],
     size: [19, 19],
@@ -10317,7 +10326,7 @@ const rule = {
         Igo: true,
       },
     },
-  },
+  } satisfies Rule,
   86: {
     _id: 86,
     abstract:
@@ -10805,7 +10814,7 @@ const rule = {
       mochigoma: [[], []],
     },
     name: "囲連星",
-    nari: [],
+    nari: {},
     noreverse: "koma",
     players: [0, 1],
     size: [19, 19],
@@ -10827,7 +10836,8 @@ const rule = {
         Igo: true,
       },
     },
-  },
+    koma: ["yo"]
+  } satisfies Rule,
   9: {
     _id: 9,
     abstract:

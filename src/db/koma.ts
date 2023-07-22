@@ -2,8 +2,8 @@ import {MoveType, VariantName} from "../Koma";
 
 import { Species } from "../Ban";
 import { MoveAndPieceType } from "../ShogitterDB";
-
-type KomaInfoMove = { move: [number, number]; type: MoveType | MoveType[] }[];
+type MoveTypeConfig = MoveType | number;
+type KomaInfoMove = { move: [number, number]; type: MoveTypeConfig | MoveTypeConfig[] }[];
 type KomaInfoChange = { [type: number]: number };
 export type KomaInfo = {
   species: string;
@@ -13,6 +13,7 @@ export type KomaInfo = {
   move: KomaInfoMove;
   nifu?: number;
   limit?: { [type: number]: number };
+  skip?: { [type: number]: number };
   jumpLimit?: { [type: number]: number };
   /**
    * Move consists of non-positive numbers, which indicates there must be a piece relative to the destination, in the direction closer to the original position
@@ -36,6 +37,7 @@ export type KomaInfo = {
    * Finish the move when capture
    */
   stopWhenCapture?: boolean;
+  nopass?: boolean;
 };
 
 const koma: { [species: string]: KomaInfo } = {
@@ -17069,8 +17071,8 @@ const koma: { [species: string]: KomaInfo } = {
         type: 2,
       },
     ],
-    baseChange: "ym",
-    nopostfix: 1,
+    // baseChange: "ym",
+    // nopostfix: 1,
   },
   vp: {
     species: "vp",
@@ -18661,8 +18663,8 @@ const koma: { [species: string]: KomaInfo } = {
         type: 1,
       },
     ],
-    baseChange: "yn",
-    nopostfix: 1,
+    // baseChange: "yn",
+    // nopostfix: 1,
   },
   yn: {
     class: "Unmovable",

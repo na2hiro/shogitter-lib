@@ -10,7 +10,7 @@ import { Koma } from "../Koma";
 import { ShogitterCoreException } from "../utils/phpCompat";
 import { Teban } from "../Teban";
 import { shogitterDB } from "../ShogitterDB";
-import { MoveType, runQuantum } from "../utils/quantumUtils";
+import {MoveType, QuantumPiece, runQuantum} from "../utils/quantumUtils";
 import { Direction } from "../Direction";
 
 export class MoveEffectStrategyContainer<
@@ -389,7 +389,7 @@ class CaptureKomaMoveEffectStrategy extends MoveEffectStrategy{
 			rel.turn(koma.direction); //turnReverse? 要チェック
 			return to.getCloneRel(rel);
 		}, setting['place']);
-		
+
 		if(setting["stopException"]){
 			foreach(places as XY){
 				if(!this.ban.exists(XY)) continue;
@@ -403,7 +403,7 @@ class CaptureKomaMoveEffectStrategy extends MoveEffectStrategy{
 			if(this.match(nowkoma, koma.direction, setting["exception"]))continue;
 			this.ban.strategy["Capture"].execute(XY, koma.direction);
 		}
-		
+
 	}
 	private match(Koma nowkoma, direction, settings){
 		foreach(settings?:array() as komasetting){
@@ -426,7 +426,7 @@ class CaptureKomaMoveEffectStrategy extends MoveEffectStrategy{
 		return false;
 	}
 }
- * 
+ *
  */
 class AntikirukeMoveEffectStrategy extends MoveEffectStrategy {
   abstract = "駒を取った時に取った駒が初期位置に戻る。";
@@ -453,8 +453,8 @@ class AntikirukeMoveEffectStrategy extends MoveEffectStrategy {
 export type QuantumData = {
   xys: string[]; // 先手後手の場所配列(idが添字)
   d: {
-    fulls: string[]; // 売り切れ駒リスト
-    kinds: string[][]; // 可能性駒リスト
+    fulls: QuantumPiece[]; // 売り切れ駒リスト
+    kinds: QuantumPiece[][]; // 可能性駒リスト
   };
 };
 class QuantumMoveEffectStrategy extends MoveEffectStrategy {
@@ -485,7 +485,7 @@ class QuantumMoveEffectStrategy extends MoveEffectStrategy {
     vec: RelXY = null,
     promote: boolean,
     movetype: MoveType,
-    kinds: string[][]
+    kinds: QuantumPiece[][]
   ) {
     return runQuantum(position, vec && { vec, promote }, movetype, kinds);
   }
@@ -527,7 +527,7 @@ class QuantumMoveEffectStrategy extends MoveEffectStrategy {
       for (let i in this.obj[dir].xys) {
         const xy = this.obj[dir].xys[i];
         if (xy.indexOf(`mochi${direction}-`) === 0) {
-          const pos = parseInt(xy.substr(7));
+          const pos = parseInt(xy.substring(7));
           if (pos > minpos) {
             this.obj[dir].xys[i] = `mochi${direction}-${pos - 1}`;
           }

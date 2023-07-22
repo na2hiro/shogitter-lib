@@ -47,7 +47,7 @@ export interface ShogiSerialization {
   ban: BanObj;
   moving: Moving | null;
   players: Player[];
-  system: any; // confirmation?
+  system?: any; // confirmation?
   kifu: KifuLine[];
 }
 

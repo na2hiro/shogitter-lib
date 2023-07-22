@@ -744,7 +744,7 @@ export default class Ban {
 
   /**
    * 王手であるかどうか
-   * @param int direction　向き (空の場合、array[向き]に1:王手 0:王手でない　を代入)
+   * @param int direction　向き (空の場合、array[向き]に王手であるかどうかのbooleanを代入)
    * @return <bool>
    *     TODO: Use checkOuteByDirection if direction is passed
    */
@@ -755,7 +755,7 @@ export default class Ban {
       for (let kiki of koma.getMovable()) {
         const toKoma = this.get(kiki["XY"]);
         if (toKoma.isNull() || toKoma.isFriend(koma)) continue;
-        if (this.parent.rule["winkoma"].indexOf(toKoma.species) >= 0) {
+        if (this.parent.rule.winkoma && this.parent.rule.winkoma.indexOf(toKoma.species) >= 0) {
           ret[toKoma.direction] = true;
         }
       }
@@ -767,7 +767,7 @@ export default class Ban {
    * direction玉に王手がかかっているかどうか
    */
   checkOuteByDirection(direction: Direction) {
-    if (!this.parent.rule["winkoma"]) return false;
+    if (!this.parent.rule.winkoma) return false;
     for (let capturing of this.getIterator()) {
       if (capturing.isNull() || capturing.direction == direction) continue; //敵のみ
       for (let kiki of capturing.getMovable()) {

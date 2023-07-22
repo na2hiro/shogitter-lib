@@ -21,7 +21,7 @@ export type Rule = {
   players: number[];
   size: number[];
   strategy: any; // TODO
-  winkoma: Species[];
+  winkoma?: Species[];
   komaochi?: boolean;
   iterator?: any;
   rensa?: boolean;

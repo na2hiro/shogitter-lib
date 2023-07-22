@@ -45,6 +45,10 @@ export class Koma {
     return nameToClass[className] || Koma;
   }
 
+  static describe () {
+    return "";
+  }
+
   /**
    * 駒を生成
    * @param species

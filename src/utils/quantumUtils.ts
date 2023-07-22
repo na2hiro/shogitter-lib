@@ -1,25 +1,39 @@
 import { RelXY } from "../XY";
+import { QuantumData } from "../strategy/MoveEffectStrategy";
+import { Direction } from "../Direction";
+import { ShogitterCoreException } from "./phpCompat";
 
-var FU = "Fu";
-var KY = "Ky";
-var KE = "Ke";
-var GI = "Gi";
-var KI = "Ki";
-var KA = "Ka";
-var HI = "Hi";
-var OU = "Ou";
-const allPieces = [FU, KY, KE, GI, KI, KA, HI, OU];
-const initialPieces = {
-  [FU]: 9,
-  [KY]: 2,
-  [KE]: 2,
-  [GI]: 2,
-  [KI]: 2,
-  [KA]: 1,
-  [HI]: 1,
-  [OU]: 1,
+export type QuantumPiece =
+  | "Fu"
+  | "Ky"
+  | "Ke"
+  | "Gi"
+  | "Ki"
+  | "Ka"
+  | "Hi"
+  | "Ou";
+const allPieces: QuantumPiece[] = [
+  "Fu",
+  "Ky",
+  "Ke",
+  "Gi",
+  "Ki",
+  "Ka",
+  "Hi",
+  "Ou",
+];
+const initialPieces: { [piece in QuantumPiece]: number } = {
+  Fu: 9,
+  Ky: 2,
+  Ke: 2,
+  Gi: 2,
+  Ki: 2,
+  Ka: 1,
+  Hi: 1,
+  Ou: 1,
 };
-const kin = [
+type Move = [number, number];
+const kin: Move[] = [
   [1, -1],
   [0, -1],
   [-1, -1],
@@ -27,26 +41,26 @@ const kin = [
   [-1, 0],
   [0, 1],
 ];
-const moves = [
+const moves: { [piece in QuantumPiece]: Move[] }[] = [
   {
-    [FU]: [[0, -1]],
-    [KY]: [
+    Fu: [[0, -1]],
+    Ky: [
       [0, -1],
       [0, -2],
     ],
-    [KE]: [
+    Ke: [
       [-1, -2],
       [1, -2],
     ],
-    [GI]: [
+    Gi: [
       [1, -1],
       [0, -1],
       [-1, -1],
       [1, 1],
       [-1, 1],
     ],
-    [KI]: kin,
-    [KA]: [
+    Ki: kin,
+    Ka: [
       [1, -1],
       [-1, -1],
       [1, 1],
@@ -56,7 +70,7 @@ const moves = [
       [2, 2],
       [-2, 2],
     ],
-    [HI]: [
+    Hi: [
       [1, 0],
       [-1, 0],
       [0, 1],
@@ -66,7 +80,7 @@ const moves = [
       [0, 2],
       [0, -2],
     ],
-    [OU]: [
+    Ou: [
       [1, -1],
       [-1, -1],
       [1, 1],
@@ -78,12 +92,12 @@ const moves = [
     ],
   },
   {
-    [FU]: kin,
-    [KY]: kin,
-    [KE]: kin,
-    [GI]: kin,
-    [KI]: [],
-    [KA]: [
+    Fu: kin,
+    Ky: kin,
+    Ke: kin,
+    Gi: kin,
+    Ki: [],
+    Ka: [
       [1, 0],
       [-1, 0],
       [0, 1],
@@ -97,7 +111,7 @@ const moves = [
       [2, 2],
       [-2, 2],
     ],
-    [HI]: [
+    Hi: [
       [1, -1],
       [-1, -1],
       [1, 1],
@@ -111,7 +125,7 @@ const moves = [
       [0, 2],
       [0, -2],
     ],
-    [OU]: [],
+    Ou: [],
   },
 ];
 const movingBoards: { [vec: string]: SuperPiece }[] = [{}, {}];
@@ -132,12 +146,13 @@ export enum MoveType {
   Captured,
   Normal,
 }
+
 export type Result = {
   kinds: SuperPiece[];
-  fulls: string[];
+  fulls: QuantumPiece[];
 };
-type SuperPiece = string[];
-type Possibitilies = Possibility[];
+type SuperPiece = QuantumPiece[];
+type Possibilities = Possibility[];
 type Possibility = {
   piece: SuperPiece;
   indices: number[];
@@ -150,11 +165,11 @@ export type QuantumMove = {
 export const runQuantum = (
   position: number,
   move: QuantumMove | null,
-  movetype: MoveType,
+  moveType: MoveType,
   kinds: SuperPiece[]
 ) => {
-  let superr = move == null ? allPieces : move2superPiece(0, move);
-  let sp = filterByType(movetype, superr);
+  const superr = move == null ? allPieces.slice() : move2superPiece(move);
+  const sp = filterByType(moveType, superr);
   const newKinds = kinds.slice();
   if (position < kinds.length) {
     newKinds[position] = kinds[position].filter(
@@ -166,29 +181,91 @@ export const runQuantum = (
   return getResult(newKinds);
 };
 
+export const findQuantumMochigoma = (
+  data: QuantumData[],
+  direction: Direction,
+  id: number
+) => {
+  for (let i = 0; i < 2; i++) {
+    for (let j = 0; j < data[i].xys.length; j++) {
+      if (data[i].xys[j] == "mochi" + direction + "-" + id)
+        return data[i].d.kinds[j];
+    }
+  }
+
+  throw new ShogitterCoreException(
+    `quantum mochigoma not found for dir=${direction}, id=${id}`
+  );
+};
+export const findQuantumKoma = (
+  data: QuantumData[] | undefined,
+  x: number,
+  y: number,
+  direction: Direction
+) => {
+  if (!data) return allPieces.slice();
+
+  for (let i = 0; i < 2; i++) {
+    for (let j = 0; j < data[i].xys.length; j++) {
+      if (data[i].xys[j] == `(${x}, ${y})`) {
+        return data[i].d.kinds[j];
+      }
+    }
+  }
+  // Haven't moved yet
+  return allPieces.filter((s) => data[direction!].d.fulls.indexOf(s) == -1);
+};
+
+export const stringifyQuantumPiece = (
+  piece: QuantumPiece,
+  promoted = false
+) => {
+  if (promoted) {
+    return {
+      Fu: "と",
+      Ky: "杏",
+      Ke: "圭",
+      Gi: "全",
+      Ki: "",
+      Ka: "馬",
+      Hi: "龍",
+      Ou: "",
+    }[piece];
+  }
+  return {
+    Fu: "歩",
+    Ky: "香",
+    Ke: "桂",
+    Gi: "銀",
+    Ki: "金",
+    Ka: "角",
+    Hi: "飛",
+    Ou: "玉",
+  }[piece];
+};
+
 function checkFromSuperPiece(pieces: SuperPiece[]) {
   // superPiece2union
   const superPiece2Indices: { [superPiece: string]: number[] } = {};
   pieces.map((piece, index) => {
     if (piece.length == 0)
       throw new Error(`Invalid move combination at ${index}`);
-    const p = piece.sort().join(",");
+    const p = piece.slice().sort().join(",");
     if (!superPiece2Indices[p]) superPiece2Indices[p] = [];
     superPiece2Indices[p].push(index);
   });
-  let possibilities: Possibitilies = [];
+  let possibilities: Possibilities = [];
   for (let superPiece in superPiece2Indices) {
     possibilities.push({
-      piece: superPiece.split(","),
+      piece: superPiece.split(",") as QuantumPiece[],
       indices: superPiece2Indices[superPiece],
     });
   }
-  // console.log("possi", possibilities);
   const allNonemptySubsets = getAllSubsets(possibilities).slice(1);
   // countsUnionWithIndices
   return allNonemptySubsets
     .map((subset) => {
-      const pieceSet = new Set<string>();
+      const pieceSet = new Set<QuantumPiece>();
       let indicesList: number[] = [];
       subset.forEach(({ piece, indices }) => {
         piece.forEach((p) => pieceSet.add(p));
@@ -204,11 +281,12 @@ function checkFromSuperPiece(pieces: SuperPiece[]) {
       throw new Error(`Piece exhausted ${piece} (max ${max}) & ${indices}`);
     });
 }
+
 function calcMax(superPiece: SuperPiece) {
   let max = 0;
-  for (let kind in initialPieces) {
-    if (superPiece.indexOf(kind) < 0) continue;
-    max += initialPieces[kind];
+  for (let [kind, amount] of Object.entries(initialPieces)) {
+    if (superPiece.indexOf(kind as QuantumPiece) < 0) continue;
+    max += amount;
   }
   return max;
 }
@@ -219,9 +297,10 @@ const getAllSubsets: <T>(arr: T[]) => T[][] = (theArray) =>
     [[]]
   );
 type Assign = {
-  fst: Possibitilies;
-  snd: Possibitilies;
+  fst: Possibilities;
+  snd: Possibilities;
 };
+
 function assign2list(length: number, { fst, snd }: Assign) {
   const unwinded = fst
     .concat(snd)
@@ -241,7 +320,8 @@ function assign2list(length: number, { fst, snd }: Assign) {
   }
   return ret;
 }
-function assign(details: Possibitilies): Assign {
+
+function assign(details: Possibilities): Assign {
   const details2 = details.filter((detail) => detail.piece.length > 0);
   const res = assign1(details2);
   if (!res) {
@@ -250,11 +330,13 @@ function assign(details: Possibitilies): Assign {
   const { fst, snd } = assign(res.rest);
   return { fst: fst.concat(res.found), snd: snd };
 }
+
 type Assign1 = {
   found: Possibility;
-  rest: Possibitilies;
+  rest: Possibilities;
 };
-function assign1(xs: Possibitilies): Assign1 {
+
+function assign1(xs: Possibilities): Assign1 {
   const found = xs.find(({ piece: x }) => {
     return xs.every(
       ({ piece: xx }) => pieceEquals(x, xx) || !isSubsetOf(xx, x)
@@ -277,13 +359,14 @@ function isSubsetOf<T>(xs: T[], ys: T[]) {
 }
 
 function pieceEquals(piece1: SuperPiece, piece2: SuperPiece) {
-  return piece1.sort().join(",") === piece2.sort().join(",");
+  return piece1.slice().sort().join(",") === piece2.slice().sort().join(",");
 }
 
 function getResult(pieces: SuperPiece[]): Result {
+  console.log("getResult", pieces);
   const details = checkFromSuperPiece(pieces);
   const ps = assign2list(pieces.length, assign(details));
-  const fullSet = new Set<string>();
+  const fullSet = new Set<QuantumPiece>();
   details.forEach(({ piece }) => piece.forEach((p) => fullSet.add(p)));
   const fulls = Array.from(fullSet);
 
@@ -300,7 +383,7 @@ function getResult(pieces: SuperPiece[]): Result {
   };
 }
 
-const move2superPiece = (index: number, { vec, promote }: QuantumMove) => {
+const move2superPiece = ({ vec, promote }: QuantumMove) => {
   return movingBoards[promote ? 1 : 0][vec.x + "," + vec.y];
 };
 
@@ -315,13 +398,13 @@ const filterByType: (
 const filteringPiece: (moveType: MoveType) => SuperPiece = (moveType) => {
   switch (moveType) {
     case MoveType.Promote:
-      return [KI, OU];
+      return ["Ki", "Ou"];
     case MoveType.NoPromote1:
-      return [FU, KY, KE];
+      return ["Fu", "Ky", "Ke"];
     case MoveType.NoPromote2:
-      return [KE];
+      return ["Ke"];
     case MoveType.Captured:
-      return [OU];
+      return ["Ou"];
     default:
       return [];
   }

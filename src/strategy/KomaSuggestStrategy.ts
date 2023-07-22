@@ -5,6 +5,7 @@ import { array_diff } from "../utils/phpCompat";
 import Ban, { Species } from "../Ban";
 import { QuantumData } from "./MoveEffectStrategy";
 import { Direction } from "../Direction";
+import {QuantumPiece} from "../utils/quantumUtils";
 
 /**
  * 駒の種類を教える
@@ -387,10 +388,10 @@ class QuantumKomaSuggestStrategy extends KomaSuggestStrategy {
     }
     return null;
   }
-  mapConvertName(names: Species[], promoted: boolean) {
+  mapConvertName(names: QuantumPiece[], promoted: boolean) {
     return names.map((name) => this.convertName(name, promoted));
   }
-  convertName(name: string, promoted: boolean) {
+  convertName(name: QuantumPiece, promoted: boolean) {
     switch (name) {
       case "Fu":
         return promoted ? "ai" : "aa";

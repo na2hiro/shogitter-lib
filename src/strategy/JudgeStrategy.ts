@@ -54,15 +54,15 @@ class WinKomaJudgeStrategy extends JudgeStrategy<{ignore?: boolean}> {
   abstract = "玉がない";
   execute(to: XY) {
     if (this.setting.ignore) return;
-    if (!this.ban.parent.rule["winkoma"]) return;
+    if (!this.ban.parent.rule["winkoma"]) return; // TODO: throw on construction if missing
 
     const countSpecies = this.ban.countSpecies();
     let winkoma = "";
-    for (let species of this.ban.parent.rule["winkoma"]) {
+    for (let species of this.ban.parent.rule.winkoma) {
       winkoma += " " + Koma.getStatelessData(species, "name");
     }
     outer: for (let player of this.ban.parent.teban.getIterator()) {
-      for (let species of this.ban.parent.rule["winkoma"]) {
+      for (let species of this.ban.parent.rule.winkoma) {
         if (countSpecies[player][species] > 0) {
           continue outer;
         }
@@ -76,10 +76,10 @@ class WinKomaJudgeStrategy extends JudgeStrategy<{ignore?: boolean}> {
     }
   }
   toHTML() {
-    if (!this.ban.parent.rule["winkoma"]) return null;
+    if (!this.ban.parent.rule.winkoma) return null;
     let ret = "王将駒: ";
     let first=true;
-    for (let value2 of this.ban.parent.rule["winkoma"]) {
+    for (let value2 of this.ban.parent.rule.winkoma) {
       ret += `${first?"":"、"}<a href='/koma/${value2}'>${shogitterDB.getKoma(
         value2,
         "name"
@@ -186,7 +186,8 @@ class TsumiJudgeStrategy extends JudgeStrategy<TsumiJudgeConfig> {
     const arrayPlaceOu = []; //ここに王の場所を全て入れる
     for (let koma of this.ban.getIterator()) {
       if (koma.isNull() || koma.direction != direction) continue;
-      if (this.ban.parent.rule["winkoma"].indexOf(koma.species) >= 0) {
+      // Already checking that winkoma exists by checkOuteByDirection
+      if (this.ban.parent.rule.winkoma!.indexOf(koma.species) >= 0) {
         arrayPlaceOu.push(koma.XY);
       }
     }

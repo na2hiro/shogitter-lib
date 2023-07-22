@@ -86,8 +86,7 @@ class ToruichiCaptureControlStrategy extends CaptureControlStrategy<{}> {
     for (let koma of this.ban.getIterator()) {
       if (koma.isNull()) continue;
       if (koma.direction != direction) continue; //調べたい向き以外は無視
-      const flagWinkoma =
-        this.ban.parent.rule["winkoma"].indexOf(koma.species) >= 0;
+      const flagWinkoma = this.ban.parent.rule.winkoma && this.ban.parent.rule.winkoma.indexOf(koma.species) >= 0;
       for (let kiki of koma.getMovable()) {
         const nowkoma = this.ban.get(kiki["XY"]);
         if (!nowkoma.isNull() && nowkoma.direction != direction) {
