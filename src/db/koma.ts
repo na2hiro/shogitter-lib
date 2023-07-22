@@ -28,7 +28,7 @@ export type KomaInfo = {
       change: KomaInfoChange;
     };
   };
-  initial?: Partial<KomaInfo>
+  initial?: Pick<KomaInfo, "move" | "limit">
   /**
    * Class name for custom logic
    */

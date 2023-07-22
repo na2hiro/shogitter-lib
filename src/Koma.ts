@@ -8,6 +8,7 @@ import XY, { RelXY } from "./XY";
 import {MoveAndPieceType, shogitterDB} from "./ShogitterDB";
 import { Flags } from "./Flags";
 import { Direction } from "./Direction";
+import {KomaInfo} from "./db/koma";
 
 export type Kiki = {
   XY: XY;
@@ -101,12 +102,12 @@ export class Koma {
     this.direction = direction;
   }
 
-  static getStatelessData(komaName: string, memberName: string) {
+  static getStatelessData(komaName: string, memberName: keyof KomaInfo) {
     if (komaName == "") return null;
     return shogitterDB.getKoma(komaName, memberName);
   }
 
-  getData(komaName: string, memberName: string) {
+  getData(komaName: string, memberName: keyof KomaInfo) {
     if (komaName == "") return null;
     const initial = shogitterDB.getKoma(komaName, "initial"); // special case when the piece has never moved
     if (

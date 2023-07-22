@@ -15,7 +15,7 @@ export function move(
   try {
     rawMove(shogi, fromX, fromY, toX, toY, nari);
   } catch (e) {
-    console.error(serialize(shogi, null, null, null, null, null));
+    // console.error(serialize(shogi, null, null, null, null, null));
     throw e;
   }
 }
@@ -46,7 +46,7 @@ export function put(
   try {
     rawPut(shogi, toX, toY, species, id);
   } catch (e) {
-    console.error(serialize(shogi, null, null, null, null, null));
+    // console.error(serialize(shogi, null, null, null, null, null));
     throw e;
   }
 }

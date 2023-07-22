@@ -98,7 +98,7 @@ class ShogitterDB {
       const extRule = { ...this.getRule(rule.extend.$id) };
       //親ルール上にルールを上書き
       for (let name in rule) {
-        const value = rule[name];
+        const value = rule[name as keyof Rule];
         if (name == "init") {
           extRule.init = {
             ban: value.ban || extRule.init.ban,
@@ -117,7 +117,7 @@ class ShogitterDB {
 
   getKoma(species: Species): KomaInfo;
   getKoma(species: Species, member: string): any;
-  getKoma(species: Species, member?: string) {
+  getKoma(species: Species, member?: keyof KomaInfo) {
     const koma = komaConst[species];
     if (!koma) {
       throw new ShogitterCoreException(`駒 ${species} が不明です．` + 1);

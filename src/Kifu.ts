@@ -16,9 +16,10 @@ export type KifuLine = {
 // direction, ...diff
 export type KifuMove = Diffs | End;
 type End = string; // _(loser number)
-// x, y, beforeKoma, afterKoma
+// Direction, to, from, ...other changes
 type Diffs = [Direction, ...Diff[]];
 export type Diff = MoveDiff | PutDiff;
+// x, y, beforeKoma, afterKoma
 export type MoveDiff = [number, number, KomaObj, KomaObj];
 
 // amount diff, player, species
@@ -44,8 +45,8 @@ export default class Kifu {
       //encoded=binhex(binstringify(this.getEncodedFormat(i), 24));
       tag +=
         /*json_encode(this.arrayKifu[i][0]).", ".array_reduce(this.getEncodedNums(i), function(ret, value){
-				return ret." ".value[1];
-			}).", ".*/ encoded /*.", ".implode(" ", extractBits(encoded, array(7,7,4,4,1), 23))*/ +
+                        return ret." ".value[1];
+                    }).", ".*/ encoded /*.", ".implode(" ", extractBits(encoded, array(7,7,4,4,1), 23))*/ +
         "|" +
         this.getKifu(i) +
         "|" +
@@ -56,42 +57,42 @@ export default class Kifu {
   }
 
   /*
-    getEncodedNums(tesuu){
-        const kifu=this.get(tesuu);
-        if(count(kifu[2])==4){
-            return []
-                [7, kifu[2][0]*9+kifu[2][1]-10],
-                [7, kifu[1][0]*9+kifu[1][1]-10],
-                [4, Koma.getEncoded(kifu[2][2][1])],
-            [4, Koma.getEncoded(kifu[1][2][1])],
-            [1, kifu[1][3][1]==kifu[2][2][1]?0:1]
-        );
-            return (kifu[2][0]*9+kifu[2][1]-10)." ".(kifu[1][0]*9+kifu[1][1]-10)." ".Koma.getEncoded(kifu[2][2][1])." ".Koma.getEncoded(kifu[1][2][1])." ".(kifu[1][3][1]==kifu[2][2][1]?0:1);
-        }else{
-            return array(
-                array(7, 81),
-                array(7, kifu[1][0]*9+kifu[1][1]-10),
-                array(4, Koma.getEncoded(kifu[2][2])),
-            array(4, 0),
-                array(1, 0)
-        );
-            return "81 ".(kifu[1][0]*9+kifu[1][1]-10)." ".Koma.getEncoded(kifu[2][2])." 0 0";
-        }
+      getEncodedNums(tesuu){
+          const kifu=this.get(tesuu);
+          if(count(kifu[2])==4){
+              return []
+                  [7, kifu[2][0]*9+kifu[2][1]-10],
+                  [7, kifu[1][0]*9+kifu[1][1]-10],
+                  [4, Koma.getEncoded(kifu[2][2][1])],
+              [4, Koma.getEncoded(kifu[1][2][1])],
+              [1, kifu[1][3][1]==kifu[2][2][1]?0:1]
+          );
+              return (kifu[2][0]*9+kifu[2][1]-10)." ".(kifu[1][0]*9+kifu[1][1]-10)." ".Koma.getEncoded(kifu[2][2][1])." ".Koma.getEncoded(kifu[1][2][1])." ".(kifu[1][3][1]==kifu[2][2][1]?0:1);
+          }else{
+              return array(
+                  array(7, 81),
+                  array(7, kifu[1][0]*9+kifu[1][1]-10),
+                  array(4, Koma.getEncoded(kifu[2][2])),
+              array(4, 0),
+                  array(1, 0)
+          );
+              return "81 ".(kifu[1][0]*9+kifu[1][1]-10)." ".Koma.getEncoded(kifu[2][2])." 0 0";
+          }
 
-    }
+      }
 
-    getEncodedFormat(tesuu){
-        return mergeBits(this.getEncodedNums(tesuu));
-    }
-    getString(from = 0, to = null) {
-        let ret = "";
-        if (to == null) to = this.getTesuu();
-        for (let i = from; i < to; i++) {
-            ret += this.getKifu(i);
-        }
-        return ret;
-    }
-     */
+      getEncodedFormat(tesuu){
+          return mergeBits(this.getEncodedNums(tesuu));
+      }
+      getString(from = 0, to = null) {
+          let ret = "";
+          if (to == null) to = this.getTesuu();
+          for (let i = from; i < to; i++) {
+              ret += this.getKifu(i);
+          }
+          return ret;
+      }
+       */
 
   getTeban(i: number) {
     const kifu = this.get(i);
@@ -252,34 +253,38 @@ export default class Kifu {
    * @param kifu
    */
   getXYByKifu(kifu: KifuMove): PreviousMove {
-    if (kifu.length == 2) {
+    if (typeof kifu === "string") {
       return null;
-    } else if (kifu[2].length == 4) {
-      const k = kifu[2] as MoveDiff;
-      return {
-        // TODO this assumes implicit order of kifu
-        to: new XY(kifu[1][0] as any, kifu[1][1] as any),
-        from: new XY(k[0], k[1]),
-      };
     } else {
-      const k = kifu[2] as PutDiff;
-      return {
-        to: new XY(kifu[1][0] as any, kifu[1][1] as any),
-        koma: k[2],
-      };
+      const to = new XY(kifu[1][0], kifu[1][1]);
+      // for igo, from can be missing
+      if (kifu[2] && kifu[2].length == 4) {
+        // MoveDiff
+        return {
+          // TODO this assumes implicit order of kifu
+          to,
+          from: new XY(kifu[2][0], kifu[2][1]),
+        };
+      } else {
+        // PutDiff
+        return {
+          to,
+          koma: kifu[1][3][1],
+        };
+      }
     }
     /*          }else{
-                      //旧テキスト形式
-                      kifulength=this.parent.kifulength;
-                      tox = substr(kifu, 1, kifulength);
-                      toy = substr(kifu, 1+kifulength, kifulength);
-                      fromx = substr(kifu, 1+kifulength*2+6, kifulength);
-                      fromy = substr(kifu, 1+kifulength*3+6, kifulength);
-                      return array(
-                          'to': new XY(tox, toy, this.parent.ban),
-                          'from': new XY(fromx, fromy, this.parent.ban),
-                  );
-                  }*/
+                          //旧テキスト形式
+                          kifulength=this.parent.kifulength;
+                          tox = substr(kifu, 1, kifulength);
+                          toy = substr(kifu, 1+kifulength, kifulength);
+                          fromx = substr(kifu, 1+kifulength*2+6, kifulength);
+                          fromy = substr(kifu, 1+kifulength*3+6, kifulength);
+                          return array(
+                              'to': new XY(tox, toy, this.parent.ban),
+                              'from': new XY(fromx, fromy, this.parent.ban),
+                      );
+                      }*/
   }
 
   /**
@@ -317,39 +322,39 @@ export default class Kifu {
     }
     return ret;
     /* }else{
-             //旧テキスト形式
-             sendkifu="";
-             ret=array();
-             kifulength=this.parent.kifulength;
+                 //旧テキスト形式
+                 sendkifu="";
+                 ret=array();
+                 kifulength=this.parent.kifulength;
 
-             now=1;
-             if(thiskifu[0]==="_") return null;//投了の場合は無視
-             while(1){
-                 nowkifu=substr(thiskifu, now, 1);
-                 if(nowkifu==="_"){
-                     //持ち駒
-                     nowkifu=substr(thiskifu, now, 7);
-                     ret[]=array(
-                         'direction': substr(nowkifu, 4, 1),
-                         'species': substr(nowkifu, 5, 2),
-                         'value': (int)substr(nowkifu, 2, 2)*(nowkifu[1]=="+"?1:-1),
-                 );
+                 now=1;
+                 if(thiskifu[0]==="_") return null;//投了の場合は無視
+                 while(1){
+                     nowkifu=substr(thiskifu, now, 1);
+                     if(nowkifu==="_"){
+                         //持ち駒
+                         nowkifu=substr(thiskifu, now, 7);
+                         ret[]=array(
+                             'direction': substr(nowkifu, 4, 1),
+                             'species': substr(nowkifu, 5, 2),
+                             'value': (int)substr(nowkifu, 2, 2)*(nowkifu[1]=="+"?1:-1),
+                     );
 
-                     now+=7;
-                 }else if(is_numeric(nowkifu)){
-                     //移動
-                     nowkifu=substr(thiskifu, now, kifulength*2+6);
-                     ret[]=array(
-                         'XY': new XY(substr(nowkifu, 0, kifulength), substr(nowkifu, kifulength, kifulength), this.parent.ban),
-                         'before': new Koma(substr(nowkifu, kifulength*2+1, 2), substr(nowkifu, kifulength*2, 1)),
-                         'after': new Koma(substr(nowkifu, kifulength*2+4, 2), substr(nowkifu, kifulength*2+3, 1)),
-                 );
-                     now+=kifulength*2+6;
-                 }else{
-                     return ret;
+                         now+=7;
+                     }else if(is_numeric(nowkifu)){
+                         //移動
+                         nowkifu=substr(thiskifu, now, kifulength*2+6);
+                         ret[]=array(
+                             'XY': new XY(substr(nowkifu, 0, kifulength), substr(nowkifu, kifulength, kifulength), this.parent.ban),
+                             'before': new Koma(substr(nowkifu, kifulength*2+1, 2), substr(nowkifu, kifulength*2, 1)),
+                             'after': new Koma(substr(nowkifu, kifulength*2+4, 2), substr(nowkifu, kifulength*2+3, 1)),
+                     );
+                         now+=kifulength*2+6;
+                     }else{
+                         return ret;
+                     }
                  }
-             }
-         }*/
+             }*/
   }
 
   /**
@@ -360,46 +365,50 @@ export default class Kifu {
     const tmp = this.getXYByKifu(kifu);
     //if(is_array(kifu)){
     if ("koma" in tmp) {
+      const put = kifu[1] as PutDiff;
       return {
         teban: kifu[0],
         to: {
-          XY: tmp["to"],
-          before: new Koma(kifu[1][2][1], kifu[1][2][0] as any),
-          after: new Koma(kifu[1][3][1], kifu[1][3][0]),
+          XY: tmp.to,
+          before: new Koma(null, null),
+          after: new Koma(put[2], put[1]),
         },
-        koma: tmp["koma"],
+        koma: tmp.koma,
       };
     } else {
+      const to = kifu[1] as MoveDiff;
+      const from = kifu[2] as MoveDiff;
+      // MoveDiff
       return {
         teban: kifu[0],
         to: {
-          XY: tmp["to"],
-          before: new Koma(kifu[1][2][1], kifu[1][2][0] as any),
-          after: new Koma(kifu[1][3][1], kifu[1][3][0]),
+          XY: tmp.to,
+          before: new Koma(to[2][1], to[2][0]),
+          after: new Koma(to[3][1], to[3][0]),
         },
         from: {
-          XY: tmp["from"],
-          before: new Koma(kifu[2][2][1], kifu[2][2][0] as any),
-          after: new Koma(kifu[2][3][1], kifu[2][3][0]),
+          XY: tmp.from,
+          before: new Koma(from[2][1], from[2][0] as any),
+          after: new Koma(from[3][1], from[3][0]),
         },
       };
     }
     /*}else{
-            //旧テキスト形式
-            return array(
-                'teban': substr(kifu,0,1),
-                'to': array(
-                'XY': tmp['to'],
-                'before': new Koma(substr(kifu,1+kifulength*2+1,2), substr(kifu,1+kifulength*2,1)),
-                'after': new Koma(substr(kifu,1+kifulength*2+4,2), substr(kifu,1+kifulength*2+3,1)),
-        ),
-            'from': array(
-                'XY': tmp['from'],
-                'before': new Koma(substr(kifu,1+kifulength*4+7,2), substr(kifu,1+kifulength*4+6,1)),
-                'after': new Koma(substr(kifu,1+kifulength*4+10,2), substr(kifu,1+kifulength*4+9,1)),
-        ),
-        );
-        }*/
+                //旧テキスト形式
+                return array(
+                    'teban': substr(kifu,0,1),
+                    'to': array(
+                    'XY': tmp['to'],
+                    'before': new Koma(substr(kifu,1+kifulength*2+1,2), substr(kifu,1+kifulength*2,1)),
+                    'after': new Koma(substr(kifu,1+kifulength*2+4,2), substr(kifu,1+kifulength*2+3,1)),
+            ),
+                'from': array(
+                    'XY': tmp['from'],
+                    'before': new Koma(substr(kifu,1+kifulength*4+7,2), substr(kifu,1+kifulength*4+6,1)),
+                    'after': new Koma(substr(kifu,1+kifulength*4+10,2), substr(kifu,1+kifulength*4+9,1)),
+            ),
+            );
+            }*/
   }
 
   /**

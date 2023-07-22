@@ -363,7 +363,6 @@ function pieceEquals(piece1: SuperPiece, piece2: SuperPiece) {
 }
 
 function getResult(pieces: SuperPiece[]): Result {
-  console.log("getResult", pieces);
   const details = checkFromSuperPiece(pieces);
   const ps = assign2list(pieces.length, assign(details));
   const fullSet = new Set<QuantumPiece>();
