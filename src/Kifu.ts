@@ -147,7 +147,7 @@ export default class Kifu {
         num: 2,
         message: "千日手です。同一局面が四回現れました。",
       };
-      this.add(["_", [9]], "千日手");
+      this.add("_9", "千日手");
     }
   }
 
@@ -299,7 +299,7 @@ export default class Kifu {
   getDataByKifu(thiskifu: KifuMove) {
     //if(is_array(thiskifu)){
     if (thiskifu[0] === "_") return null; //投了の場合は無視
-    const ret = [];
+    const ret: ({value: number, direction: Direction, species: Species} | {XY: XY, before: Koma, after: Koma})[] = [];
     let kifu = thiskifu as Diff[];
     for (let i = 1, l = kifu.length; i < l; i++) {
       if (kifu[i].length == 3) {

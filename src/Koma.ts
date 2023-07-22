@@ -86,7 +86,7 @@ export class Koma {
     return this.direction == koma.direction && this.species == koma.species;
   }
 
-  get(memberName: string) {
+  get(memberName: keyof KomaInfo) {
     return this.getData(this.species, memberName);
   }
 
@@ -134,7 +134,7 @@ export class Koma {
     return Koma.getStatelessData(komaName, memberName);
   }
 
-  getDataByType(komaName: string, memberName: string, type: string) {
+  getDataByType(komaName: string, memberName: keyof KomaInfo, type: string) {
     const data = this.getData(komaName, memberName);
     return data?.[type];
   }
@@ -313,13 +313,11 @@ export class Koma {
           }
         }
 
-        let nonEmpties: MoveAndPieceType[];
-        if ((nonEmpties = this.getDataByType(species, "mustNotBeEmpty", type))) {
+        let nonEmpty: MoveAndPieceType[] | MoveAndPieceType;
+        if ((nonEmpty = this.getDataByType(species, "mustNotBeEmpty", type))) {
           //echo species, direction, this.XY;
           //1:味方 2:敵
-          if (nonEmpties["move"]) {
-            nonEmpties = [nonEmpties];
-          }
+          let nonEmpties = Array.isArray(nonEmpty) ? nonEmpty : [nonEmpty];
           for (let nonEmpty of nonEmpties) {
             const v = vec.getClone(
               (vec.x > 0 ? 1 : -1) * nonEmpty["move"][0],
@@ -356,10 +354,6 @@ export class Koma {
 
   /**
    * ある座標からある座標へ、その駒に動く能力があるかどうか
-   * @param <type> fromx     どこからx
-   * @param <type> fromy     どこからy
-   * @param <type> tox       どこまでx
-   * @param <type> toy       どこまでy
    * @return boolean
    */
   getMovableTypes(to: XY): MoveType[] {

@@ -262,7 +262,7 @@ export default class Shogi {
         number++;
       } else {
         for (let value of this.kifu.getDataByKifu(thiskifu)) {
-          if (typeof value["value"] === "number") {
+          if ("value" in value) {
             //持ち駒
             this.mochigoma.add(
               value.species,

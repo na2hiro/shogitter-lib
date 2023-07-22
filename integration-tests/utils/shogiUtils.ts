@@ -3,6 +3,7 @@ import XY from "../../src/XY";
 import { Species } from "../../src/Ban";
 import { serialize } from "./ShogiSerializer";
 import { Direction } from "../../src/Direction";
+import {expect} from "vitest";
 
 export function move(
   shogi: Shogi,
