@@ -1,31 +1,7 @@
 {
-  "name": "shogitter-core",
-  "version": "0.2.7",
-  "description": "Shogitter shogi variant logic written in TypeScript",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc --watch",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "coverage": "vitest run --coverage",
-    "test:watch": "pnpm test",
-    "prepublishOnly": "pnpm build && pnpm lint && pnpm test:run",
-    "depcruise": "depcruise --config .dependency-cruiser.js src",
-    "lint": "prettier --check .",
-    "lint:fix": "prettier --write --loglevel warn .",
-    "typecheck": "tsc --noEmit"
-  },
-  "author": "na2hiro",
-  "license": "Pay 1 million yen to na2hiro to copy and distribute",
+  "scripts": {},
+  "dependencies": {},
   "devDependencies": {
-    "@vitest/coverage-c8": "^0.24.3",
-    "dependency-cruiser": "^11.18.0",
-    "typescript": "^5.1.6",
-    "vitest": "^0.33.0"
-  },
-  "dependencies": {
-    "prettier": "^2.8.1"
+    "lerna": "^7.3.0"
   }
 }
