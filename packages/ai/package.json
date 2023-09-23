@@ -9,7 +9,8 @@
     "build:bun": "bun build src/botRegistry.ts --outdir=lib",
     "build": "npm run clean && tsc && npm run build:copyjs",
     "build:copyjs": "cd src && find . -name '*.js' | cpio -pdm ../lib && cd -",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "pnpm build"
   },
   "keywords": [],
   "author": "",
