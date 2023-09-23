@@ -19,4 +19,10 @@ describe("Shogi", () => {
     shogi.runCommand({ type: "rollback" });
     expect(shogi).toMatchSnapshot();
   });
+
+  it("cannot eat friend", () => {
+    const shogi = Shogi.ofRuleId(0);
+    shogi.start();
+    expect(() => move(shogi, 8, 8, 9, 9)).toThrowError();
+  });
 });

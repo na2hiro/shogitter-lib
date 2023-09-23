@@ -39,7 +39,7 @@ export abstract class CaptureControlStrategy<S> extends Strategy {
   }
 }
 
-class NormalCaptureControlStrategy extends CaptureControlStrategy<{}> {
+class NormalCaptureControlStrategy<S = {}> extends CaptureControlStrategy<S> {
   static strategyVariant = "Normal";
   execute(captured: Koma, capturing: Koma) {
     if (!captured.isNull() && captured.isFriend(capturing)) {
@@ -55,12 +55,14 @@ class NakamawareCaptureControlStrategy extends CaptureControlStrategy<{}> {
   execute(captured: Koma, capturing: Koma) {}
 }
 
-class ToruichiCaptureControlStrategy extends CaptureControlStrategy<{}> {
+class ToruichiCaptureControlStrategy extends NormalCaptureControlStrategy {
   static strategyVariant = "Toruichi";
   public abstract = "取れる駒は必ず取らなくてはならない";
 
   //駒をとった || 王手 || !取る一駒取り可能 == 合法着手
   execute(captured: Koma, capturing: Koma) {
+    super.execute(captured, capturing);
+
     if (
       !captured.isNull() ||
       this.ban.checkOuteByDirection(capturing.direction) ||
@@ -118,12 +120,14 @@ class ToruichiCaptureControlStrategy extends CaptureControlStrategy<{}> {
   }
 }
 type TorazuCaptureControlConfig = [Direction, Species][];
-class TorazuCaptureControlStrategy extends CaptureControlStrategy<TorazuCaptureControlConfig> {
+class TorazuCaptureControlStrategy extends NormalCaptureControlStrategy<TorazuCaptureControlConfig> {
   static strategyVariant = "Torazu";
   public abstract = "取れない駒";
 
   execute(captured: Koma, capturing: Koma) {
     if (captured.isNull()) return;
+    super.execute(captured, capturing);
+
     for (let komaset of this.setting) {
       if (
         (komaset[0] === null || captured.direction == komaset[0]) &&
@@ -152,11 +156,13 @@ class TorazuCaptureControlStrategy extends CaptureControlStrategy<TorazuCaptureC
   }
 }
 
-class ShishiCaptureControlStrategy extends CaptureControlStrategy<{}> {
+class ShishiCaptureControlStrategy extends NormalCaptureControlStrategy {
   static strategyVariant = "Shishi";
   public abstract = "獅子取りの特例";
 
   execute(captured: Koma, capturing: Koma) {
+    super.execute(captured, capturing);
+
     ////獅子特例 獅子をとる場合
     if (!this.isShishi(captured.species)) return;
     if (this.isShishi(capturing.species)) {
@@ -236,12 +242,14 @@ class ShishiCaptureControlStrategy extends CaptureControlStrategy<{}> {
   }
 }
 
-class SpeedCaptureControlStrategy extends CaptureControlStrategy<{}> {
+class SpeedCaptureControlStrategy extends NormalCaptureControlStrategy {
   static strategyVariant = "Speed";
   public abstract = "連続して動かす場合は駒をとれない";
 
   execute(captured: Koma, capturing: Koma) {
     if (captured.isNull()) return;
+    super.execute(captured, capturing);
+
     const kifu = this.ban.parent.kifu;
     const tesuu = kifu.getTesuu();
     if (tesuu > 0) {
@@ -254,12 +262,14 @@ class SpeedCaptureControlStrategy extends CaptureControlStrategy<{}> {
   }
 }
 
-class PatrolCaptureControlStrategy extends CaptureControlStrategy<{}> {
+class PatrolCaptureControlStrategy extends NormalCaptureControlStrategy {
   static strategyVariant = "Patrol";
   public abstract =
     "味方の駒の利きで紐が付いていない駒は、相手の駒を取ることができない。";
 
   execute(captured: Koma, capturing: Koma) {
+    super.execute(captured, capturing);
+
     if (captured.isNull()) return;
     const direction = capturing.direction;
 
@@ -271,12 +281,14 @@ class PatrolCaptureControlStrategy extends CaptureControlStrategy<{}> {
   }
 }
 
-class LortapCaptureControlStrategy extends CaptureControlStrategy<{}> {
+class LortapCaptureControlStrategy extends NormalCaptureControlStrategy {
   static strategyVariant = "Lortap";
   public abstract =
     "味方の駒の利きで紐が付いている駒は、相手の駒を取ることができない。Portalの逆。";
 
   execute(captured: Koma, capturing: Koma) {
+    super.execute(captured, capturing);
+
     if (captured.isNull()) return;
     const direction = capturing.direction;
 
