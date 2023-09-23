@@ -8,6 +8,9 @@ importers:
     devDependencies:
       lerna: 7.3.0
 
+  packages/ai:
+    specifiers: {}
+
   packages/core:
     specifiers:
       '@vitest/coverage-c8': ^0.24.3
@@ -15,11 +18,10 @@ importers:
       prettier: ^2.8.1
       typescript: ^5.1.6
       vitest: ^0.33.0
-    dependencies:
-      prettier: 2.8.1
     devDependencies:
       '@vitest/coverage-c8': 0.24.3
       dependency-cruiser: 11.18.0
+      prettier: 2.8.1
       typescript: 5.1.6
       vitest: 0.33.0
 
@@ -3986,7 +3988,7 @@ packages:
     resolution: {integrity: sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
-    dev: false
+    dev: true
 
   /pretty-format/29.6.1:
     resolution: {integrity: sha512-7jRj+yXO0W7e4/tSJKoR7HRIHLPPjtNaUGG2xxKQnGvPNRkgWcQ0AZX6P4KBRJN4FcTBWb3sa7DVUJmocYuoog==}
