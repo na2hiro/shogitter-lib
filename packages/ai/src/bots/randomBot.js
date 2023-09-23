@@ -1,6 +1,6 @@
 import ShogitterCore from "https://esm.sh/@shogitter/core@0.3.1";
 
-async function go(obj) {
+async function go({ shogi: obj }) {
   const shogi = ShogitterCore.ofJkf(obj);
 
   const moves = shogi.generateMoves();

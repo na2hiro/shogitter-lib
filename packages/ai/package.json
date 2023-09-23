@@ -2,13 +2,22 @@
   "name": "@shogitter/ai",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/botRegistry.js",
+  "types": "lib/botRegistry.d.ts",
   "scripts": {
+    "clean": "rm -rf lib",
+    "build:bun": "bun build src/botRegistry.ts --outdir=lib",
+    "build": "npm run clean && tsc && npm run build:copyjs",
+    "build:copyjs": "cd src && find . -name '*.js' | cpio -pdm ../lib && cd -",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "@shogitter/core": "workspace:core"
+  },
   "devDependencies": {
+    "typescript": "^5.1.6"
   }
 }

@@ -9,7 +9,13 @@ importers:
       lerna: 7.3.0
 
   packages/ai:
-    specifiers: {}
+    specifiers:
+      '@shogitter/core': workspace:core
+      typescript: ^5.1.6
+    dependencies:
+      '@shogitter/core': link:../core
+    devDependencies:
+      typescript: 5.1.6
 
   packages/core:
     specifiers:
