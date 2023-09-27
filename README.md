@@ -1,4 +1,9 @@
-# `shogitter-core`
+# Moved to `@shogitter/core`
+
+- https://github.com/na2hiro/shogitter-lib
+- https://www.npmjs.com/package/@shogitter/core
+
+# (deprecated) `shogitter-core`
 
 `shogitter-core` is a core logic of [http://shogitter.com](http://shogitter.com)
 

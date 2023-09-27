@@ -1,7 +1,7 @@
 {
   "name": "shogitter-core",
-  "version": "0.2.7",
-  "description": "Shogitter shogi variant logic written in TypeScript",
+  "version": "0.3.9999",
+  "description": "(Moved to @shogitter/core) Shogitter shogi variant logic written in TypeScript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
