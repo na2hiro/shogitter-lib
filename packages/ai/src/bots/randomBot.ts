@@ -1,6 +1,12 @@
-import ShogitterCore from "https://esm.sh/@shogitter/core@0.3.1";
+import ShogitterCore, { ShogiSerialization } from "@shogitter/core";
 
-async function go({ shogi: obj }) {
+import Bot from "../Bot";
+
+const go: Bot["go"] = async function ({
+  shogi: obj,
+}: {
+  shogi: ShogiSerialization;
+}) {
   const shogi = ShogitterCore.ofJkf(obj);
 
   const moves = shogi.generateMoves();
@@ -22,12 +28,12 @@ async function go({ shogi: obj }) {
   console.log("Giving up!!");
 
   return { type: "resign" };
-}
+};
 
 export default {
   go,
-}; // TODO: satisfies Bot
+} satisfies Bot;
 
-function sleep(ms) {
+function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

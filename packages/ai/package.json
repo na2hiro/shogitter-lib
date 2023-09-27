@@ -2,8 +2,17 @@
   "name": "@shogitter/ai",
   "version": "0.0.2",
   "description": "",
-  "main": "lib/botRegistry.js",
-  "types": "lib/botRegistry.d.ts",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    }
+  },
   "scripts": {
     "clean": "rm -rf lib",
     "build:bun": "bun build src/botRegistry.ts --outdir=lib",
@@ -16,7 +25,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@shogitter/core": "workspace:core"
+    "@shogitter/core": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.1.6"

@@ -1,5 +1,7 @@
 {
-  "scripts": {},
+  "scripts": {
+    "build": "lerna run build"
+  },
   "dependencies": {},
   "devDependencies": {
     "lerna": "^7.3.0"
