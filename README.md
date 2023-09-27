@@ -1,4 +1,6 @@
-# Moved to `@shogitter/core`
+# Now `@shogitter/core`
+
+`shogitter-core` has been moved to `@shogitter/core`.
 
 - https://github.com/na2hiro/shogitter-lib
 - https://www.npmjs.com/package/@shogitter/core
