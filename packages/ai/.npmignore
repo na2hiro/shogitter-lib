@@ -1,0 +1,8 @@
+node_modules/
+src/
+coverage/
+
+.DS_Store
+.gitignore
+.prettierignore
+tsconfig.json

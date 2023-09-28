@@ -1,0 +1,11 @@
+node_modules/
+integration-tests/
+src/
+coverage/
+
+.DS_Store
+.gitignore
+.prettierignore
+vitest.config.ts
+tsconfig.json
+.dependency-cruiser.js
