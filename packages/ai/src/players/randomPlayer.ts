@@ -1,8 +1,8 @@
 import { Shogi, ShogiSerialization } from "@shogitter/core";
 
-import Bot from "../Bot";
+import Player from "../Player.js";
 
-const go: Bot["go"] = async function ({
+const go: Player["go"] = async function ({
   shogi: obj,
 }: {
   shogi: ShogiSerialization;
@@ -32,7 +32,7 @@ const go: Bot["go"] = async function ({
 
 export default {
   go,
-} satisfies Bot;
+} satisfies Player;
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
