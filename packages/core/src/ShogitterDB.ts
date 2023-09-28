@@ -1,9 +1,9 @@
-import { ShogitterCoreException } from "./utils/phpCompat";
-import komaConst, { KomaInfo } from "./db/koma";
-import ruleConst from "./db/rule";
-import ruleGenreConst from "./db/rulegenre";
-import { Species } from "./Ban";
-import { MochigomaObjDB } from "./Mochigoma";
+import { ShogitterCoreException } from "./utils/phpCompat.js";
+import komaConst, { KomaInfo } from "./db/koma.js";
+import ruleConst from "./db/rule.js";
+import ruleGenreConst from "./db/rulegenre.js";
+import { Species } from "./Ban.js";
+import { MochigomaObjDB } from "./Mochigoma.js";
 
 const MAX_RULE_ID = 113;
 

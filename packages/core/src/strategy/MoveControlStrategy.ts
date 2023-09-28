@@ -2,12 +2,12 @@ import {
   BeforeAfterDropStrategy,
   BeforeAfterDropStrategyContainer,
   CommonConfig,
-} from "./Strategy";
-import XY, { RelXY } from "../XY";
-import Ban, { Species } from "../Ban";
-import { ShogitterCoreException } from "../utils/phpCompat";
-import { shogitterDB } from "../ShogitterDB";
-import { Teban } from "../Teban";
+} from "./Strategy.js";
+import XY, { RelXY } from "../XY.js";
+import Ban, { Species } from "../Ban.js";
+import { ShogitterCoreException } from "../utils/phpCompat.js";
+import { shogitterDB } from "../ShogitterDB.js";
+import { Teban } from "../Teban.js";
 
 export class MoveControlStrategyContainer<
   S

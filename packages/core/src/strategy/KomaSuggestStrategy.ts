@@ -1,11 +1,11 @@
-import Strategy, { StrategySerialization } from "./Strategy";
-import XY, { RelXY } from "../XY";
-import { Koma } from "../Koma";
-import { array_diff } from "../utils/phpCompat";
-import Ban, { Species } from "../Ban";
-import { QuantumData } from "./MoveEffectStrategy";
-import { Direction } from "../Direction";
-import { QuantumPiece } from "../utils/quantumUtils";
+import Strategy, { StrategySerialization } from "./Strategy.js";
+import XY, { RelXY } from "../XY.js";
+import { Koma } from "../Koma.js";
+import { array_diff } from "../utils/phpCompat.js";
+import Ban, { Species } from "../Ban.js";
+import { QuantumData } from "./MoveEffectStrategy.js";
+import { Direction } from "../Direction.js";
+import { QuantumPiece } from "../utils/quantumUtils.js";
 
 /**
  * 駒の種類を教える

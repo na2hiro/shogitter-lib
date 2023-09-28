@@ -1,7 +1,7 @@
-import { MoveType, VariantName } from "../Koma";
+import { MoveType, VariantName } from "../Koma.js";
 
-import { Species } from "../Ban";
-import { MoveAndPieceType } from "../ShogitterDB";
+import { Species } from "../Ban.js";
+import { MoveAndPieceType } from "../ShogitterDB.js";
 type MoveTypeConfig = MoveType | number;
 type KomaInfoMove = {
   move: [number, number];

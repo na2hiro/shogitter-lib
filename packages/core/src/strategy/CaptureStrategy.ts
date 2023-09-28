@@ -1,8 +1,8 @@
-import Strategy from "./Strategy";
-import { Mochigoma } from "../Mochigoma";
-import Ban from "../Ban";
-import XY from "../XY";
-import { Direction } from "../Direction";
+import Strategy from "./Strategy.js";
+import { Mochigoma } from "../Mochigoma.js";
+import Ban from "../Ban.js";
+import XY from "../XY.js";
+import { Direction } from "../Direction.js";
 
 export default class CaptureStrategy extends Strategy {
   strategyGenre = "駒取り";
@@ -59,7 +59,7 @@ class KirukeCaptureStrategy extends CaptureStrategy {
 class EnPassantCaptureStrategy extends CaptureStrategy{
 	abstract = "アンパッサン．";
 	execute(to: XY, direction: Direction){
-		
+
 		//アンパッサン
 		if(fromKoma.species=='kj' && from.x!=to.x){
 			const del=new XY(to.x, from.y, this.ban);

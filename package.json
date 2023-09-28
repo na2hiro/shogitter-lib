@@ -1,7 +1,8 @@
 {
   "scripts": {
     "build": "lerna run build",
-    "clean": "lerna run clean"
+    "clean": "lerna run clean",
+    "typecheck": "lerna run typecheck"
   },
   "dependencies": {},
   "devDependencies": {

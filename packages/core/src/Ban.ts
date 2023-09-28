@@ -1,9 +1,9 @@
-import XY, { RelativeType, RelXY } from "./XY";
-import { ShogitterCoreException } from "./utils/phpCompat";
-import { Teban } from "./Teban";
-import { Kiki, Koma, KomaObj } from "./Koma";
-import Shogi from "./Shogi";
-import { BanScanIterator, NormalBanIterator } from "./Iterator";
+import XY, { RelativeType, RelXY } from "./XY.js";
+import { ShogitterCoreException } from "./utils/phpCompat.js";
+import { Teban } from "./Teban.js";
+import { Kiki, Koma, KomaObj } from "./Koma.js";
+import Shogi from "./Shogi.js";
+import { BanScanIterator, NormalBanIterator } from "./Iterator.js";
 import {
   BanStrategy,
   BanStrategyName,
@@ -12,11 +12,11 @@ import {
   generateStrategyContainer,
   IteratorConfig,
   StrategyConfig,
-} from "./strategy/StrategyFactory";
-import { Flags } from "./Flags";
-import { StrategySerialization } from "./strategy/Strategy";
-import { MoveDiff } from "./Kifu";
-import { Direction } from "./Direction";
+} from "./strategy/StrategyFactory.js";
+import { Flags } from "./Flags.js";
+import { StrategySerialization } from "./strategy/Strategy.js";
+import { MoveDiff } from "./Kifu.js";
+import { Direction } from "./Direction.js";
 
 export type Species = string; // really?
 

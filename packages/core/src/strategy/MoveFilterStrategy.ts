@@ -1,11 +1,11 @@
-import Strategy, { StrategyContainer } from "./Strategy";
-import Ban, { Species } from "../Ban";
-import XY, { RelXY } from "../XY";
-import { shogitterDB } from "../ShogitterDB";
-import { Kiki } from "../Koma";
-import { Flags } from "../Flags";
-import { Direction } from "../Direction";
-import { num2kan_decimal } from "../MyLib";
+import Strategy, { StrategyContainer } from "./Strategy.js";
+import Ban, { Species } from "../Ban.js";
+import XY, { RelXY } from "../XY.js";
+import { shogitterDB } from "../ShogitterDB.js";
+import { Kiki } from "../Koma.js";
+import { Flags } from "../Flags.js";
+import { Direction } from "../Direction.js";
+import { num2kan_decimal } from "../MyLib.js";
 
 export class MoveFilterStrategyContainer<S = {}> extends StrategyContainer<
   MoveFilterStrategy<S>

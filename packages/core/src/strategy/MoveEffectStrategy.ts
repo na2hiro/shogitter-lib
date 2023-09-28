@@ -3,15 +3,15 @@ import {
   BeforeAfterDropStrategyContainer,
   CommonConfig,
   StrategySerialization,
-} from "./Strategy";
-import Ban, { Species } from "../Ban";
-import XY, { RelativeType, RelXY } from "../XY";
-import { Koma } from "../Koma";
-import { ShogitterCoreException } from "../utils/phpCompat";
-import { Teban } from "../Teban";
-import { shogitterDB } from "../ShogitterDB";
-import { MoveType, QuantumPiece, runQuantum } from "../utils/quantumUtils";
-import { Direction } from "../Direction";
+} from "./Strategy.js";
+import Ban, { Species } from "../Ban.js";
+import XY, { RelativeType, RelXY } from "../XY.js";
+import { Koma } from "../Koma.js";
+import { ShogitterCoreException } from "../utils/phpCompat.js";
+import { Teban } from "../Teban.js";
+import { shogitterDB } from "../ShogitterDB.js";
+import { MoveType, QuantumPiece, runQuantum } from "../utils/quantumUtils.js";
+import { Direction } from "../Direction.js";
 
 export class MoveEffectStrategyContainer<
   S

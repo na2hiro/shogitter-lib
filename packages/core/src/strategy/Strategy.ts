@@ -1,9 +1,9 @@
 /**
  * 処理の切替を担う
  */
-import XY from "../XY";
-import Ban from "../Ban";
-import { Direction } from "../Direction";
+import XY from "../XY.js";
+import Ban from "../Ban.js";
+import { Direction } from "../Direction.js";
 
 export type StrategySerialization = any; // TODO
 

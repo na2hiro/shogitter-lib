@@ -1,9 +1,9 @@
-import Strategy from "./Strategy";
-import Ban from "../Ban";
-import { Koma } from "../Koma";
-import XY, { RelXY } from "../XY";
-import { ShogitterCoreException } from "../utils/phpCompat";
-import { Direction } from "../Direction";
+import Strategy from "./Strategy.js";
+import Ban from "../Ban.js";
+import { Koma } from "../Koma.js";
+import XY, { RelXY } from "../XY.js";
+import { ShogitterCoreException } from "../utils/phpCompat.js";
+import { Direction } from "../Direction.js";
 
 export default abstract class NifuStrategy extends Strategy {
   strategyGenre = "二歩";

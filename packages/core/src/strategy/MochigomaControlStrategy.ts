@@ -1,10 +1,10 @@
 /**
  * 持ち駒入出力に関するStrategy
  */
-import Ban from "../Ban";
-import Strategy, { StrategyContainer } from "./Strategy";
-import { Mochigoma } from "../Mochigoma";
-import { Direction } from "../Direction";
+import Ban from "../Ban.js";
+import Strategy, { StrategyContainer } from "./Strategy.js";
+import { Mochigoma } from "../Mochigoma.js";
+import { Direction } from "../Direction.js";
 
 export class MochigomaControlStrategyContainer<S> extends StrategyContainer<
   MochigomaControlStrategy<S>

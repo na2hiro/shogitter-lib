@@ -1,4 +1,4 @@
-import { Rule } from "../ShogitterDB";
+import { Rule } from "../ShogitterDB.js";
 
 type RuleDb = { [ruleId: string]: RuleConfig };
 type RuleConfig = RuleExtended | Rule;

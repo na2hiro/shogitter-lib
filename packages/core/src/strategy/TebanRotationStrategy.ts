@@ -1,8 +1,8 @@
-import Strategy from "./Strategy";
-import Ban from "../Ban";
-import { ShogitterCoreException } from "../utils/phpCompat";
-import { Koma } from "../Koma";
-import XY from "../XY";
+import Strategy from "./Strategy.js";
+import Ban from "../Ban.js";
+import { ShogitterCoreException } from "../utils/phpCompat.js";
+import { Koma } from "../Koma.js";
+import XY from "../XY.js";
 export default abstract class TebanRotationStrategy extends Strategy {
   strategyGenre = "手番";
   protected ban: Ban;

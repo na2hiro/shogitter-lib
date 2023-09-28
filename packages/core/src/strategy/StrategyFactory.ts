@@ -1,29 +1,29 @@
-import Ban from "../Ban";
-import Strategy, { StrategyContainer } from "./Strategy";
-import { CaptureControlStrategy } from "./CaptureControlStrategy";
+import Ban from "../Ban.js";
+import Strategy, { StrategyContainer } from "./Strategy.js";
+import { CaptureControlStrategy } from "./CaptureControlStrategy.js";
 import {
   MochigomaIOStrategy,
   MochigomaIOStrategyContainer,
-} from "./MochigomaIOStrategy";
-import KomaSuggestStrategy from "./KomaSuggestStrategy";
-import CaptureStrategy from "./CaptureStrategy";
-import DestinationStrategy from "./DestinationStrategy";
-import JudgeStrategy, { JudgeStrategyContainer } from "./JudgeStrategy";
+} from "./MochigomaIOStrategy.js";
+import KomaSuggestStrategy from "./KomaSuggestStrategy.js";
+import CaptureStrategy from "./CaptureStrategy.js";
+import DestinationStrategy from "./DestinationStrategy.js";
+import JudgeStrategy, { JudgeStrategyContainer } from "./JudgeStrategy.js";
 import MoveControlStrategy, {
   MoveControlStrategyContainer,
-} from "./MoveControlStrategy";
+} from "./MoveControlStrategy.js";
 import MoveEffectStrategy, {
   MoveEffectStrategyContainer,
-} from "./MoveEffectStrategy";
+} from "./MoveEffectStrategy.js";
 import MoveFilterStrategy, {
   MoveFilterStrategyContainer,
-} from "./MoveFilterStrategy";
-import NifuStrategy from "./NifuStrategy";
-import PromotionStrategy from "./PromotionStrategy";
-import TebanRotationStrategy from "./TebanRotationStrategy";
+} from "./MoveFilterStrategy.js";
+import NifuStrategy from "./NifuStrategy.js";
+import PromotionStrategy from "./PromotionStrategy.js";
+import TebanRotationStrategy from "./TebanRotationStrategy.js";
 import MochigomaControlStrategy, {
   MochigomaControlStrategyContainer,
-} from "./MochigomaControlStrategy";
+} from "./MochigomaControlStrategy.js";
 
 const strategyNameToClass: { [name in StrategyName /*typeof Strategy*/]: any } =
   {

@@ -2,13 +2,13 @@
  */
 // What is this:   define("a", 100);
 
-import { ShogitterCoreException } from "./utils/phpCompat";
-import Ban, { Species } from "./Ban";
-import XY, { RelXY } from "./XY";
-import { MoveAndPieceType, shogitterDB } from "./ShogitterDB";
-import { Flags } from "./Flags";
-import { Direction } from "./Direction";
-import { KomaInfo } from "./db/koma";
+import { ShogitterCoreException } from "./utils/phpCompat.js";
+import Ban, { Species } from "./Ban.js";
+import XY, { RelXY } from "./XY.js";
+import { MoveAndPieceType, shogitterDB } from "./ShogitterDB.js";
+import { Flags } from "./Flags.js";
+import { Direction } from "./Direction.js";
+import { KomaInfo } from "./db/koma.js";
 
 export type Kiki = {
   XY: XY;

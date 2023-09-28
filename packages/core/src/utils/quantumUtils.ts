@@ -1,7 +1,7 @@
-import { RelXY } from "../XY";
-import { QuantumData } from "../strategy/MoveEffectStrategy";
-import { Direction } from "../Direction";
-import { ShogitterCoreException } from "./phpCompat";
+import { RelXY } from "../XY.js";
+import { QuantumData } from "../strategy/MoveEffectStrategy.js";
+import { Direction } from "../Direction.js";
+import { ShogitterCoreException } from "./phpCompat.js";
 
 export type QuantumPiece =
   | "Fu"

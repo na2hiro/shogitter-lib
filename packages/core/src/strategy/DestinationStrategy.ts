@@ -1,9 +1,9 @@
-import XY from "../XY";
-import Ban, { Species } from "../Ban";
-import { BeforeAfterDropStrategy } from "./Strategy";
-import { shuffle, ShogitterCoreException } from "../utils/phpCompat";
-import TebanRotationStrategy from "./TebanRotationStrategy";
-import { Direction } from "../Direction";
+import XY from "../XY.js";
+import Ban, { Species } from "../Ban.js";
+import { BeforeAfterDropStrategy } from "./Strategy.js";
+import { shuffle, ShogitterCoreException } from "../utils/phpCompat.js";
+import TebanRotationStrategy from "./TebanRotationStrategy.js";
+import { Direction } from "../Direction.js";
 
 export default abstract class DestinationStrategy extends BeforeAfterDropStrategy {
   strategyGenre = "行き先";

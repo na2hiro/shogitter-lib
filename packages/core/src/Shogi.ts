@@ -1,16 +1,16 @@
 import "./strategy/Strategy";
-import { ShogitterCoreException } from "./utils/phpCompat";
-import { Mochigoma, MochigomaObj } from "./Mochigoma";
-import { Result, Teban, UserInfo } from "./Teban";
-import Ban, { BanObj, Species } from "./Ban";
-import XY, { XYObj } from "./XY";
-import { Koma, KomaObj, PromotionMode } from "./Koma";
-import Kifu, { KifuLine, KifuMove } from "./Kifu";
-import { BanScanIterator } from "./Iterator";
-import { Rule, shogitterDB } from "./ShogitterDB";
-import { javaHashCode } from "./utils/hash";
-import { Direction } from "./Direction";
-import { KifuCommand, Move } from "./Command";
+import { ShogitterCoreException } from "./utils/phpCompat.js";
+import { Mochigoma, MochigomaObj } from "./Mochigoma.js";
+import { Result, Teban, UserInfo } from "./Teban.js";
+import Ban, { BanObj, Species } from "./Ban.js";
+import XY, { XYObj } from "./XY.js";
+import { Koma, KomaObj, PromotionMode } from "./Koma.js";
+import Kifu, { KifuLine, KifuMove } from "./Kifu.js";
+import { BanScanIterator } from "./Iterator.js";
+import { Rule, shogitterDB } from "./ShogitterDB.js";
+import { javaHashCode } from "./utils/hash.js";
+import { Direction } from "./Direction.js";
+import { KifuCommand, Move } from "./Command.js";
 
 export { ShogitterCoreException };
 

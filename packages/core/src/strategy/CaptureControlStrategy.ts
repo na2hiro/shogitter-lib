@@ -1,10 +1,10 @@
-import Strategy from "./Strategy";
-import Ban, { Species } from "../Ban";
-import { Koma } from "../Koma";
-import { ShogitterCoreException } from "../utils/phpCompat";
-import { Teban } from "../Teban";
-import { shogitterDB } from "../ShogitterDB";
-import { Direction } from "../Direction";
+import Strategy from "./Strategy.js";
+import Ban, { Species } from "../Ban.js";
+import { Koma } from "../Koma.js";
+import { ShogitterCoreException } from "../utils/phpCompat.js";
+import { Teban } from "../Teban.js";
+import { shogitterDB } from "../ShogitterDB.js";
+import { Direction } from "../Direction.js";
 
 export abstract class CaptureControlStrategy<S> extends Strategy {
   static strategyVariant: string;

@@ -1,12 +1,12 @@
 /**
  * 成
  */
-import Strategy from "./Strategy";
-import Ban from "../Ban";
-import XY from "../XY";
-import { ShogitterCoreException } from "../utils/phpCompat";
-import { Koma } from "../Koma";
-import { Direction } from "../Direction";
+import Strategy from "./Strategy.js";
+import Ban from "../Ban.js";
+import XY from "../XY.js";
+import { ShogitterCoreException } from "../utils/phpCompat.js";
+import { Koma } from "../Koma.js";
+import { Direction } from "../Direction.js";
 
 type Setting = {
   dan: number; // 段

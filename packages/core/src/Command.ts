@@ -1,6 +1,6 @@
-import { Direction } from "./Direction";
-import { XYObj } from "./XY";
-import { Species } from "./Ban";
+import { Direction } from "./Direction.js";
+import { XYObj } from "./XY.js";
+import { Species } from "./Ban.js";
 
 const TURN_AGNOSTIC_COMMANDS = [
   "rollback",

@@ -1,13 +1,13 @@
-import Strategy, { StrategyContainer } from "./Strategy";
-import Ban, { Species } from "../Ban";
-import XY, { RelativeType, RelXY } from "../XY";
-import { Koma } from "../Koma";
-import { shogitterDB } from "../ShogitterDB";
-import { ShogitterCoreException } from "../utils/phpCompat";
-import { BanScanIterator } from "../Iterator";
-import { num2kan_decimal } from "../MyLib";
-import TebanRotationStrategy from "./TebanRotationStrategy";
-import { Direction } from "../Direction";
+import Strategy, { StrategyContainer } from "./Strategy.js";
+import Ban, { Species } from "../Ban.js";
+import XY, { RelativeType, RelXY } from "../XY.js";
+import { Koma } from "../Koma.js";
+import { shogitterDB } from "../ShogitterDB.js";
+import { ShogitterCoreException } from "../utils/phpCompat.js";
+import { BanScanIterator } from "../Iterator.js";
+import { num2kan_decimal } from "../MyLib.js";
+import TebanRotationStrategy from "./TebanRotationStrategy.js";
+import { Direction } from "../Direction.js";
 
 export class JudgeStrategyContainer<S> extends StrategyContainer<
   JudgeStrategy<S>

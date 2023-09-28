@@ -1,6 +1,6 @@
-import { array_unique, ShogitterCoreException } from "./utils/phpCompat";
-import Shogi from "./Shogi";
-import { Direction } from "./Direction";
+import { array_unique, ShogitterCoreException } from "./utils/phpCompat.js";
+import Shogi from "./Shogi.js";
+import { Direction } from "./Direction.js";
 
 function shuffle<T>(arr: T[]) {
   let m = arr.length;

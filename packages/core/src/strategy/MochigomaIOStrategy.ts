@@ -1,13 +1,13 @@
 /**
  * 持ち駒入出力に関するStrategy
  */
-import Ban, { Species } from "../Ban";
-import { Koma, PromotionMode } from "../Koma";
-import Strategy, { CommonConfig, StrategyContainer } from "./Strategy";
-import { Mochigoma } from "../Mochigoma";
-import { Teban } from "../Teban";
-import { shogitterDB } from "../ShogitterDB";
-import { Direction } from "../Direction";
+import Ban, { Species } from "../Ban.js";
+import { Koma, PromotionMode } from "../Koma.js";
+import Strategy, { CommonConfig, StrategyContainer } from "./Strategy.js";
+import { Mochigoma } from "../Mochigoma.js";
+import { Teban } from "../Teban.js";
+import { shogitterDB } from "../ShogitterDB.js";
+import { Direction } from "../Direction.js";
 
 export class MochigomaIOStrategyContainer<S> extends StrategyContainer<
   MochigomaIOStrategy<S>

@@ -1,15 +1,15 @@
-import { ShogitterCoreException } from "./utils/phpCompat";
-import Shogi, { Player } from "./Shogi";
-import { Koma } from "./Koma";
+import { ShogitterCoreException } from "./utils/phpCompat.js";
+import Shogi, { Player } from "./Shogi.js";
+import { Koma } from "./Koma.js";
 import {
   Config,
   generateStrategyContainer,
   MochigomaStrategy,
   MochigomaStrategyNameWithContainer,
-} from "./strategy/StrategyFactory";
-import { PutDiff } from "./Kifu";
-import { Species } from "./Ban";
-import { Direction } from "./Direction";
+} from "./strategy/StrategyFactory.js";
+import { PutDiff } from "./Kifu.js";
+import { Species } from "./Ban.js";
+import { Direction } from "./Direction.js";
 
 function pad0(value: number) {
   return value >= 10 ? `${value}` : `0${value}`;

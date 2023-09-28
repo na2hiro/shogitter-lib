@@ -7,7 +7,8 @@
           "build",
           "test",
           "coverage",
-          "lint"
+          "lint",
+          "typecheck"
         ]
       }
     }
