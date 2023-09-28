@@ -1,5 +1,5 @@
 import { ShogiSerialization } from "@shogitter/core";
-import { KifuCommand } from "@shogitter/core/lib/Command";
+import { KifuCommand } from "@shogitter/core/dist/Command";
 
 export type GoArgs = {
   shogi: ShogiSerialization;

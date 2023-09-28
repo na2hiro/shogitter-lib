@@ -2,10 +2,20 @@
   "name": "@shogitter/core",
   "version": "0.3.1",
   "description": "Shogitter shogi variant logic written in TypeScript",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.js"
+  },
+  "main": "dist/index.cjs",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.module.js",
+  "unpkg": "./dist/index.umd.js",
   "scripts": {
-    "build": "tsc",
+    "clean": "rm -rf dist",
+    "build": "microbundle",
     "build:watch": "tsc --watch",
     "test": "vitest",
     "test:run": "vitest run",
@@ -22,9 +32,9 @@
   "devDependencies": {
     "@vitest/coverage-c8": "^0.24.3",
     "dependency-cruiser": "^11.18.0",
+    "microbundle": "^0.15.1",
+    "prettier": "^2.8.1",
     "typescript": "^5.1.6",
-    "vitest": "^0.33.0",
-    "prettier": "^2.8.1"
-  },
-  "dependencies": {}
+    "vitest": "^0.33.0"
+  }
 }
