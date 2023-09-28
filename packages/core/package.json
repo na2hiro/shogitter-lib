@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "microbundle",
-    "build:watch": "tsc --watch",
+    "build:watch": "microbundle --watch",
     "test": "vitest",
     "test:run": "vitest run",
     "coverage": "vitest run --coverage",

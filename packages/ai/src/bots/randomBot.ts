@@ -1,4 +1,4 @@
-import ShogitterCore, { ShogiSerialization } from "@shogitter/core";
+import { Shogi, ShogiSerialization } from "@shogitter/core";
 
 import Bot from "../Bot";
 
@@ -7,7 +7,7 @@ const go: Bot["go"] = async function ({
 }: {
   shogi: ShogiSerialization;
 }) {
-  const shogi = ShogitterCore.ofJkf(obj);
+  const shogi = Shogi.ofJkf(obj);
 
   const moves = shogi.generateMoves();
   let retries = 1000;
@@ -15,7 +15,7 @@ const go: Bot["go"] = async function ({
     const move = moves[Math.floor(Math.random() * moves.length)];
     try {
       // Test if no exception happens
-      ShogitterCore.ofJkf(obj).runCommand(move);
+      Shogi.ofJkf(obj).runCommand(move);
 
       await sleep(500); // pretend it's thinking :)
 
