@@ -28,7 +28,7 @@
     "typecheck": "tsc --noEmit"
   },
   "author": "na2hiro",
-  "license": "Pay 1 million yen to na2hiro to copy and distribute",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@vitest/coverage-c8": "^0.24.3",
     "dependency-cruiser": "^11.18.0",

@@ -22,8 +22,8 @@
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "na2hiro",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@shogitter/core": "workspace:*"
   },
