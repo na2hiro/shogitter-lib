@@ -12,6 +12,13 @@ export const playerRegistry: PlayerEntry[] = [
     id: "random",
     file: "randomPlayer.js",
     name: "ランダムbot",
+    caveats: [
+      {
+        rule: 66,
+        level: "error",
+        text: "パスができないため、停止したり一人千日手したりしてしまう",
+      },
+    ],
   },
 ];
 
@@ -20,5 +27,5 @@ export function getPlayer(playerType: PlayerType) {
 }
 
 export function getESMURL(entry: PlayerEntry) {
-  return `https://esm.sh/@shogitter/ai/lib/player/${entry.file}`;
+  return `https://esm.sh/@shogitter/ai/lib/players/${entry.file}`;
 }

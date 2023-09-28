@@ -1,10 +1,10 @@
 {
   "name": "@shogitter/ai",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "type": "module",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "exports": {
     "types": "./lib/index.d.ts",
     "default": "./lib/index.js"

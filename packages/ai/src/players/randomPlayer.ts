@@ -1,6 +1,7 @@
 import { Shogi, ShogiSerialization } from "@shogitter/core";
 
 import Player from "../Player.js";
+import ShogitterAiException from "../ShogitterAiException.js";
 
 const go: Player["go"] = async function ({
   shogi: obj,
@@ -25,9 +26,8 @@ const go: Player["go"] = async function ({
     }
   }
   await sleep(500);
-  console.log("Giving up!!");
 
-  return { type: "resign" };
+  throw new ShogitterAiException("合法手が見つかりませんでした");
 };
 
 export default {
