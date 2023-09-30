@@ -102,20 +102,31 @@ export class Koma {
     this.direction = direction;
   }
 
-  static getStatelessData(komaName: string, memberName: keyof KomaInfo) {
-    if (komaName == "") return null;
-    return shogitterDB.getKoma(komaName, memberName);
+  static getStatelessData(komaName: string) {
+    return shogitterDB.getKomaDirect(komaName);
+  }
+
+  getDataWithoutMember(komaName: string): KomaInfo {
+    if (komaName == "")
+      throw new Error("THIS SHOULDNT HAPPEN: species is empty");
+    const koma = shogitterDB.getKomaDirect(komaName);
+    if (koma.initial && this.ban.parent.kifu.isInitial(this.XY)) {
+      // special case when the piece has never moved
+      return { ...koma, ...koma.initial };
+    }
+    return koma;
   }
 
   getData(komaName: string, memberName: keyof KomaInfo) {
     if (komaName == "") return null;
-    const initial = shogitterDB.getKoma(komaName, "initial"); // special case when the piece has never moved
+    const koma = shogitterDB.getKomaDirect(komaName);
+    const { initial } = koma; // special case when the piece has never moved
     if (
       initial &&
-      initial[memberName] &&
+      memberName in initial &&
       this.ban.parent.kifu.isInitial(this.XY)
     ) {
-      return initial[memberName];
+      return initial[memberName as keyof typeof initial];
     }
     if (typeof this.status === "number") {
       switch (memberName) {
@@ -126,12 +137,12 @@ export class Koma {
         case "change":
         case "jumpException":
         case "jumpLimit":
-          const statuses = shogitterDB.getKoma(komaName, "status");
-          return statuses[this.status][memberName];
+          const statuses = koma.status;
+          return (statuses[this.status] as any)[memberName];
       }
     }
 
-    return Koma.getStatelessData(komaName, memberName);
+    return koma[memberName];
   }
 
   getDataByType(komaName: string, memberName: keyof KomaInfo, type: string) {
@@ -249,7 +260,10 @@ export class Koma {
   ): Kiki[] {
     let arrayKiki: Kiki[] = [];
     const arrayDenyHash: string[] = [];
-    for (let move of this.getData(species, "move")) {
+    const koma = this.getDataWithoutMember(species);
+    for (let move of typeof this.status === "number"
+      ? koma.status[this.status].move
+      : koma.move) {
       //現在の移動ベクトル
       const vec = RelXY.fromArray(move["move"]);
       vec.turn(direction);
@@ -285,17 +299,17 @@ export class Koma {
         }
 
         let limit;
-        if ((limit = this.getDataByType(species, "limit", type))) {
-          flags.limit = limit;
+        if (koma.limit?.[type]) {
+          flags.limit = koma.limit[type];
         }
-        if ((limit = this.getDataByType(species, "jumpLimit", type))) {
-          flags.limitJump = limit;
+        if (koma.jumpLimit?.[type]) {
+          flags.limitJump = koma.jumpLimit[type];
         }
-        flags.skip = this.getDataByType(species, "skip", type) || null;
-        flags.jumpException = this.getData(species, "jumpException");
+        flags.skip = koma.skip?.[type] || null;
+        flags.jumpException = koma.jumpException;
 
-        let empties: { moves: [number, number][] };
-        if ((empties = this.getDataByType(species, "mustBeEmpty", type))) {
+        let empties: { moves: [number, number][] } = koma.mustBeEmpty?.[type];
+        if (empties) {
           for (let empty of empties.moves) {
             const emptyXY = this.XY.getCloneRel(
               vec.getClone(
@@ -313,8 +327,9 @@ export class Koma {
           }
         }
 
-        let nonEmpty: MoveAndPieceType[] | MoveAndPieceType;
-        if ((nonEmpty = this.getDataByType(species, "mustNotBeEmpty", type))) {
+        let nonEmpty: MoveAndPieceType[] | MoveAndPieceType =
+          koma.mustNotBeEmpty?.[type];
+        if (nonEmpty) {
           //echo species, direction, this.XY;
           //1:味方 2:敵
           let nonEmpties = Array.isArray(nonEmpty) ? nonEmpty : [nonEmpty];

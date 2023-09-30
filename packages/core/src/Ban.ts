@@ -161,7 +161,7 @@ export default class Ban {
     if (!species) {
       return this.createNullKoma(xy);
     }
-    const klass = Koma.getClass(Koma.getStatelessData(species, "class"));
+    const klass = Koma.getClass(Koma.getStatelessData(species)["class"]);
     // TODO check if it works
     return new klass(species, direction, xy, this);
   }

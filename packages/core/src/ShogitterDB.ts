@@ -129,6 +129,10 @@ class ShogitterDB {
     }
   }
 
+  getKomaDirect(species: Species): KomaInfo {
+    return komaConst[species];
+  }
+
   getRuleGenre() {
     return ruleGenreConst;
   }

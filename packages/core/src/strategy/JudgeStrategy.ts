@@ -59,7 +59,7 @@ class WinKomaJudgeStrategy extends JudgeStrategy<{ ignore?: boolean }> {
     const countSpecies = this.ban.countSpecies();
     let winkoma = "";
     for (let species of this.ban.parent.rule.winkoma) {
-      winkoma += " " + Koma.getStatelessData(species, "name");
+      winkoma += " " + Koma.getStatelessData(species).name;
     }
     outer: for (let player of this.ban.parent.teban.getIterator()) {
       for (let species of this.ban.parent.rule.winkoma) {

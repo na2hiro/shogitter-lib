@@ -8,6 +8,20 @@ type KomaInfoMove = {
   type: MoveTypeConfig | MoveTypeConfig[];
 }[];
 type KomaInfoChange = { [type: number]: number };
+
+type StatusDependent = {
+  move: KomaInfoMove;
+  change?: KomaInfoChange;
+  mustNotBeEmpty?: { [type: number]: MoveAndPieceType | MoveAndPieceType[] };
+  mustBeEmpty?: { [type: number]: { moves: [number, number][] } };
+  limit?: { [type: number]: number };
+  jumpLimit?: { [type: number]: number };
+  /**
+   * Move consists of non-positive numbers, which indicates there must be a piece relative to the destination, in the direction closer to the original position
+   */
+  jumpException?: Species[];
+};
+
 export type KomaInfo = {
   species: string;
   name: string;
@@ -15,20 +29,12 @@ export type KomaInfo = {
   csaname?: string;
   move: KomaInfoMove;
   nifu?: number;
-  limit?: { [type: number]: number };
   skip?: { [type: number]: number };
-  jumpLimit?: { [type: number]: number };
-  /**
-   * Move consists of non-positive numbers, which indicates there must be a piece relative to the destination, in the direction closer to the original position
-   */
-  mustNotBeEmpty?: { [type: number]: MoveAndPieceType | MoveAndPieceType[] };
-  mustBeEmpty?: { [type: number]: { moves: [number, number][] } };
-  jumpException?: Species[];
   change?: KomaInfoChange;
   status?: {
     [type: number]: {
       move: KomaInfoMove;
-      change: KomaInfoChange;
+      change?: KomaInfoChange;
     };
   };
   initial?: Pick<KomaInfo, "move" | "limit">;
@@ -41,7 +47,7 @@ export type KomaInfo = {
    */
   stopWhenCapture?: boolean;
   nopass?: boolean;
-};
+} & StatusDependent;
 
 const koma: { [species: string]: KomaInfo } = {
   aa: {

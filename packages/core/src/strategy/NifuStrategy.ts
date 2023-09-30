@@ -161,7 +161,8 @@ class WholeScanNifuStrategy extends ScanNifuStrategy {
         const directions = cnts[linenum][species];
 
         const cnt = directions[mydirection];
-        if (Koma.getStatelessData(species, "nifu") <= cnt) {
+        const { nifu } = Koma.getStatelessData(species);
+        if (nifu <= cnt) {
           //二歩
           this.onFound.execute(mydirection);
           return;
@@ -170,7 +171,7 @@ class WholeScanNifuStrategy extends ScanNifuStrategy {
         for (let direction = 0; direction < directions.length; direction++) {
           const cnt = directions[direction];
           if (direction == mydirection) continue;
-          if (Koma.getStatelessData(species, "nifu") <= cnt) {
+          if (nifu <= cnt) {
             //二歩
             this.onFound.execute(direction);
             return;

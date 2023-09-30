@@ -242,9 +242,12 @@ export default class Shogi {
 
   /**
    * n手戻す
-   * @param number
    */
-  rollback(number: number) {
+  rollback(number: number, force = false) {
+    if (force && this.status.num === Status.ENDED) {
+      this.end = null;
+      this.status = { num: Status.PLAYING };
+    }
     if (!this.isPlaying())
       throw new ShogitterCoreException("対局中でないので操作できません。");
     const max = this.kifu.getTesuu();
@@ -382,6 +385,10 @@ export default class Shogi {
       status: description,
       kifu: [`_${loseDirection}`, Teban.getMark(markDirection) + kifu],
     };
+  }
+
+  isEnded() {
+    return this.end;
   }
 
   gameEndFinalize() {
@@ -538,6 +545,7 @@ export default class Shogi {
 
   /**
    * データを読み込んでmove
+   * TODO: Support transaction for speed; either accept command or reject without mutation
    * @param command
    */
   runCommand(command: KifuCommand) {
@@ -636,9 +644,8 @@ export default class Shogi {
         break;
       }
     }
-    const name =
-      Koma.getStatelessData(species, "shortname") ||
-      Koma.getStatelessData(species, "name"); //略名があればそれを表示
+    const koma = Koma.getStatelessData(species);
+    const name = koma["shortname"] || koma["name"]; //略名があればそれを表示
     return Teban.getMark(direction) + to.getFormat() + name + utu;
   }
 
@@ -735,13 +742,30 @@ export default class Shogi {
     };
   }
 
-  public generateMoves(): Move[] {
+  public generateMoves(): Move[];
+  public generateMoves(forBoth: true): [Move[], Move[]];
+  public generateMoves(forBoth?: true) {
+    if (this.end) {
+      return forBoth ? [[], []] : [];
+    }
+
     const turn = this.teban.getNowDirection();
     const moves: Move[] = [];
+    const movesOpponent: Move[] = [];
     const promotionStrategy = this.ban.strategy.Promotion;
     // move
     for (let koma of this.ban.getIterator()) {
-      if (koma.isNull() || koma.direction != turn) continue;
+      if (koma.isNull() || (!forBoth && koma.direction != turn)) continue;
+      let movesToPush;
+      if (koma.direction != turn) {
+        if (forBoth) {
+          movesToPush = movesOpponent;
+        } else {
+          continue;
+        }
+      } else {
+        movesToPush = moves;
+      }
       const from = koma.XY.getArray();
       koma.getMovable().forEach((kiki) => {
         const move = {
@@ -751,32 +775,47 @@ export default class Shogi {
           nari: false,
         };
         if (
-          promotionStrategy.shouldAskPromotion(kiki.XY, koma.XY, false, turn)
+          promotionStrategy.shouldAskPromotion(
+            kiki.XY,
+            koma.XY,
+            false,
+            koma.direction
+          )
         ) {
-          moves.push({ ...move, nari: true });
+          movesToPush.push({ ...move, nari: true });
         }
-        moves.push(move);
+        movesToPush.push(move);
       });
     }
     // put
-    const kinds = this.mochigoma.unique(turn);
-    if (kinds.length > 0) {
-      for (let cell of this.ban.getIterator()) {
-        if (!cell.isNull()) continue;
-        const to = cell.XY.toArray();
-        moves.push(
-          ...kinds.map((kind) => ({
-            type: "put" as const,
-            to,
-            put: kind,
-            direction: turn,
-          }))
-        );
+    for (const [direction, movesToPush] of forBoth
+      ? ([
+          [turn, moves],
+          [1 - turn, movesOpponent],
+        ] as const)
+      : ([[turn, moves]] as const)) {
+      const kinds = this.mochigoma.unique(direction);
+      if (kinds.length > 0) {
+        for (let cell of this.ban.getIterator()) {
+          if (!cell.isNull()) continue;
+          const to = cell.XY.toArray();
+          movesToPush.push(
+            ...kinds.map((kind) => ({
+              type: "put" as const,
+              to,
+              put: kind,
+              direction,
+            }))
+          );
+        }
       }
     }
 
     // TODO: other moves like pass
 
+    if (forBoth) {
+      return [moves, movesOpponent];
+    }
     return moves;
   }
 }

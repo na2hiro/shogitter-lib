@@ -1,8 +1,8 @@
 import Shogi from "../../src/Shogi";
 import { move } from "../utils/shogiUtils";
 
-describe.skip("Chess", () => {
-  it("can en passant", () => {
+describe("Chess", () => {
+  it.todo("can en passant", () => {
     const shogi = Shogi.ofRuleId(76);
     shogi.start();
 
@@ -13,5 +13,5 @@ describe.skip("Chess", () => {
     move(shogi, 6, 4, 5, 3);
     expect(shogi).toMatchSnapshot();
   });
-  it("can do castling", () => {});
+  it.todo("can do castling", () => {});
 });

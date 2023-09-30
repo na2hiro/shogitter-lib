@@ -1,11 +1,13 @@
 {
   "scripts": {
     "build": "lerna run build",
+    "build:watch": "lerna watch -- lerna run build --scope=\\$LERNA_PACKAGE_NAME",
     "clean": "lerna run clean",
     "typecheck": "lerna run typecheck"
   },
-  "dependencies": {},
   "devDependencies": {
-    "lerna": "^7.3.0"
+    "lerna": "^7.3.0",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.5"
   }
 }
