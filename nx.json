@@ -19,7 +19,8 @@
         "^build"
       ],
       "outputs": [
-        "{projectRoot}/lib"
+        "{projectRoot}/lib",
+        "{projectRoot}/dist"
       ]
     }
   }

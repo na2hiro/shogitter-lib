@@ -1,4 +1,4 @@
-export type PlayerType = "random" | "possibilityMaximizer";
+export type PlayerType = "random" | "possibilityist";
 
 export interface PlayerEntry {
   id: PlayerType;
@@ -9,8 +9,8 @@ export interface PlayerEntry {
 
 export const playerRegistry: PlayerEntry[] = [
   {
-    id: "possibilityMaximizer",
-    file: "possibilityMaximizerPlayer.js",
+    id: "possibilityist",
+    file: "possibilityistPlayer.js",
     name: "最大選択肢bot",
     caveats: [
       {

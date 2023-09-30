@@ -1,5 +1,5 @@
 import { Shogi } from "@shogitter/core";
-import { PossibilityScoringShogiGame } from "../src/players/possibilityMaximizerPlayer";
+import { PossibilityScoringShogiGame } from "../src/players/possibilityistPlayer";
 import { minimax } from "../src/search/minimax";
 import type { randomSelect } from "../src/search/utils";
 
