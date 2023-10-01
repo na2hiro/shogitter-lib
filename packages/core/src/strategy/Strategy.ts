@@ -39,7 +39,10 @@ export default abstract class Strategy {
   }
 
   isNormal() {
-    return this.constructor.name.startsWith("Normal");
+    // TODO: doesn't work with minify
+    return (
+      this.constructor.name.startsWith("Normal") || this.abstract === "通常"
+    );
   }
 
   serialize(obj: StrategySerialization): StrategySerialization {

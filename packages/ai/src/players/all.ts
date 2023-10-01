@@ -1,5 +1,5 @@
 import { PlayerType } from "../playerRegistry.js";
-import Player from "../Player.js";
+import { Player } from "../Player.js";
 import randomPlayer from "./randomPlayer.js";
 import possibilityistPlayer from "./possibilityistPlayer.js";
 

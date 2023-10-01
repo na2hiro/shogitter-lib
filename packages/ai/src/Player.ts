@@ -4,6 +4,6 @@ import { KifuCommand } from "@shogitter/core";
 export type GoArgs = {
   shogi: ShogiSerialization;
 };
-export default interface Player {
+export interface Player {
   go: (args: GoArgs) => Promise<KifuCommand>;
 }

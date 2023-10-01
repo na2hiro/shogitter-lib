@@ -1,6 +1,6 @@
 import { Shogi, ShogiSerialization } from "@shogitter/core";
 
-import Player from "../Player.js";
+import { Player } from "../Player.js";
 import ShogitterAiException from "../ShogitterAiException.js";
 
 const go: Player["go"] = async function ({

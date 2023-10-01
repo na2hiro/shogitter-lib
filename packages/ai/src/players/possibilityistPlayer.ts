@@ -1,6 +1,6 @@
 import { Move, Shogi, ShogiSerialization, Direction } from "@shogitter/core";
 
-import Player from "../Player.js";
+import { Player } from "../Player.js";
 import { ShogiGame } from "../search/ShogiGame.js";
 import { BestMove, minimax, MinimaxGame } from "../search/minimax.js";
 
