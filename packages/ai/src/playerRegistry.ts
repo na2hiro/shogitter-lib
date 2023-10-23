@@ -55,6 +55,8 @@ export function getPlayer(playerType: PlayerType) {
   return playerRegistry.find((p) => p.id === playerType);
 }
 
-export function getESMURL(entry: PlayerEntry) {
-  return `https://esm.sh/@shogitter/ai/lib/players/${entry.file}`;
+export function getESMURL(entry: PlayerEntry, version?: string) {
+  return `https://esm.sh/@shogitter/ai${
+    version ? "@" + version : ""
+  }/lib/players/${entry.file}`;
 }

@@ -795,6 +795,7 @@ export default class Shogi {
         ] as const)
       : ([[turn, moves]] as const)) {
       const kinds = this.mochigoma.unique(direction);
+      // TODO: Infinity mochigoma strategy
       if (kinds.length > 0) {
         for (let cell of this.ban.getIterator()) {
           if (!cell.isNull()) continue;
