@@ -436,7 +436,10 @@ export class Koma {
     const direction = this.direction;
     const xy = this.XY;
     let zero = true; // 移動できる場所がそもそもなかったら合法
-    for (let move of this.getData(species, "move")) {
+    const koma = this.getDataWithoutMember(species);
+    for (let move of typeof this.status === "number"
+      ? koma.status[this.status].move
+      : koma.move) {
       zero = false;
       const sa = RelXY.fromArray(move.move);
       sa.turn(direction);

@@ -17,6 +17,8 @@
     "clean": "rm -rf dist",
     "build": "microbundle",
     "build:watch": "microbundle --watch",
+    "dev": "run-p build:watch dev:run",
+    "dev:run": "http-server ./dist -p 8090 --cors -c5",
     "test": "vitest",
     "test:run": "vitest run",
     "coverage": "vitest run --coverage",

@@ -4,6 +4,12 @@ export interface PlayerEntry {
   id: PlayerType;
   name: string;
   file: string;
+  search?: {
+    iterativeDeepening?: {
+      maxDepth: number;
+      timeLimit: number;
+    };
+  };
   caveats?: { rule: number; level: "error" | "warning"; text: string }[];
 }
 
@@ -12,6 +18,12 @@ export const playerRegistry: PlayerEntry[] = [
     id: "possibilityist",
     file: "possibilityistPlayer.js",
     name: "最大選択肢bot",
+    search: {
+      iterativeDeepening: {
+        maxDepth: 3,
+        timeLimit: 3000,
+      },
+    },
     caveats: [
       {
         rule: 66,

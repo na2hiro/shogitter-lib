@@ -36,15 +36,12 @@ export class ShogiGame implements Game<Move> {
         }
         return true;
       } catch (e) {
-        /*
-        // No window in workers
-        if (!("exceptionReasons" in window)) {
-          (window as any)["exceptionReasons"] = {};
+        if (!("exceptionReasons" in self)) {
+          (self as any)["exceptionReasons"] = {};
         }
-        const { exceptionReasons } = window as any;
+        const { exceptionReasons } = self as any;
         if (!exceptionReasons[e.message]) exceptionReasons[e.message] = 0;
         exceptionReasons[e.message]++;
-         */
 
         reusableShogi = null;
         return false;

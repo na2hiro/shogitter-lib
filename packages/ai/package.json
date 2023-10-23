@@ -11,8 +11,14 @@
   },
   "scripts": {
     "clean": "rm -rf lib",
-    "build": "npm run clean && tsc",
-    "build:watch": "npm run clean && tsc --watch",
+    "build": "pnpm clean && tsc",
+    "build:watch": "pnpm clean && tsc --watch",
+    "dev": "run-p build:watch dev:watch dev:serve",
+    "dev:clean": "rm -rf lib-devserver",
+    "dev:serve": "http-server ./lib-devserver -p 8091 --cors -c5",
+    "dev:watch": "pnpm dev:clean && tsc && run-p dev:watch:tsc dev:watch:tsc-alias",
+    "dev:watch:tsc": "tsc --watch --project tsconfig.devserver.json",
+    "dev:watch:tsc-alias": "tsc-alias -p tsconfig.devserver.json --replacer ./dev/shogitterImportReplacer.cjs -w",
     "test": "vitest",
     "prepublishOnly": "pnpm build",
     "typecheck": "tsc --noEmit"
@@ -24,6 +30,7 @@
     "@shogitter/core": "workspace:*"
   },
   "devDependencies": {
+    "tsc-alias": "^1.8.8",
     "typescript": "^5.1.6"
   }
 }

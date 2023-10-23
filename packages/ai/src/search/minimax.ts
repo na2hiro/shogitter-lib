@@ -1,5 +1,4 @@
 import { Game } from "./Game.js";
-import ShogitterAiException from "../ShogitterAiException.js";
 import { randomSelect } from "./utils.js";
 
 export interface MinimaxGame<Move> extends Game<Move> {

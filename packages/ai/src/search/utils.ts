@@ -1,4 +1,4 @@
-import ShogitterAiException from "../ShogitterAiException.js";
+import { ShogitterAiException } from "../ShogitterAiException.js";
 
 export function randomSelect<T>(arr: T[]) {
   if (arr.length === 0)
