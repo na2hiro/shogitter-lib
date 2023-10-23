@@ -20,7 +20,7 @@ export const playerRegistry: PlayerEntry[] = [
     name: "最大選択肢bot",
     search: {
       iterativeDeepening: {
-        maxDepth: 3,
+        maxDepth: 2,
         timeLimit: 3000,
       },
     },
@@ -29,6 +29,11 @@ export const playerRegistry: PlayerEntry[] = [
         rule: 66,
         level: "error",
         text: "パスができないため、停止したり一人千日手したりしてしまう",
+      },
+      {
+        rule: 107,
+        level: "error",
+        text: "持ち駒を打つ際に停止してしまう",
       },
     ],
   },

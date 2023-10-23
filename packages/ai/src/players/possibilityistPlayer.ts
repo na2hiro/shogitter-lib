@@ -1,10 +1,8 @@
 import { Move, Shogi, ShogiSerialization, Direction } from "@shogitter/core";
 
-import { Player } from "../Player.js";
+import { EngineArgs, GameStateArgs, Player } from "../Player.js";
 import { ShogiGame } from "../search/ShogiGame.js";
 import { BestMove, minimax, MinimaxGame } from "../search/minimax.js";
-
-const DEPTH = 2;
 
 /**
  * Note: With depth=2, pac man appears
@@ -34,19 +32,16 @@ export class PossibilityScoringShogiGame
   }
 }
 
-const go: Player["go"] = async function ({
-  shogi: obj,
-}: {
-  shogi: ShogiSerialization;
-}) {
+const go: Player["go"] = async function (
+  { shogi: obj }: GameStateArgs,
+  { depth }: EngineArgs
+) {
   const shogi = Shogi.ofJkf(obj);
 
   const game = new PossibilityScoringShogiGame(shogi);
-  let result: BestMove<Move>;
-  for (let depth = 0; depth <= DEPTH; depth++) {
-    result = minimax(game, depth);
-    console.log("result", result);
-  }
+  console.log("> minimax", depth);
+  let result: BestMove<Move> = minimax(game, depth);
+  console.log("< minimax", result);
 
   return result.moves[0];
 };
