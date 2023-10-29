@@ -12,6 +12,7 @@ cd packages/core
 pnpm version <patch|minor|major>
 cd ../ai
 pnpm version <patch|minor|major>
+git add ../..
 git ci -m "chore: bump versions"
 cd ../core
 pnpm publish
