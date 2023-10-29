@@ -1,8 +1,10 @@
 import Strategy from "./Strategy.js";
 import Ban from "../Ban.js";
-import { ShogitterCoreException } from "../utils/phpCompat.js";
 import { Koma } from "../Koma.js";
 import XY from "../XY.js";
+
+type PassType = "pass" | "end-turn" | "none";
+
 export default abstract class TebanRotationStrategy extends Strategy {
   strategyGenre = "手番";
   protected ban: Ban;
@@ -18,8 +20,11 @@ export default abstract class TebanRotationStrategy extends Strategy {
     from: XY
   ): void;
   abstract canPass(): boolean;
-  canEverPass() {
-    return true;
+  passType(): PassType {
+    return "none";
+  }
+  cannotPassMessage(): string | null {
+    return null;
   }
 
   static create(name: string, ban: Ban, setting: any): TebanRotationStrategy {
@@ -39,17 +44,18 @@ class NormalTebanRotationStrategy extends TebanRotationStrategy {
   canPass() {
     return false;
   }
-  canEverPass(): boolean {
-    return false;
-  }
 }
 class OthelloTebanRotationStrategy extends NormalTebanRotationStrategy {
   abstract = "置けない場合はパスできる";
   canPass() {
-    if (this.ban.canOthello(this.ban.parent.teban.getNowDirection())) {
-      throw new ShogitterCoreException("置ける場所があるためパスできません。");
-    }
-    return true;
+    return !this.ban.canOthello(this.ban.parent.teban.getNowDirection());
+  }
+
+  cannotPassMessage(): string {
+    return "置ける場所があるためパスできません。";
+  }
+  passType(): PassType {
+    return "pass";
   }
 }
 class SpeedTebanRotationStrategy extends TebanRotationStrategy {
@@ -69,6 +75,9 @@ class SpeedTebanRotationStrategy extends TebanRotationStrategy {
     if (kif[0] == this.ban.parent.teban.getNowDirection()) return true;
 
     return false;
+  }
+  passType(): PassType {
+    return "end-turn";
   }
 }
 class CheckerTebanRotationStrategy extends TebanRotationStrategy {

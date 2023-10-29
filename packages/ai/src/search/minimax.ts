@@ -1,5 +1,7 @@
 import { Game } from "./Game.js";
 import { randomSelect } from "./utils.js";
+import { ShogiGame } from "./ShogiGame.js";
+import { Shogi } from "@shogitter/core";
 
 export interface MinimaxGame<Move> extends Game<Move> {
   minimaxScore(): number;
@@ -34,6 +36,7 @@ export function minimax<Move>(
     let score = isTurnForPositive ? -Infinity : Infinity;
     let bestMoves: Move[] = [];
     for (const move of moves) {
+      // console.log("doMove", move);
       try {
         game.doMove(move);
       } catch (e) {
@@ -57,6 +60,7 @@ export function minimax<Move>(
           bestMoves = [move];
         }
       }
+      // console.log("undoMove", move);
       game.undoMove(move);
     }
 

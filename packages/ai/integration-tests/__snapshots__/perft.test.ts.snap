@@ -1,5 +1,13 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`perft > rule=0 > depth=0 > time 1`] = `"0"`;
+
+exports[`perft > rule=0 > depth=1 > time 1`] = `"31"`;
+
+exports[`perft > rule=0 > depth=2 > time 1`] = `"202"`;
+
+exports[`perft > rule=0 > depth=3 > time 1`] = `"4539"`;
+
 exports[`perft > rule=1 (本将棋(香落ち)) > depth=1 1`] = `30`;
 
 exports[`perft > rule=1 (本将棋(香落ち)) > depth=2 1`] = `900`;
@@ -90,9 +98,9 @@ exports[`perft > rule=23 (コイン将棋) > depth=1 1`] = `29`;
 
 exports[`perft > rule=23 (コイン将棋) > depth=2 1`] = `839`;
 
-exports[`perft > rule=24 (仲間割れ将棋) > depth=1 1`] = `49`;
+exports[`perft > rule=24 (仲間割れ将棋) > depth=1 1`] = `51`;
 
-exports[`perft > rule=24 (仲間割れ将棋) > depth=2 1`] = `2401`;
+exports[`perft > rule=24 (仲間割れ将棋) > depth=2 1`] = `2499`;
 
 exports[`perft > rule=25 (二手指し将棋) > depth=1 1`] = `30`;
 
@@ -308,29 +316,29 @@ exports[`perft > rule=79 (狭い将棋) > depth=1 1`] = `28`;
 
 exports[`perft > rule=79 (狭い将棋) > depth=2 1`] = `784`;
 
-exports[`perft > rule=80 (オセロ) > depth=1 1`] = `0`;
+exports[`perft > rule=80 (オセロ) > depth=1 1`] = `4`;
 
-exports[`perft > rule=80 (オセロ) > depth=2 1`] = `0`;
+exports[`perft > rule=80 (オセロ) > depth=2 1`] = `12`;
 
-exports[`perft > rule=81 (五目並べ) > depth=1 1`] = `0`;
+exports[`perft > rule=81 (五目並べ) > depth=1 1`] = `361`;
 
-exports[`perft > rule=81 (五目並べ) > depth=2 1`] = `0`;
+exports[`perft > rule=81 (五目並べ) > depth=2 1`] = `129960`;
 
-exports[`perft > rule=82 (重力四目並べ) > depth=1 1`] = `0`;
+exports[`perft > rule=82 (重力四目並べ) > depth=1 1`] = `42`;
 
-exports[`perft > rule=82 (重力四目並べ) > depth=2 1`] = `0`;
+exports[`perft > rule=82 (重力四目並べ) > depth=2 1`] = `1722`;
 
-exports[`perft > rule=83 (六目並べ) > depth=1 1`] = `0`;
+exports[`perft > rule=83 (六目並べ) > depth=1 1`] = `361`;
 
-exports[`perft > rule=83 (六目並べ) > depth=2 1`] = `0`;
+exports[`perft > rule=83 (六目並べ) > depth=2 1`] = `129960`;
 
 exports[`perft > rule=84 (チェッカー) > depth=1 1`] = `7`;
 
 exports[`perft > rule=84 (チェッカー) > depth=2 1`] = `49`;
 
-exports[`perft > rule=85 (純碁) > depth=1 1`] = `0`;
+exports[`perft > rule=85 (純碁) > depth=1 1`] = `361`;
 
-exports[`perft > rule=85 (純碁) > depth=2 1`] = `0`;
+exports[`perft > rule=85 (純碁) > depth=2 1`] = `129960`;
 
 exports[`perft > rule=86 (横ネコ鮮将棋) > depth=1 1`] = `30`;
 
@@ -344,9 +352,9 @@ exports[`perft > rule=88 (突撃将棋) > depth=1 1`] = `30`;
 
 exports[`perft > rule=88 (突撃将棋) > depth=2 1`] = `900`;
 
-exports[`perft > rule=89 (囲連星) > depth=1 1`] = `0`;
+exports[`perft > rule=89 (囲連星) > depth=1 1`] = `361`;
 
-exports[`perft > rule=89 (囲連星) > depth=2 1`] = `0`;
+exports[`perft > rule=89 (囲連星) > depth=2 1`] = `129960`;
 
 exports[`perft > rule=90 (せっまい将棋) > depth=1 1`] = `23`;
 
@@ -394,7 +402,7 @@ exports[`perft > rule=100 (ミニシャンチー1(仮)) > depth=2 1`] = `51`;
 
 exports[`perft > rule=101 (ミニシャンチー2(仮)) > depth=1 1`] = `9`;
 
-exports[`perft > rule=101 (ミニシャンチー2(仮)) > depth=2 1`] = `82`;
+exports[`perft > rule=101 (ミニシャンチー2(仮)) > depth=2 1`] = `83`;
 
 exports[`perft > rule=102 (ミニシャンチー3(仮)) > depth=1 1`] = `12`;
 
@@ -406,7 +414,7 @@ exports[`perft > rule=103 (角将棋) > depth=2 1`] = `5651`;
 
 exports[`perft > rule=104 (将棋対囲碁) > depth=1 1`] = `30`;
 
-exports[`perft > rule=104 (将棋対囲碁) > depth=2 1`] = `1320`;
+exports[`perft > rule=104 (将棋対囲碁) > depth=2 1`] = `2550`;
 
 exports[`perft > rule=105 (はさみ天秤端落とし) > depth=1 1`] = `63`;
 

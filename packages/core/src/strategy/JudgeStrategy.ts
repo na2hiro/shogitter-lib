@@ -6,7 +6,6 @@ import { shogitterDB } from "../ShogitterDB.js";
 import { ShogitterCoreException } from "../utils/phpCompat.js";
 import { BanScanIterator } from "../Iterator.js";
 import { num2kan_decimal } from "../MyLib.js";
-import TebanRotationStrategy from "./TebanRotationStrategy.js";
 import { Direction } from "../Direction.js";
 
 export class JudgeStrategyContainer<S> extends StrategyContainer<
@@ -41,7 +40,7 @@ export default abstract class JudgeStrategy<S> extends Strategy {
     this.ban.parent.gameEnd(loseDirection, markDirection, kifu, description);
   }
 
-  static create(name: string, ban: Ban, setting: any): TebanRotationStrategy {
+  static create(name: string, ban: Ban, setting: any): JudgeStrategy<unknown> {
     const klass: any = nameToStrategy[name];
     return new klass(ban, setting);
   }

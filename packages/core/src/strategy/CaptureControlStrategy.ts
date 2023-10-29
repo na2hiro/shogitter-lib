@@ -191,7 +191,7 @@ class ShishiCaptureControlStrategy extends NormalCaptureControlStrategy {
       } else {
         //移動中
         const tmp = this.ban.parent.clone();
-        const last = tmp.ban.parent.kifu.getXYByTesuu(tmp.kifu.getTesuu() - 1);
+        const last = tmp.ban.parent.kifu.getXYByTesuu(tmp.kifu.getTesuu() - 1)!;
         tmp.rollback(1);
         if (
           !(

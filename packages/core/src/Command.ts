@@ -62,4 +62,4 @@ export type ResetCommand = {
   ruleId: number;
 };
 
-export type Move = MoveCommand | PutCommand;
+export type Move = MoveCommand | PutCommand | PassCommand;

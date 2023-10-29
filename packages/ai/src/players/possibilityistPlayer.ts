@@ -3,6 +3,7 @@ import { Move, Shogi, ShogiSerialization, Direction } from "@shogitter/core";
 import { EngineArgs, GameStateArgs, Player } from "../Player.js";
 import { ShogiGame } from "../search/ShogiGame.js";
 import { BestMove, minimax, MinimaxGame } from "../search/minimax.js";
+import { ShogitterAiException } from "../ShogitterAiException.js";
 
 /**
  * Note: With depth=2, pac man appears
@@ -43,6 +44,10 @@ const go: Player["go"] = async function (
   let result: BestMove<Move> = minimax(game, depth);
   console.log("< minimax", result);
 
+  if (result.moves.length === 0) {
+    throw new ShogitterAiException("合法手が見つかりませんでした");
+  }
+
   return result.moves[0];
 };
 
@@ -52,5 +57,5 @@ export default {
 
 function countPossibility(moves: Move[]) {
   // Don't distinguish 成/不成, otherwise it prefers not promoting to keep both possibilities
-  return moves.filter((m) => m.type === "put" || !m.nari).length;
+  return moves.filter((m) => m.type !== "move" || !m.nari).length;
 }

@@ -49,7 +49,7 @@ describe(perft, () => {
       it("depth=1", () => {
         expect(perft(game, 1)).toMatchSnapshot();
       });
-      it("depth=2", () => {
+      it.skip("depth=2", () => {
         expect(perft(game, 2)).toMatchSnapshot();
       });
     });

@@ -2,7 +2,6 @@ import XY from "../XY.js";
 import Ban, { Species } from "../Ban.js";
 import { BeforeAfterDropStrategy } from "./Strategy.js";
 import { shuffle, ShogitterCoreException } from "../utils/phpCompat.js";
-import TebanRotationStrategy from "./TebanRotationStrategy.js";
 import { Direction } from "../Direction.js";
 
 export default abstract class DestinationStrategy extends BeforeAfterDropStrategy {
@@ -12,7 +11,7 @@ export default abstract class DestinationStrategy extends BeforeAfterDropStrateg
     super();
     this.ban = ban;
   }
-  static create(name: string, ban: Ban, setting: any): TebanRotationStrategy {
+  static create(name: string, ban: Ban, setting: any): DestinationStrategy {
     const klass: any = nameToStrategy[name];
     return new klass(ban, setting);
   }

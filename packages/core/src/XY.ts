@@ -1,5 +1,4 @@
 import { ShogitterCoreException } from "./utils/phpCompat.js";
-import Ban from "./Ban.js";
 import { num2kan_decimal } from "./MyLib.js";
 import { Direction } from "./Direction.js";
 

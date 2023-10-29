@@ -48,7 +48,7 @@ describe("posMaxSearch with Shogi", () => {
             "type": "move",
           },
         ],
-        "score": 5,
+        "score": 4,
       }
     `);
   });

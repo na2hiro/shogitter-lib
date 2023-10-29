@@ -14,9 +14,9 @@ export class ShogiGame implements Game<Move> {
   }
 
   getMoves(): Move[] {
-    const hash = this.shogi.getHash();
+    // TODO: shogi's hash must contain teban, but it's hold back due to backward compatibility
+    const hash = this.shogi.getHash() + this.shogi.teban.get();
     if (this.cachedMoves.has(hash)) {
-      // console.log("hit");
       return this.cachedMoves.get(hash)!;
     }
     // console.log("miss");
@@ -36,12 +36,14 @@ export class ShogiGame implements Game<Move> {
         }
         return true;
       } catch (e) {
-        if (!("exceptionReasons" in self)) {
-          (self as any)["exceptionReasons"] = {};
+        if (typeof self !== "undefined") {
+          if (!("exceptionReasons" in self)) {
+            (self as any)["exceptionReasons"] = {};
+          }
+          const { exceptionReasons } = self as any;
+          if (!exceptionReasons[e.message]) exceptionReasons[e.message] = 0;
+          exceptionReasons[e.message]++;
         }
-        const { exceptionReasons } = self as any;
-        if (!exceptionReasons[e.message]) exceptionReasons[e.message] = 0;
-        exceptionReasons[e.message]++;
 
         reusableShogi = null;
         return false;

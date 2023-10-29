@@ -124,7 +124,7 @@ class VolleyballMoveControlStrategy extends MoveControlStrategy<{}> {
         //２手前を探す
         bad = this.ban.parent.kifu.getXYByTesuu(
           this.ban.parent.kifu.getTesuu() - 2
-        );
+        )!;
         if (from.equals(bad["to"])) {
           return false;
         }
@@ -133,7 +133,7 @@ class VolleyballMoveControlStrategy extends MoveControlStrategy<{}> {
         //１手前を探す
         bad = this.ban.parent.kifu.getXYByTesuu(
           this.ban.parent.kifu.getTesuu() - 1
-        );
+        )!;
         if (from.equals(bad["to"])) {
           return false;
         }
@@ -200,10 +200,14 @@ class SameMoveControlStrategy extends MoveControlStrategy<{}> {
     const kifu = this.ban.parent.kifu;
     const tesuu = kifu.getTesuu();
     if (tesuu > 0) {
-      const kif = kifu.getXYByTesuu(tesuu - 1);
       const kif2 = kifu.get(tesuu - 1);
-      if (kif2[0] == this.ban.get(from).direction && !kif["to"].equals(from))
-        throw new ShogitterCoreException(`${kif["to"]}の駒を動かしてください`);
+      if (kif2[0] == this.ban.get(from).direction) {
+        const kif = kifu.getXYByTesuu(tesuu - 1);
+        if (!kif.to.equals(from))
+          throw new ShogitterCoreException(
+            `${kif.to.getFormat()}の駒を動かしてください`
+          );
+      }
     }
   }
 }

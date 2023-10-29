@@ -25,7 +25,10 @@ export type MoveDiff = [number, number, KomaObj, KomaObj];
 // amount diff, player, species
 export type PutDiff = [number, Direction, Species];
 
-export type PreviousMove = { to: XY; from: XY } | { to: XY; koma: string };
+export type PreviousMove =
+  | { to: XY; from: XY }
+  | { to: XY; koma: string }
+  | null;
 
 export default class Kifu {
   //array('move': "棋譜", 'disp': "通常棋譜", 'hash': "ハッシュ")
@@ -253,7 +256,7 @@ export default class Kifu {
    * @param kifu
    */
   getXYByKifu(kifu: KifuMove): PreviousMove {
-    if (typeof kifu === "string") {
+    if (typeof kifu === "string" || kifu.length <= 1) {
       return null;
     } else {
       const to = new XY(kifu[1][0], kifu[1][1]);

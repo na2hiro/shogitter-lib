@@ -654,16 +654,8 @@ export default class Shogi {
    * @return <type>
    */
   pass() {
-    if (this.moving == null) {
-      if (this.ban.strategy["TebanRotation"].canPass()) {
-        this.kifu.unsetLastMoving();
-        this.teban.rotate();
-      } else {
-        throw new ShogitterCoreException(
-          "移動中の駒がありません。このボタンは多段階移動をする駒の移動を終了して手番を渡す時に使います。"
-        );
-      }
-    } else {
+    if (this.moving != null) {
+      // 移動中の駒がある
       if (this.ban.get(this.moving.XY).get("nopass")) {
         throw new ShogitterCoreException("この駒で手番を渡すことはできません");
       } else {
@@ -671,13 +663,39 @@ export default class Shogi {
         this.moving = null;
         this.teban.rotate();
       }
+    } else {
+      const { TebanRotation } = this.ban.strategy;
+      if (TebanRotation.canPass()) {
+        // パスできるルール
+        this.kifu.unsetLastMoving();
+        if (TebanRotation.passType() === "pass") {
+          // 手番渡しではなくパス
+          this.kifu.add(
+            [this.teban.get()],
+            Teban.getMark(this.teban.getNowDirection()) + "パス",
+            {
+              hash: true,
+            }
+          );
+        }
+        this.teban.rotate();
+      } else {
+        // パスできるルールではなく、移動中の駒がない
+        throw new ShogitterCoreException(
+          TebanRotation.cannotPassMessage() ??
+            "移動中の駒がありません。このボタンは多段階移動をする駒の移動を終了して手番を渡す時に使います。"
+        );
+      }
     }
   }
 
-  private getKyokumen() {
+  public getKyokumen() {
     return this.ban.__toString() + this.mochigoma.__toString();
   }
 
+  /**
+   * TODO: it must contain teban, but it's kept like this for backward compatibility
+   */
   getHash() {
     return javaHashCode(this.getKyokumen()).toString(16);
   }
@@ -799,7 +817,6 @@ export default class Shogi {
         .concat(
           this.mochigoma.strategy.MochigomaIO.augmentedSpecies(direction)
         );
-      // TODO: Infinity mochigoma strategy
       if (kinds.length > 0) {
         for (let cell of this.ban.getIterator()) {
           if (!cell.isNull()) continue;
@@ -816,7 +833,10 @@ export default class Shogi {
       }
     }
 
-    // TODO: other moves like pass
+    // Ignore pass for opponent for now. canPass is defined only for current turn
+    if (this.ban.strategy.TebanRotation.canPass()) {
+      moves.push({ type: "pass" });
+    }
 
     if (forBoth) {
       return [moves, movesOpponent];
