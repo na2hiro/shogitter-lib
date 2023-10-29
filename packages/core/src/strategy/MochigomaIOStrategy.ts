@@ -14,6 +14,14 @@ export class MochigomaIOStrategyContainer<S> extends StrategyContainer<
 > {
   strategyGenre = "持ち駒";
 
+  augmentedSpecies(direction: Direction): Species[] {
+    let ret: Species[] = [];
+    for (let strategy of this.arrayStrategies) {
+      ret = ret.concat(strategy.augmentedSpecies(direction));
+    }
+    return ret;
+  }
+
   executeIn(toPick: Koma, tebanDirection: Direction) {
     for (let strategy of this.arrayStrategies) {
       if (strategy.checkDirection(this.ban.parent.fromDirection)) {
@@ -44,6 +52,10 @@ export abstract class MochigomaIOStrategy<S> extends Strategy {
 
   execute() {
     throw "This strategy doesn't expect calling execute()";
+  }
+
+  augmentedSpecies(direction: Direction): Species[] {
+    return [];
   }
 
   abstract executeIn(toPick: Koma, tebanDirection: Direction): void;
@@ -142,14 +154,30 @@ class BothFaceMochigomaIOStrategy extends MochigomaIOStrategy<{}> {
 }
 
 type InfinityMochigomaIOConfig = {
-  species: Species;
-  directions: Direction[];
+  /**
+   * Which piece to put inifinitely. Default: yo (Go)
+   */
+  species?: Species;
+  /**
+   * Which directions to put infinitely. Default: all
+   */
+  directions?: Direction[];
 };
 class InfinityMochigomaIOStrategy extends MochigomaIOStrategy<InfinityMochigomaIOConfig> {
   public abstract = "無限に打てる。";
 
   isDuplicable(species: Species) {
-    return species == (this.setting.species || "yo");
+    return species == (this.setting.species ?? "yo");
+  }
+
+  augmentedSpecies(direction: Direction): Species[] {
+    if (
+      !this.setting.directions ||
+      this.setting.directions.indexOf(direction) >= 0
+    ) {
+      return [this.setting.species ?? "yo"];
+    }
+    return [];
   }
 
   executeIn(toPick: Koma, tebanDirection: Direction) {
