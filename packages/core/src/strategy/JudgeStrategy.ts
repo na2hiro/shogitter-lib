@@ -11,6 +11,7 @@ import { Direction } from "../Direction.js";
 export class JudgeStrategyContainer<S> extends StrategyContainer<
   JudgeStrategy<S>
 > {
+  abstract = "勝利判定";
   strategyGenre = "勝利判定";
   static defaultSetting = {
     WinKoma: {},
@@ -75,16 +76,21 @@ class WinKomaJudgeStrategy extends JudgeStrategy<{ ignore?: boolean }> {
     }
   }
   toHTML() {
-    if (!this.ban.parent.rule.winkoma) return null;
+    const { winkoma } = this.ban.parent.rule;
+    if (!winkoma || (winkoma.length === 1 && winkoma[0] === "ah")) return null;
     let ret = "王将駒: ";
     let first = true;
-    for (let value2 of this.ban.parent.rule.winkoma) {
+    for (let value2 of winkoma) {
       ret += `${
         first ? "" : "、"
       }<a href='/koma/${value2}'>${shogitterDB.getKoma(value2, "name")}</a>`;
       first = false;
     }
     return ret;
+  }
+  isNormal(): boolean {
+    const { winkoma } = this.ban.parent.rule;
+    return !winkoma || (winkoma.length === 1 && winkoma[0] === "ah");
   }
 }
 type OuteJudgeConfig = {
@@ -129,6 +135,9 @@ class OuteJudgeStrategy extends JudgeStrategy<OuteJudgeConfig> {
     if (this.setting.fatal) return "王手をすれば勝ち";
     //return "王手をチェック";
     return null;
+  }
+  isNormal(): boolean {
+    return !this.setting.ignore && !this.setting.fatal;
   }
 }
 type TsumiJudgeConfig = {
@@ -292,6 +301,10 @@ class TsumiJudgeStrategy extends JudgeStrategy<TsumiJudgeConfig> {
     if (this.setting["uchifu"]) return "打ち歩詰め判定なし";
     //return "詰み判定";
     return null;
+  }
+  isNormal(): boolean {
+    const { ignore, uchifu } = this.setting;
+    return !ignore && !uchifu;
   }
 }
 //置ける場所がなくなったら終了

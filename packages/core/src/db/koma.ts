@@ -18681,14 +18681,14 @@ const koma: { [species: string]: KomaInfo } = {
   yn: {
     class: "Unmovable",
     move: [],
-    name: "オセロ(白)",
+    name: "石(白)",
     shortname: "○",
     species: "yn",
   },
   yo: {
     class: "Unmovable",
     move: [],
-    name: "オセロ",
+    name: "石",
     shortname: " ",
     species: "yo",
   },

@@ -108,7 +108,7 @@ export abstract class StrategyContainer<T extends Strategy> {
     const ret = [];
     for (let strategy of this.arrayStrategies) {
       const val = strategy.toHTML();
-      if (val !== null) ret.push(strategy.toHTML());
+      if (val !== null && val !== "通常") ret.push(val);
     }
     if (ret.length >= 2) {
       return (

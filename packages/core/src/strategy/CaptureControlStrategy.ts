@@ -40,6 +40,7 @@ export abstract class CaptureControlStrategy<S> extends Strategy {
 }
 
 class NormalCaptureControlStrategy<S = {}> extends CaptureControlStrategy<S> {
+  abstract = "通常";
   static strategyVariant = "Normal";
   execute(captured: Koma, capturing: Koma) {
     if (!captured.isNull() && captured.isFriend(capturing)) {
@@ -158,7 +159,7 @@ class TorazuCaptureControlStrategy extends NormalCaptureControlStrategy<TorazuCa
 
 class ShishiCaptureControlStrategy extends NormalCaptureControlStrategy {
   static strategyVariant = "Shishi";
-  public abstract = "獅子取りの特例";
+  public abstract = `<a href="https://ja.wikipedia.org/wiki/%E4%B8%AD%E5%B0%86%E6%A3%8B#%E7%8D%85%E5%AD%90%E3%81%AE%E7%89%B9%E5%88%A5%E3%83%AB%E3%83%BC%E3%83%AB" target="_blank">獅子取りの特例</a>`;
 
   execute(captured: Koma, capturing: Koma) {
     super.execute(captured, capturing);

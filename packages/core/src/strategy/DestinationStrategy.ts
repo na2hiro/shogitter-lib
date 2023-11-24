@@ -38,6 +38,7 @@ class GravityDestinationStrategy extends DestinationStrategy {
   }
 }
 class RandomDestinationStrategy extends DestinationStrategy {
+  abstract = "動かした駒の行き先がランダムに決定する";
   public executeBefore(from: XY, to: XY = null) {
     const koma = this.ban.get(from);
     const direction = koma.direction;
