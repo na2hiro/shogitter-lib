@@ -4,5 +4,5 @@ export enum Direction {
   LEFT,
   RIGHT,
 
-  SOMETHING = 9, // TODO what is this?
+  DRAW = 9, // Used in case of nobody wins or loses
 }

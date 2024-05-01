@@ -170,7 +170,7 @@ export default class Shogi {
     this.mochigoma.setStrategy(this.rule["strategy"] || {});
     //this.kifulength = strlen(max(this.rule['size'][1], this.rule['size'][0])); // TODO what does it mean?
 
-    //盤面，持ち駒，棋譜を読み込み
+    //盤面、持ち駒、棋譜を読み込み
     this.ban.update(this.rule.init.ban);
     this.mochigoma.update(this.rule.init.mochigoma);
     this.kifu.clear();
@@ -213,7 +213,7 @@ export default class Shogi {
    */
   resign(direction?: Direction) {
     if (!this.isPlaying())
-      throw new ShogitterCoreException("対局中ではありません．");
+      throw new ShogitterCoreException("対局中ではありません。");
     let dirResign;
     if (typeof direction !== "undefined") {
       //手番があったらその人が投了
@@ -383,7 +383,7 @@ export default class Shogi {
     }
     this.end = {
       status: description,
-      kifu: [`_${loseDirection}`, Teban.getMark(markDirection) + kifu],
+      kifu: [`_${loseDirection}`, (Teban.getMark(markDirection) ?? "") + kifu],
     };
   }
 

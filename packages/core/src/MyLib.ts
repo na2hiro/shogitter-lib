@@ -14,7 +14,7 @@ function logRoom(roomid, data){
 
 	if(count(data['kifu'])<=1) return false;
 	unset(data['debug'], data['system']);
-	
+
 	data['date']['log'] = new MongoDate();
 	newdoc = array(
 		'roomid': roomid,
@@ -27,7 +27,7 @@ function logRoom(roomid, data){
 	newdoc['_id']=autoincrement['value']['next'];
 	db.result.save(newdoc);
 	db.room.update(array('_id': roomid), array('set': array('logged': true)));
-	comment(roomid, "棋譜ログに格納されました． http://shogitter.com/kifu/{autoincrement['value']['next']}");
+	comment(roomid, "棋譜ログに格納されました。 http://shogitter.com/kifu/{autoincrement['value']['next']}");
 	return true;
 	/*
 	doc = db.room.findOne(array('_id': roomid));
@@ -37,7 +37,7 @@ function logRoom(roomid, data){
 	if(doc['logged']) return false;
 	if(count(doc['data']['kifu'])==0) return false;
 	unset(doc['data']['debug'], doc['data']['system'], doc['logged']);
-	
+
 	doc['data']['date']['log'] = new MongoDate();
 	newdoc = array(
 		'_id': resultid,
@@ -51,9 +51,9 @@ function logRoom(roomid, data){
 	newdoc['_id']=autoincrement['value']['next'];
 	db.result.save(newdoc);
 	db.room.update(array('_id': roomid), array('set': array('logged': true)));
-	comment(roomid, "棋譜ログに格納されました． http://shogitter.com/kifu/{autoincrement['value']['next']}");
+	comment(roomid, "棋譜ログに格納されました。 http://shogitter.com/kifu/{autoincrement['value']['next']}");
 	return true;
-	 * 
+	 *
 	 * /
 	/*
 	chatcursor = db.chat.find(array('room': roomid)).sort(array('date': -1));
@@ -71,10 +71,10 @@ function logRoom(roomid, data){
 		lines[]=line;
 	}
 	doc['chat']=lines;
-	 * 
+	 *
 	 * /
 }
-	
+
 mergeBits(array){
 	ret=0;
 	foreach(array as value){
@@ -101,7 +101,7 @@ binstringify(int, length){
 
 binhex(string){
 	arr="0123456789ABCDEF";
-	
+
 	if(num=strlen(string)%4){
 		for(i=num;i<4;i++){
 			string.="0";
@@ -349,7 +349,7 @@ botTweet(text, async=false){
  * @global type conn
  * @param type twitterid
  * @param type roomid
- * @param type comment 
+ * @param type comment
  */
 /*
 comment(roomid, comment){
@@ -363,17 +363,17 @@ post(server, port, path, data){
 	fwrite(fh,"{path} (hoge) ".var_export(data,true)."\n");
 	fclose(fh);
 * /
-	
+
     ch = curl_init("http://".server.":".port.path);
     curl_setopt(ch, CURLOPT_POST, 1);
     curl_setopt(ch, CURLOPT_POSTFIELDS, http_build_query(data, '', '&'));
     curl_setopt(ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt(ch, CURLOPT_HEADER, 1);
-	
+
     ret=curl_exec(ch);
-	
+
     curl_close(ch);
-/*	
+/*
 	fh=fopen("file.txt","a");
 	fwrite(fh,"{path} (hoge) returned\n");
 	fclose(fh);

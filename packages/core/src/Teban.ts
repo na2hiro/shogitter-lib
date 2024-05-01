@@ -200,7 +200,7 @@ export class Teban {
         }
       }
     }
-    throw new ShogitterCoreException("あなたはプレイヤーではありません．");
+    throw new ShogitterCoreException("あなたはプレイヤーではありません。");
   }
 
   setFlags(flags: TebanFlags) {
@@ -234,9 +234,9 @@ export class Teban {
     return this.arrayTeban[this.teban.get()];
   }
 
-  static getMark(direction: Direction) {
+  static getMark(direction: Direction): string | null {
     if (direction == null) throw new ShogitterCoreException("getMark", 1);
-    return Teban.tebanMark[direction];
+    return direction === Direction.DRAW ? null : Teban.tebanMark[direction];
   }
 
   getNowMark() {

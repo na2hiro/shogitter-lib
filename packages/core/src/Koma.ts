@@ -542,7 +542,7 @@ class JizaitennoKoma extends Koma {
     const kikiArray: Kiki[] = [];
     for (let koma of this.ban.getIterator()) {
       if (!koma.isNull() && enemyKikiMap[koma.XY.x][koma.XY.y]) continue;
-      //その場所に何もないか，効きがなかったら追加
+      //その場所に何もないか、効きがなかったら追加
       kikiArray.push({ XY: koma.XY, type: 1 });
     }
     return kikiArray;

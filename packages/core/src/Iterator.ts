@@ -149,7 +149,7 @@ export class BanScanIterator implements Iterator<XY>, Iterable<XY> {
   count() {
     if (
       this.ban.exists(this.position) &&
-      this.ban.get(this.position).direction != Direction.SOMETHING
+      this.ban.get(this.position).direction != Direction.DRAW // TODO: is it needed?
     ) {
       this.cntJump++;
     }

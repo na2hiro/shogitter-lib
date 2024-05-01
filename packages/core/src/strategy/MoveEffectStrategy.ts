@@ -340,7 +340,7 @@ class HasamiTenbinHashiotoshiMoveEffectStrategy extends MoveEffectStrategy {
 }
 /**
  * てんびん処理
- * はさみ天秤端落とし用だが，同時に処理しないといけないのでこちらは使わない．
+ * はさみ天秤端落とし用だが、同時に処理しないといけないのでこちらは使わない。
 class TenbinMoveEffectStrategy extends MoveEffectStrategy{
 	abstract = "縦・横・斜めに相手に挟まれる位置に移動した場合、挟んでいる駒を取り去る。";
 	executeAfter(to: XY){
@@ -375,7 +375,7 @@ class EpoxyMoveEffectStrategy extends MoveEffectStrategy {
   }
 }
 /*
- * 止まる時に焼くのだが，パスした時に焼く処理の書き方が不明．
+ * 止まる時に焼くのだが、パスした時に焼く処理の書き方が不明。
 class CaptureKomaMoveEffectStrategy extends MoveEffectStrategy{
 	abstract = "周囲の駒を取る";
 	public executeAfter(\to: XY) {
@@ -408,7 +408,7 @@ class CaptureKomaMoveEffectStrategy extends MoveEffectStrategy{
 	private match(Koma nowkoma, direction, settings){
 		foreach(settings?:array() as komasetting){
 			if(komasetting["species"]!==null){
-				//種類指定があり，種類が違う
+				//種類指定があり、種類が違う
 				if(komasetting["species"]!==nowkoma.species) continue;
 			}
 			if(komasetting["direction"]!==null){

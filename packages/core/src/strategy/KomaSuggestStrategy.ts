@@ -81,7 +81,7 @@ class AnhokuKomaSuggestStrategy extends KomaSuggestStrategy {
   }
 }
 /**
- * 元の種類に加え，後ろに駒があったらそれも名乗る
+ * 元の種類に加え、後ろに駒があったらそれも名乗る
  */
 class TenjikuKomaSuggestStrategy extends KomaSuggestStrategy {
   static strategyVariant: "Tenjiku";

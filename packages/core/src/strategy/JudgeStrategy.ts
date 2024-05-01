@@ -100,7 +100,7 @@ type OuteJudgeConfig = {
 /**
  * 王手なら中断する
  *  ignore: 王手放置を無視
- *  fatal: 王手放置で負け，王手で勝ち
+ *  fatal: 王手放置で負け、王手で勝ち
  */
 class OuteJudgeStrategy extends JudgeStrategy<OuteJudgeConfig> {
   abstract = "王手";
@@ -313,7 +313,7 @@ class OthelloJudgeStrategy extends JudgeStrategy<{}> {
   execute(to: XY) {
     //終了判定
     if (!this.ban.canOthello()) {
-      //空白がなかったか，打てなければ終局
+      //空白がなかったか、打てなければ終局
       const point = this.ban.count();
       let mes, meskifu, mark, lose;
       if (point[0] == point[1]) {

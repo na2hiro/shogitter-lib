@@ -57,7 +57,7 @@ class KirukeCaptureStrategy extends CaptureStrategy {
 }
 /*
 class EnPassantCaptureStrategy extends CaptureStrategy{
-	abstract = "アンパッサン．";
+	abstract = "アンパッサン。";
 	execute(to: XY, direction: Direction){
 
 		//アンパッサン

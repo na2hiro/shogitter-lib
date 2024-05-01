@@ -598,7 +598,7 @@ export default class Ban {
    * @return <type>
    */
   arrayKikiKoma(xy: XY, species: Species, direction: Direction) {
-    //そこに逆向きの駒があったとして，その動きを調べる．その位置に順向きの駒がないか調べる
+    //そこに逆向きの駒があったとして、その動きを調べる。その位置に順向きの駒がないか調べる
     const ret = [];
     for (let kiki of this.get(xy).getMovableVirtual(
       species,

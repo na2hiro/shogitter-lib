@@ -120,7 +120,7 @@ class ShogitterDB {
   getKoma(species: Species, member?: keyof KomaInfo) {
     const koma = komaConst[species];
     if (!koma) {
-      throw new ShogitterCoreException(`駒 ${species} が不明です．` + 1);
+      throw new ShogitterCoreException(`駒 ${species} が不明です。` + 1);
     }
     if (member == null) {
       return koma;

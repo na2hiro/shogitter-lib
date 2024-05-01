@@ -103,7 +103,7 @@ class ToruichiCaptureControlStrategy extends NormalCaptureControlStrategy {
         }
       }
     }
-    //全ての駒がwinkomaなら，行き先に紐がついているかどうか調べる
+    //全ての駒がwinkomaなら、行き先に紐がついているかどうか調べる
     for (let koma of this.ban.getIterator()) {
       if (koma.isNull()) continue;
       if (koma.direction == direction) continue; //自分の効きは要らない
@@ -257,7 +257,7 @@ class SpeedCaptureControlStrategy extends NormalCaptureControlStrategy {
       const kif = kifu.get(tesuu - 1);
       if (kif[0] == capturing.direction)
         throw new ShogitterCoreException(
-          "連続して動かす場合は駒をとれません．"
+          "連続して動かす場合は駒をとれません。"
         );
     }
   }

@@ -71,7 +71,7 @@ export abstract class MochigomaIOStrategy<S> extends Strategy {
 }
 
 /**
- * 通常 駒を1枚取り，駒を1枚打つ
+ * 通常 駒を1枚取り、駒を1枚打つ
  */
 class NormalMochigomaIOStrategy extends MochigomaIOStrategy<{}> {
   public abstract = "通常";
