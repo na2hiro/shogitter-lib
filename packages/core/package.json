@@ -1,6 +1,6 @@
 {
   "name": "@shogitter/core",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "Shogitter shogi variant logic written in TypeScript",
   "type": "module",
   "source": "src/index.ts",
