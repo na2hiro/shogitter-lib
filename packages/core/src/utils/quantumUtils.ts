@@ -147,6 +147,14 @@ export enum MoveType {
   Normal,
 }
 
+const EXCLUDING_PIECES: { [moveType in MoveType]: SuperPiece } = {
+  [MoveType.Promote]: ["Ki", "Ou"],
+  [MoveType.NoPromote1]: ["Fu", "Ky", "Ke"],
+  [MoveType.NoPromote2]: ["Ke"],
+  [MoveType.Captured]: ["Ou"],
+  [MoveType.Normal]: [],
+};
+
 export type Result = {
   kinds: SuperPiece[];
   fulls: QuantumPiece[];
@@ -167,18 +175,68 @@ export const runQuantum = (
   move: QuantumMove | null,
   moveType: MoveType,
   kinds: SuperPiece[]
+): Result => {
+  const currentSp = move == null ? allPieces.slice() : move2superPiece(move);
+
+  const { newKinds, details } = calculate(currentSp, moveType, kinds, position);
+
+  const ps = assign2list(newKinds.length, assign(details));
+  const fullSet = new Set<QuantumPiece>();
+  details.forEach(({ piece }) => piece.forEach((p) => fullSet.add(p)));
+  const fulls = Array.from(fullSet);
+
+  return {
+    fulls,
+    kinds: ps.map((p, i) => {
+      const sp = newKinds[i];
+      if (p.length == 0) {
+        return sp.filter((sp1) => fulls.indexOf(sp1) < 0);
+      }
+      return sp.filter((sp1) => p.indexOf(sp1) >= 0);
+    }),
+  };
+};
+
+const byMoveType = (moveType: MoveType) => {
+  const pieces = EXCLUDING_PIECES[moveType];
+  return (kind: QuantumPiece) => pieces.indexOf(kind) < 0;
+};
+
+const calculate = (
+  currentSp: SuperPiece,
+  moveType: MoveType,
+  kinds: SuperPiece[],
+  position: number
 ) => {
-  const superr = move == null ? allPieces.slice() : move2superPiece(move);
-  const sp = filterByType(moveType, superr);
-  const newKinds = kinds.slice();
-  if (position < kinds.length) {
-    newKinds[position] = kinds[position].filter(
-      (kind) => sp.indexOf(kind) >= 0
-    );
-  } else {
-    newKinds.push(sp);
+  // Assume captured piece was not king
+  try {
+    return doCalculate(currentSp.filter(byMoveType(moveType)));
+  } catch (e) {
+    if (
+      moveType === MoveType.Captured &&
+      e instanceof QuantumContradictionError
+    ) {
+      // World collapsed if captured piece was not a king, thus it's a king
+      return doCalculate(["Ou"]);
+    } else {
+      throw e;
+    }
   }
-  return getResult(newKinds);
+
+  function doCalculate(sp: SuperPiece) {
+    let newKinds = kinds.slice();
+    if (position < kinds.length) {
+      newKinds[position] = kinds[position].filter(
+        (kind) => sp.indexOf(kind) >= 0
+      );
+    } else {
+      newKinds.push(sp);
+    }
+    return {
+      details: checkFromSuperPiece(newKinds),
+      newKinds,
+    };
+  }
 };
 
 export const findQuantumMochigoma = (
@@ -249,7 +307,9 @@ function checkFromSuperPiece(pieces: SuperPiece[]) {
   const superPiece2Indices: { [superPiece: string]: number[] } = {};
   pieces.map((piece, index) => {
     if (piece.length == 0)
-      throw new Error(`Invalid move combination at ${index}`);
+      throw new QuantumContradictionError(
+        `Invalid move combination at ${index}`
+      );
     const p = piece.slice().sort().join(",");
     if (!superPiece2Indices[p]) superPiece2Indices[p] = [];
     superPiece2Indices[p].push(index);
@@ -278,7 +338,9 @@ function checkFromSuperPiece(pieces: SuperPiece[]) {
       // console.log(max, piece, piece.length, indices, indices.length)
       if (indices.length < max) return { piece: [], indices };
       if (indices.length == max) return { piece, indices };
-      throw new Error(`Piece exhausted ${piece} (max ${max}) & ${indices}`);
+      throw new QuantumContradictionError(
+        `Piece exhausted ${piece} (max ${max}) & ${indices}`
+      );
     });
 }
 
@@ -362,49 +424,8 @@ function pieceEquals(piece1: SuperPiece, piece2: SuperPiece) {
   return piece1.slice().sort().join(",") === piece2.slice().sort().join(",");
 }
 
-function getResult(pieces: SuperPiece[]): Result {
-  const details = checkFromSuperPiece(pieces);
-  const ps = assign2list(pieces.length, assign(details));
-  const fullSet = new Set<QuantumPiece>();
-  details.forEach(({ piece }) => piece.forEach((p) => fullSet.add(p)));
-  const fulls = Array.from(fullSet);
-
-  // console.log(details, fulls, ps)
-  return {
-    fulls,
-    kinds: ps.map((p, i) => {
-      const sp = pieces[i];
-      if (p.length == 0) {
-        return sp.filter((sp1) => fulls.indexOf(sp1) < 0);
-      }
-      return sp.filter((sp1) => p.indexOf(sp1) >= 0);
-    }),
-  };
-}
-
 const move2superPiece = ({ vec, promote }: QuantumMove) => {
   return movingBoards[promote ? 1 : 0][vec.x + "," + vec.y];
 };
 
-const filterByType: (
-  moveType: MoveType,
-  superPiece: SuperPiece
-) => SuperPiece = (moveType, superPiece) => {
-  const filter = filteringPiece(moveType);
-  return superPiece.filter((kind) => filter.indexOf(kind) < 0);
-};
-
-const filteringPiece: (moveType: MoveType) => SuperPiece = (moveType) => {
-  switch (moveType) {
-    case MoveType.Promote:
-      return ["Ki", "Ou"];
-    case MoveType.NoPromote1:
-      return ["Fu", "Ky", "Ke"];
-    case MoveType.NoPromote2:
-      return ["Ke"];
-    case MoveType.Captured:
-      return ["Ou"];
-    default:
-      return [];
-  }
-};
+class QuantumContradictionError extends Error {}

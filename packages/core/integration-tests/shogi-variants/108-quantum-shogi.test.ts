@@ -2,6 +2,8 @@ import Shogi from "../../src/Shogi";
 import { move, put } from "../utils/shogiUtils";
 import XY from "../../src/XY";
 import { Direction } from "../../src/Direction";
+import { findQuantumMochigoma } from "../../src/utils/quantumUtils";
+import { Room9168 } from "./108-room-9168";
 
 describe("Quantum shogi", () => {
   let shogi: Shogi;
@@ -90,6 +92,192 @@ describe("Quantum shogi", () => {
     //expect(shogi.ban.get(new XY(9, 2)).getMovable()).toHaveLength(5) // of king
     move(shogi, 6, 2, 9, 2);
     expect(shogi).toMatchSnapshot();
+
+    const {
+      kifu,
+      players: [{ mochigoma }],
+    } = shogi.getObject();
+    const lastKifu = kifu[kifu.length - 1];
+    const numMochigoma = mochigoma["ff"];
+
+    expect(
+      Array.from(Array(numMochigoma).keys()).map((id) =>
+        findQuantumMochigoma(lastKifu.data.quantum, 0, id)
+      )
+    ).toMatchInlineSnapshot(`
+      [
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Gi",
+          "Ki",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Ke",
+          "Gi",
+          "Ki",
+          "Ka",
+          "Hi",
+        ],
+        [
+          "Fu",
+          "Ky",
+          "Gi",
+          "Ki",
+          "Hi",
+        ],
+        [
+          "Ou",
+        ],
+      ]
+    `);
   });
   it("can finish when all other pieces has been captured once", () => {
     move(shogi, 9, 7, 9, 3, true);
@@ -165,5 +353,117 @@ describe("Quantum shogi", () => {
     expect(shogi2.kifu.arrayKifu[0].data.quantum).toEqual(
       shogi2.kifu.arrayKifu[1].data.quantum
     );
+  });
+  it("can finish correctly when Ou is captured", () => {
+    move(shogi, 5, 7, 6, 8);
+    move(shogi, 5, 3, 5, 4);
+    move(shogi, 6, 8, 5, 8);
+    move(shogi, 5, 4, 5, 8);
+    const { kifu } = shogi.getObject();
+    const lastKifu = kifu[kifu.length - 1];
+    expect(findQuantumMochigoma(lastKifu.data.quantum, 1, 0))
+      .toMatchInlineSnapshot(`
+      [
+        "Ou",
+      ]
+    `);
+  });
+  it("can finish correctly when Ou is captured", () => {
+    move(shogi, 7, 7, 7, 3, false);
+    move(shogi, 7, 1, 7, 3);
+    move(shogi, 5, 7, 6, 8);
+    move(shogi, 5, 3, 5, 4);
+    move(shogi, 6, 8, 5, 8);
+    move(shogi, 5, 4, 5, 8);
+    const {
+      kifu,
+      players: [{ mochigoma }],
+    } = shogi.getObject();
+    const lastKifu = kifu[kifu.length - 1];
+    expect(findQuantumMochigoma(lastKifu.data.quantum, 1, mochigoma["ff"]))
+      .toMatchInlineSnapshot(`
+      [
+        "Ou",
+      ]
+    `);
+  });
+  it("can finish correctly when Ou is last determined and captured", () => {
+    shogi = Shogi.ofJkf(Room9168);
+    move(shogi, 8, 8, 9, 9, true);
+
+    const {
+      kifu,
+      players: [{ mochigoma }],
+    } = shogi.getObject();
+    const lastKifu = kifu[kifu.length - 1];
+    const numMochigoma = mochigoma["ff"];
+
+    console.log(lastKifu.data.quantum);
+    expect(
+      Array.from(Array(numMochigoma).keys()).map((id) =>
+        findQuantumMochigoma(lastKifu.data.quantum, 1, id)
+      )
+    ).toMatchInlineSnapshot(`
+      [
+        [
+          "Ky",
+        ],
+        [
+          "Ka",
+        ],
+        [
+          "Ke",
+        ],
+        [
+          "Fu",
+          "Ki",
+        ],
+        [
+          "Fu",
+          "Ki",
+        ],
+        [
+          "Fu",
+          "Ki",
+        ],
+        [
+          "Fu",
+          "Ki",
+        ],
+        [
+          "Fu",
+          "Ki",
+        ],
+        [
+          "Fu",
+          "Ki",
+        ],
+        [
+          "Fu",
+          "Ki",
+        ],
+        [
+          "Ke",
+        ],
+        [
+          "Fu",
+          "Ki",
+        ],
+        [
+          "Fu",
+          "Ki",
+        ],
+        [
+          "Gi",
+        ],
+        [
+          "Fu",
+          "Ki",
+        ],
+        [
+          "Ou",
+        ],
+      ]
+    `);
   });
 });

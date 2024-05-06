@@ -422,6 +422,11 @@ export default class Shogi {
     if (typeof direction !== "undefined" && fromDirection !== direction) {
       throw new ShogitterCoreException("It's not your turn");
     }
+    if (fromDirection === null) {
+      throw new ShogitterCoreException(
+        `移動元に駒がありません。(${from.getFormat()})`
+      );
+    }
     this.teban.ensureDirection(fromDirection);
 
     //駒ダンプ生成

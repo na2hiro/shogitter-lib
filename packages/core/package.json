@@ -32,7 +32,6 @@
   "author": "na2hiro",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@vitest/coverage-c8": "^0.24.3",
     "dependency-cruiser": "^11.18.0",
     "microbundle": "^0.15.1",
     "prettier": "^2.8.1",
