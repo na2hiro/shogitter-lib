@@ -398,7 +398,6 @@ describe("Quantum shogi", () => {
     const lastKifu = kifu[kifu.length - 1];
     const numMochigoma = mochigoma["ff"];
 
-    console.log(lastKifu.data.quantum);
     expect(
       Array.from(Array(numMochigoma).keys()).map((id) =>
         findQuantumMochigoma(lastKifu.data.quantum, 1, id)

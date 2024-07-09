@@ -249,24 +249,21 @@ class TsumiJudgeStrategy extends JudgeStrategy<TsumiJudgeConfig> {
             placeFrom,
             placeOu
           )) {
-            //全ての持ち駒を打って確かめる
-            if (
-              this.ban.parent.mochigoma.arrayMochigoma[direction].length > 0
-            ) {
-              for (let mochigoma in this.ban.parent.mochigoma.arrayMochigoma[
-                direction
-              ]) {
-                const tmpBan = this.ban.parent.clone();
-                try {
-                  tmpBan.put(placeBetween, mochigoma, direction, null);
-                  if (debug)
-                    console.log(`${mochigoma}を${placeBetween}へ打てば良い`);
-                  return false;
-                } catch (e) {}
-              }
+            // 全ての持ち駒を打って確かめる
+            for (let mochigoma in this.ban.parent.mochigoma.arrayMochigoma[
+              direction
+            ]) {
+              const tmpBan = this.ban.parent.clone();
+              try {
+                tmpBan.teban.rotate(); // Note: Judge is done before teban rotation
+                tmpBan.put(placeBetween, mochigoma, direction, null);
+                if (debug)
+                  console.log(`${mochigoma}を${placeBetween}へ打てば良い`);
+                return false;
+              } catch (e) {}
             }
 
-            //間に行ける駒駒全てについて
+            // 間に行ける駒全てについて
             if (
               mapKiki["friend"][placeBetween.x] &&
               mapKiki["friend"][placeBetween.x][placeBetween.y]
@@ -274,7 +271,6 @@ class TsumiJudgeStrategy extends JudgeStrategy<TsumiJudgeConfig> {
               for (let placeBetweenFrom of mapKiki["friend"][placeBetween.x][
                 placeBetween.y
               ]) {
-                //								print placeBetween;
                 if (debug)
                   `${placeBetweenFrom}から${placeFrom}に移動すると取り除けるかも`;
                 const tmpBan = this.ban.parent.clone();
