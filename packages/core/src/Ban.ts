@@ -554,6 +554,9 @@ export default class Ban {
    */
   count() {
     const point: number[] = [];
+    this.parent.rule.players.forEach((direction) => {
+      point[direction] = 0;
+    });
     for (let koma of this.getIterator()) {
       if (koma.isNull()) continue;
       if (!point[koma.direction]) point[koma.direction] = 0;
@@ -564,6 +567,9 @@ export default class Ban {
 
   countSpecies() {
     const point: { [species: string]: number }[] = [];
+    this.parent.rule.players.forEach((direction) => {
+      point[direction] = {};
+    });
     for (let koma of this.getIterator()) {
       if (koma.isNull()) continue;
       if (!point[koma.direction]) point[koma.direction] = {};
