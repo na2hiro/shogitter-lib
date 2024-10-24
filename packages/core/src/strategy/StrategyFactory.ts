@@ -24,6 +24,7 @@ import TebanRotationStrategy from "./TebanRotationStrategy.js";
 import MochigomaControlStrategy, {
   MochigomaControlStrategyContainer,
 } from "./MochigomaControlStrategy.js";
+import OnStartStrategy from "./OnStartStrategy.js";
 
 const strategyNameToClass: { [name in StrategyName /*typeof Strategy*/]: any } =
   {
@@ -40,6 +41,7 @@ const strategyNameToClass: { [name in StrategyName /*typeof Strategy*/]: any } =
     MoveEffect: MoveEffectStrategy,
     MoveFilter: MoveFilterStrategy,
     Judge: JudgeStrategy,
+    OnStart: OnStartStrategy,
   };
 
 type VariantAndConfig = { [variant: string]: Config };
@@ -57,6 +59,7 @@ export type BanStrategyRaw = {
   Nifu: NifuStrategy;
   TebanRotation: TebanRotationStrategy;
   KomaSuggest: KomaSuggestStrategy;
+  OnStart: OnStartStrategy;
 };
 export type BanStrategyNameRaw = keyof BanStrategyRaw;
 

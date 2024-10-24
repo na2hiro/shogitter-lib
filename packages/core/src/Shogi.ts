@@ -101,6 +101,7 @@ export default class Shogi {
     if (this.status.num !== Status.INITIAL)
       throw new ShogitterCoreException("初期化されておらず、開始できません。");
     this.status = { num: Status.PLAYING };
+    this.ban.strategy.OnStart.execute();
     // this.date['start'] = new Date();
   }
 
