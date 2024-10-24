@@ -5,7 +5,7 @@ import ruleGenreConst from "./db/rulegenre.js";
 import { Species } from "./Ban.js";
 import { MochigomaObjDB } from "./Mochigoma.js";
 
-const MAX_RULE_ID = 113;
+const MAX_RULE_ID = 116;
 
 type KomaObj = [] | [number, Species];
 export type Rule = {

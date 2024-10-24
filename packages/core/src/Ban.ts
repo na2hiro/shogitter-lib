@@ -30,6 +30,7 @@ const strategyNames: BanStrategyName[] = [
   "CaptureControl",
   "TebanRotation",
   "Destination",
+  "OnStart",
 ];
 const stratgyContainerNames: BanStrategyNameWithContainer[] = [
   "Judge",

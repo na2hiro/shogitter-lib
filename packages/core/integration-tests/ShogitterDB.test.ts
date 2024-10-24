@@ -4,7 +4,7 @@ import { shogitterDB } from "../src";
 describe("shogitterDB", function () {
   describe("getAllRules", () => {
     it("has all values", () => {
-      expect(shogitterDB.getAllRules().map((i) => i._id)).toHaveLength(114);
+      expect(shogitterDB.getAllRules().map((i) => i._id)).toHaveLength(117);
     });
   });
   describe("getRuleGenre", function () {
@@ -40,6 +40,9 @@ describe("shogitterDB", function () {
             103,
             109,
             110,
+            114,
+            115,
+            116,
           ],
           "副作用系変則": [
             18,
