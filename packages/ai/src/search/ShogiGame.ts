@@ -24,9 +24,7 @@ export class ShogiGame implements Game<Move> {
     const moves = this.shogi.generateMoves().filter((move) => {
       try {
         if (reusableShogi == null) {
-          reusableShogi = Shogi.ofJkf(
-            JSON.parse(JSON.stringify(this.shogi.getObject()))
-          );
+          reusableShogi = this.shogi.clone();
         }
         reusableShogi.runCommand(move);
         try {

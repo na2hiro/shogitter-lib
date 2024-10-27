@@ -11,6 +11,7 @@ import { Rule, shogitterDB } from "./ShogitterDB.js";
 import { javaHashCode } from "./utils/hash.js";
 import { Direction } from "./Direction.js";
 import { KifuCommand, Move } from "./Command.js";
+import { deepCopy } from "./utils/compat.js";
 
 export { ShogitterCoreException };
 
@@ -89,8 +90,14 @@ export default class Shogi {
    * 将棋オブジェクトのクローンについてはディープコピー
    * (コピーして別の局面として動かすため)
    */
-  clone(): Shogi {
-    return Shogi.ofJkf(this.getObject());
+  clone(tesuu?: number): Shogi {
+    const shogi = Shogi.ofJkf(this.getObject());
+    if (typeof tesuu !== "undefined") {
+      while (shogi.kifu.getTesuu() > tesuu) {
+        shogi.rollback(1, true);
+      }
+    }
+    return shogi;
   }
 
   shufflePlayers() {
@@ -133,7 +140,7 @@ export default class Shogi {
 
   public static ofJkf(jkf: ShogiSerialization): Shogi {
     const shogi = new Shogi();
-    shogi.constructByJSON(jkf);
+    shogi.constructByJSON(deepCopy(jkf));
     return shogi;
   }
 
@@ -748,7 +755,8 @@ export default class Shogi {
 
     const debug = ""; /*this.debug.serialize(this)*/
     const system = this.jsonsystem;
-    return {
+
+    return deepCopy({
       version: "0.0",
       status: this.status,
       ruleid: this.ruleid,
@@ -763,7 +771,7 @@ export default class Shogi {
       players: playersWithMochigoma,
       system,
       kifu,
-    };
+    });
   }
 
   public generateMoves(): Move[];

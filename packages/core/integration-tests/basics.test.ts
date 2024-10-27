@@ -4,6 +4,7 @@ import { Species } from "../src/Ban";
 import { move, rawMove, put } from "./utils/shogiUtils";
 import { beforeEach } from "vitest";
 import { PlayerInfo } from "../src";
+import { deepCopy } from "../src/utils/compat";
 
 describe("Basic", () => {
   it("can move pieces", () => {
@@ -91,7 +92,7 @@ describe("Basic", () => {
       let shogi: Shogi;
       beforeEach(() => {
         shogi = Shogi.ofRuleId(0);
-        shogi.teban.setArrayPlayerInfo(JSON.parse(JSON.stringify(playerInfo)));
+        shogi.teban.setArrayPlayerInfo(deepCopy(playerInfo));
       });
 
       it("can be read", () => {
