@@ -12,6 +12,7 @@ import { Teban } from "../Teban.js";
 import { shogitterDB } from "../ShogitterDB.js";
 import { MoveType, QuantumPiece, runQuantum } from "../utils/quantumUtils.js";
 import { Direction } from "../Direction.js";
+import { deepCopy } from "../utils/compat.js";
 
 export class MoveEffectStrategyContainer<
   S
@@ -578,9 +579,7 @@ class QuantumMoveEffectStrategy extends MoveEffectStrategy {
   }
 
   private loadLatestData() {
-    this.obj = JSON.parse(
-      JSON.stringify(this.ban.parent.kifu.getLatestData("quantum"))
-    ) || [
+    this.obj = deepCopy(this.ban.parent.kifu.getLatestData("quantum")) || [
       { xys: [], d: { kinds: [], fulls: [] } },
       { xys: [], d: { kinds: [], fulls: [] } },
     ];
