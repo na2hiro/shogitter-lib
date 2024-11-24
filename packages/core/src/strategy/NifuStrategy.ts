@@ -4,6 +4,7 @@ import { Koma } from "../Koma.js";
 import XY, { RelXY } from "../XY.js";
 import { ShogitterCoreException } from "../utils/phpCompat.js";
 import { Direction } from "../Direction.js";
+import { num2kan_decimal } from "../MyLib.js";
 
 export default abstract class NifuStrategy extends Strategy {
   strategyGenre = "二歩";
@@ -21,6 +22,20 @@ export default abstract class NifuStrategy extends Strategy {
     const klass: any = nameToStrategy[name];
     return new klass(ban, setting);
   }
+
+  listNifuDisplayNames(): string {
+    return this.ban.parent.rule.koma
+      .map((species) => Koma.getStatelessData(species))
+      .filter((koma) => koma.nifu)
+      .map(
+        (koma) => `${num2kan_decimal(koma.nifu)}${koma.shortname || koma.name}`
+      )
+      .join("、");
+  }
+  isNormal(): boolean {
+    const displayNames = this.listNifuDisplayNames();
+    return (displayNames == "" || displayNames == "二歩") && super.isNormal();
+  }
 }
 //通常
 class NormalNifuStrategy extends NifuStrategy {
@@ -32,6 +47,10 @@ class NormalNifuStrategy extends NifuStrategy {
       new NormalOnFoundNifuStrategy(this.ban)
     );
   }
+
+  toHTML(): string {
+    return `${this.listNifuDisplayNames()}は禁止`;
+  }
 }
 //二歩ok
 class NoNifuStrategy extends NifuStrategy {
@@ -40,7 +59,6 @@ class NoNifuStrategy extends NifuStrategy {
 }
 //斜め将棋
 class NanameNifuStrategy extends NifuStrategy {
-  abstract = "斜め方向の二歩が禁止";
   constructor(ban: Ban) {
     super(ban);
     this.checker = new NanameScanNifuStrategy(
@@ -48,10 +66,13 @@ class NanameNifuStrategy extends NifuStrategy {
       new NormalOnFoundNifuStrategy(this.ban)
     );
   }
+
+  toHTML(): string {
+    return `斜め方向の${this.listNifuDisplayNames()}が禁止`;
+  }
 }
 //盤面全体
 class WholeNifuStrategy extends NifuStrategy {
-  abstract = "着手した駒だけでなく全ての駒を調べる";
   constructor(ban: Ban) {
     super(ban);
     this.checker = new WholeScanNifuStrategy(
@@ -59,16 +80,21 @@ class WholeNifuStrategy extends NifuStrategy {
       new NormalOnFoundNifuStrategy(this.ban)
     );
   }
+  toHTML(): string {
+    return `着手した駒だけでなく全ての${this.listNifuDisplayNames()}を調べる`;
+  }
 }
 //盤面全体かつ二歩負け
 class PenaltyNifuStrategy extends NifuStrategy {
-  abstract = "二歩は即負け。着手した駒だけでなく全ての駒を調べる。";
   constructor(ban: Ban) {
     super(ban);
     this.checker = new WholeScanNifuStrategy(
       this.ban,
       new FatalOnFoundNifuStrategy(this.ban)
     );
+  }
+  toHTML(): string {
+    return `即負け。着手した駒だけでなく全て${this.listNifuDisplayNames()}のを調べる。`;
   }
 }
 
@@ -106,7 +132,8 @@ class NormalScanNifuStrategy extends ScanNifuStrategy {
 
       if (cnt >= limit) {
         //二歩
-        this.onFound.execute(koma.direction);
+        const displayName = num2kan_decimal(limit) + koma.getShortName();
+        this.onFound.execute(koma.direction, displayName);
       }
     }
   }
@@ -122,7 +149,8 @@ class NanameScanNifuStrategy extends ScanNifuStrategy {
 
       if (cnt >= limit) {
         //二歩
-        this.onFound.execute(koma.direction);
+        const displayName = num2kan_decimal(limit) + koma.getShortName();
+        this.onFound.execute(koma.direction, displayName);
       }
     }
   }
@@ -161,10 +189,12 @@ class WholeScanNifuStrategy extends ScanNifuStrategy {
         const directions = cnts[linenum][species];
 
         const cnt = directions[mydirection];
-        const { nifu } = Koma.getStatelessData(species);
+        const { nifu, shortname, name } = Koma.getStatelessData(species);
+        const displayName = num2kan_decimal(nifu) + (shortname || name);
+
         if (nifu <= cnt) {
           //二歩
-          this.onFound.execute(mydirection);
+          this.onFound.execute(mydirection, displayName);
           return;
         }
 
@@ -173,7 +203,7 @@ class WholeScanNifuStrategy extends ScanNifuStrategy {
           if (direction == mydirection) continue;
           if (nifu <= cnt) {
             //二歩
-            this.onFound.execute(direction);
+            this.onFound.execute(direction, displayName);
             return;
           }
         }
@@ -187,20 +217,22 @@ abstract class OnFoundNifuStrategy {
   constructor(ban: Ban) {
     this.ban = ban;
   }
-  abstract execute(direction: Direction): void;
+  abstract execute(direction: Direction, displayName: string): void;
 }
 class NormalOnFoundNifuStrategy extends OnFoundNifuStrategy {
-  execute(direction: Direction) {
-    throw new ShogitterCoreException("二歩です。");
+  execute(direction: Direction, displayName: string) {
+    throw new ShogitterCoreException(`${displayName}です`);
   }
 }
 class FatalOnFoundNifuStrategy extends OnFoundNifuStrategy {
-  execute(direction: Direction) {
+  execute(direction: Direction, displayName: string) {
     this.ban.parent.gameEnd(
       direction,
       direction,
       "反則負け",
-      `二歩です。${this.ban.parent.teban.getName(direction)}の負けです。`
+      `${displayName}です。${this.ban.parent.teban.getName(
+        direction
+      )}の負けです。`
     );
   }
 }
