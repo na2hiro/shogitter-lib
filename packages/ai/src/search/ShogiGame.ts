@@ -1,5 +1,5 @@
 import { Game } from "./Game.js";
-import { Move, Shogi, Status } from "@shogitter/core";
+import { Move, Shogi } from "@shogitter/core";
 
 export class ShogiGame implements Game<Move> {
   private cachedMoves: Map<string, Move[]> = new Map();

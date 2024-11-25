@@ -5,5 +5,6 @@ export default defineConfig({
   test: {
     include: ["**/*.test.ts"],
     globals: true,
+    snapshotSerializers: ["./integration-tests/utils/bestMoveSerializer.ts"],
   },
 });

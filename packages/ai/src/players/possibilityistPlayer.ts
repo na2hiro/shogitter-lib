@@ -1,9 +1,10 @@
-import { Move, Shogi, ShogiSerialization, Direction } from "@shogitter/core";
+import { Move, Shogi, Direction } from "@shogitter/core";
 
 import { EngineArgs, GameStateArgs, Player } from "../Player.js";
 import { ShogiGame } from "../search/ShogiGame.js";
 import { BestMove, minimax, MinimaxGame } from "../search/minimax.js";
 import { ShogitterAiException } from "../ShogitterAiException.js";
+import { Status } from "@shogitter/core";
 
 /**
  * Note: With depth=2, pac man appears
@@ -17,11 +18,16 @@ export class PossibilityScoringShogiGame
   }
 
   minimaxScore(): number {
-    const ended = this.shogi.isEnded();
+    // TODO: this.shogi.end should work but somehow not
+    const ended = this.shogi.status.num === Status.ENDED;
     if (ended) {
-      // TODO: this doesn't happen by some reasons and bot is ignorant on checkmate
-      console.log("ended", ended.kifu[0][1]);
-      return ended.kifu[0][1] === "1" ? Infinity : -Infinity;
+      const kifu = this.shogi.kifu.get(
+        this.shogi.kifu.getTesuu() - 1
+      ) as string;
+      return (
+        (kifu[1] === "9" ? 0 : kifu[1] === "1" ? -Infinity : Infinity) *
+        (this.isTurnForPositive() ? 1 : -1)
+      );
     }
     // This contains illegal moves, but is cheap
     const [myMove, othersMove] = this.shogi.generateMoves(true);
@@ -35,13 +41,13 @@ export class PossibilityScoringShogiGame
 
 const go: Player["go"] = async function (
   { shogi: obj }: GameStateArgs,
-  { depth }: EngineArgs
+  { depth, trace }: EngineArgs
 ) {
   const shogi = Shogi.ofJkf(obj);
 
   const game = new PossibilityScoringShogiGame(shogi);
   console.log("> minimax", depth);
-  let result: BestMove<Move> = minimax(game, depth);
+  let result: BestMove<Move> = minimax(game, depth, trace);
   console.log("< minimax", result);
 
   if (result.moves.length === 0) {

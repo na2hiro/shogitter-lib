@@ -6,6 +6,7 @@ export type GameStateArgs = {
 };
 export type EngineArgs = {
   depth: number;
+  trace?: boolean;
 };
 export interface Player {
   go: (args: GameStateArgs, engineArgs?: EngineArgs) => Promise<KifuCommand>;

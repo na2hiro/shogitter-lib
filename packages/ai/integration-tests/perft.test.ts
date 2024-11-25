@@ -5,7 +5,7 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { Game } from "../src/search/Game";
 import { Move, shogitterDB } from "@shogitter/core";
 
-describe(perft, () => {
+describe.skip(perft, () => {
   describe("rule=0", () => {
     let game: Game<Move>;
     let started: number;

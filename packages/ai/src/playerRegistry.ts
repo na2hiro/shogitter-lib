@@ -21,7 +21,7 @@ export const playerRegistry: PlayerEntry[] = [
     search: {
       iterativeDeepening: {
         maxDepth: 2,
-        timeLimit: 3000,
+        timeLimit: 10000,
       },
     },
     caveats: [

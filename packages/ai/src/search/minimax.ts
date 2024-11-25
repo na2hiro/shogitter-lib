@@ -2,6 +2,7 @@ import { Game } from "./Game.js";
 import { randomSelect } from "./utils.js";
 import { ShogiGame } from "./ShogiGame.js";
 import { Shogi } from "@shogitter/core";
+import { PossibilityScoringShogiGame } from "../players/possibilityistPlayer.js";
 
 export interface MinimaxGame<Move> extends Game<Move> {
   minimaxScore(): number;
@@ -12,11 +13,13 @@ export interface MinimaxGame<Move> extends Game<Move> {
 export type BestMove<Move> = {
   moves: Move[];
   score: number;
+  trace?: any;
 };
 
 export function minimax<Move>(
   game: MinimaxGame<Move>,
-  depth: number
+  depth: number,
+  trace = false
 ): BestMove<Move> {
   return search(game, depth, []);
 
@@ -35,6 +38,7 @@ export function minimax<Move>(
     const isTurnForPositive = game.isTurnForPositive();
     let score = isTurnForPositive ? -Infinity : Infinity;
     let bestMoves: Move[] = [];
+    const traced = [];
     for (const move of moves) {
       // console.log("doMove", move);
       try {
@@ -44,6 +48,7 @@ export function minimax<Move>(
         throw e;
       }
       const result = search(game, depth - 1, [...moveSoFar, move]);
+      if (trace) traced.push(result);
       if (result.score > 999 || result.score < -999) {
         console.log("score is ", result.score, "with move", move);
       }
@@ -53,17 +58,30 @@ export function minimax<Move>(
         if (score < result.score) {
           score = result.score;
           bestMoves = [move];
+
+          if (score === Infinity) {
+            game.undoMove(move);
+            break;
+          }
         }
       } else {
         if (score > result.score) {
           score = result.score;
           bestMoves = [move];
+
+          if (score === -Infinity) {
+            game.undoMove(move);
+            break;
+          }
         }
       }
-      // console.log("undoMove", move);
       game.undoMove(move);
     }
 
-    return { moves: [...moveSoFar, randomSelect(bestMoves)], score };
+    return {
+      moves: [...moveSoFar, randomSelect(bestMoves)],
+      score,
+      trace: traced,
+    };
   }
 }
