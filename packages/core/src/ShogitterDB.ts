@@ -85,6 +85,14 @@ class ShogitterDB {
       for (let i = 0; i <= MAX_RULE_ID; i++) {
         const rule = this.getRule(i);
         this.nameRuleMap[rule.name] = rule;
+        if (rule.nameNotableAlias) {
+          this.nameRuleMap[rule.nameNotableAlias] = rule;
+        }
+        if (rule.nameAliases) {
+          for (const alias of rule.nameAliases) {
+            this.nameRuleMap[alias] = rule;
+          }
+        }
       }
     }
 
