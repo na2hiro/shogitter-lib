@@ -2085,7 +2085,8 @@ const rule: RuleDb = {
       "cb",
       "cc",
     ],
-    name: "斜め将棋(成り未実装)",
+    name: "斜め将棋",
+    nameAliases: ["斜め将棋(成り未実装)"],
     nari: {
       bp: "bx",
       bq: "by",
@@ -6325,6 +6326,7 @@ const rule: RuleDb = {
       "mr",
     ],
     name: "泰将棋",
+    nameNotableAlias: "無上泰将棋",
     nari: {
       aa: "do",
       ab: "do",

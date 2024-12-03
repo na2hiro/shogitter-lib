@@ -16,7 +16,18 @@ export type Rule = {
     mochigoma: MochigomaObjDB[];
   };
   koma: Species[];
+  /**
+   * Rule name
+   */
   name: string;
+  /**
+   * Notable alias of the rule
+   */
+  nameNotableAlias?: string;
+  /**
+   * Miscellaneous or historical aliases of the rule
+   */
+  nameAliases?: string[];
   nari: { [species: string]: Species };
   players: number[];
   size: number[];
