@@ -10,6 +10,7 @@ export class ShogiGame implements Game<Move> {
   }
 
   doMove(move: Move): void {
+    // console.log(">", move);
     this.shogi.runCommand(move);
   }
 
@@ -28,7 +29,7 @@ export class ShogiGame implements Game<Move> {
         }
         reusableShogi.runCommand(move);
         try {
-          reusableShogi.rollback(1, true);
+          reusableShogi.rollbackExactOnce();
         } catch (e) {
           reusableShogi = null;
         }
@@ -52,6 +53,7 @@ export class ShogiGame implements Game<Move> {
   }
 
   undoMove(move: Move): void {
-    this.shogi.rollback(1, true);
+    // console.log("<", move);
+    this.shogi.rollbackExactOnce();
   }
 }

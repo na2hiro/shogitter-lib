@@ -95,7 +95,7 @@ describe("Shogi", () => {
       const shogi0 = shogi.clone(0);
       expect(shogi0.getObject()).toEqual(shogi2Snapshot);
     });
-    it.only("Piece with moving", () => {
+    it("Piece with moving", () => {
       const shogi = Shogi.ofRuleId(22); // 獅子王
       shogi.start();
       shogi.move(new XY(5, 1), new XY(5, 2));

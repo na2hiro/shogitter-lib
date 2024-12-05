@@ -249,6 +249,43 @@ export default class Shogi {
   }
 
   /**
+   * This method reverts position exactly once, whereas rollback() can revert multiple moves
+   * until the opponent's turn. Useful for AI
+   */
+  rollbackExactOnce() {
+    const isPromoted = (species: Species) => {
+      return Object.values(this.rule.nari).includes(species);
+    };
+
+    if (!this.kifu.getMoving(this.kifu.getTesuu() - 2))
+      return this.rollback(1, true);
+
+    const kifuToReplay = [];
+    let i = this.kifu.getTesuu();
+    while (this.kifu.getMoving(i - 2)) {
+      kifuToReplay.unshift(this.kifu.get(i - 2));
+      i--;
+    }
+
+    this.rollback(1, true);
+
+    kifuToReplay.forEach((kifu) => {
+      if (typeof kifu === "string") return;
+      const [direction, [toX, toY, , [, toAfter]], from] = kifu;
+      if (from.length === 3) {
+        // put
+        const [, , species] = from;
+        this.put(new XY(toX, toY), species, direction);
+      } else {
+        // move
+        const [fromX, fromY, [, fromBefore]] = from;
+        const promoted = !isPromoted(fromBefore) && isPromoted(toAfter);
+        this.move(new XY(fromX, fromY), new XY(toX, toY), promoted);
+      }
+    });
+  }
+
+  /**
    * n手戻す
    */
   rollback(number: number, force = false) {

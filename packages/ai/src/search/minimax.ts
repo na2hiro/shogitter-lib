@@ -49,9 +49,9 @@ export function minimax<Move>(
       }
       const result = search(game, depth - 1, [...moveSoFar, move]);
       if (trace) traced.push(result);
-      if (result.score > 999 || result.score < -999) {
+      /*if (result.score > 999 || result.score < -999) {
         console.log("score is ", result.score, "with move", move);
-      }
+      }*/
       if (score === result.score) {
         bestMoves.push(move);
       } else if (isTurnForPositive) {
