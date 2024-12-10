@@ -75,6 +75,7 @@ export function minimax<Move>(
           }
         }
       }
+      // console.log("undoMove")
       game.undoMove(move);
     }
 

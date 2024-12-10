@@ -65,7 +65,7 @@ export default abstract class PromotionStrategy<S = {}> extends Strategy {
   }
   toHTML() {
     const ret = [];
-    if (this.setting["illegal"]) ret.push("<li>行き所のない駒を許可する");
+    if (this.setting["illegal"]) ret.push("<li>行きどころのない駒を許可する");
     if (this.setting["reversible"]) ret.push("<li>表裏交互に成る");
     if (this.setting["must"]) ret.push("<li>成れる時は必ず成る");
     if (ret.length == 0) return "";

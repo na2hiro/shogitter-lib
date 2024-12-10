@@ -1,8 +1,9 @@
 import XY from "../XY.js";
 import Ban, { Species } from "../Ban.js";
 import { BeforeAfterDropStrategy } from "./Strategy.js";
-import { shuffle, ShogitterCoreException } from "../utils/phpCompat.js";
+import { ShogitterCoreException, shuffle } from "../utils/phpCompat.js";
 import { Direction } from "../Direction.js";
+import { Koma } from "../Koma.js";
 
 export default abstract class DestinationStrategy extends BeforeAfterDropStrategy {
   strategyGenre = "行き先";
@@ -41,16 +42,12 @@ class RandomDestinationStrategy extends DestinationStrategy {
   abstract = "動かした駒の行き先がランダムに決定する";
   public executeBefore(from: XY, to: XY = null) {
     const koma = this.ban.get(from);
-    const direction = koma.direction;
     const moves = koma.getMovable();
     shuffle(moves);
-    for (let newto of moves) {
-      if (
-        this.ban.exists(newto["XY"]) &&
-        this.ban.get(newto["XY"]).direction == direction
-      )
+    for (let { XY } of moves) {
+      if (this.ban.exists(XY) && this.ban.get(XY).direction === koma.direction)
         continue;
-      to.set(newto["XY"].x, newto["XY"].y);
+      to.set(XY.x, XY.y);
       return;
     }
     throw new ShogitterCoreException("動けません");
@@ -62,6 +59,7 @@ class RandomDestinationStrategy extends DestinationStrategy {
     direction: Direction = null
   ) {
     let moves = [];
+    // TODO: Respect NifuStrategy and support other types of nifu
     const nifus: number[] = [];
     for (let x = 1; x <= this.ban.x; x++) {
       for (let y = 1; y <= this.ban.y; y++) {
@@ -69,18 +67,20 @@ class RandomDestinationStrategy extends DestinationStrategy {
         if (this.ban.exists(xy)) {
           const koma = this.ban.get(xy);
           if (
-            species == "aa" &&
-            koma.direction == direction &&
-            koma.species == "aa"
+            species === "aa" &&
+            koma.direction === direction &&
+            koma.species === "aa"
           )
             nifus.push(x); //二歩
           continue;
         }
-        moves.push(xy);
+        if (new Koma(species, direction, xy, this.ban).isLegal()) {
+          moves.push(xy);
+        }
       }
     }
-    moves = moves.filter((move) => nifus.indexOf(move.x) == -1);
-    if (moves.length == 0)
+    moves = moves.filter((move) => nifus.indexOf(move.x) === -1);
+    if (moves.length === 0)
       throw new ShogitterCoreException("その駒は打てません。");
     const rand = Math.floor(Math.random() * moves.length);
     const newto = moves[rand];
