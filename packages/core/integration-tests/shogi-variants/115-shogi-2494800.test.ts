@@ -1,6 +1,6 @@
-import Shogi, { ShogitterCoreException } from "../../src/Shogi";
+import Shogi from "../../src/Shogi";
 import XY from "../../src/XY";
-import { Koma } from "../../src";
+import { describe, it, expect } from "vitest";
 
 describe("Shogi 2494800", () => {
   it("always has fixed FU and other placement", () => {

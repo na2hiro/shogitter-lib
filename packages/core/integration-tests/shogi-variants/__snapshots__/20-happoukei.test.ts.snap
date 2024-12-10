@@ -1,0 +1,103 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Happoukei > can move 1`] = `
+ban:
+(1) 
+___1ae1ah1ad1ai
+1ag____________
+_______________
+___0ab_________
+___0ad0ah0ae0aa
+(0) 
+kifu:
+☗4四と [0,[4,4,[],[0,"ab"]],[5,5,[0,"ai"],[]]]
+☖5二歩 [1,[5,2,[],[1,"ag"]],[5,1,[1,"aa"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 19,
+  "teban": 0,
+  "turn": 0,
+  "date": {},
+  "moving": null
+}
+`;
+
+exports[`Happoukei > can move 2`] = `
+ban:
+(1) 
+___0ai1ah1ad1ai
+1ag____________
+_______________
+_______________
+___0ad0ah0ae0aa
+(0) ae1 ac1 
+kifu:
+☗4四と [0,[4,4,[],[0,"ab"]],[5,5,[0,"ai"],[]]]
+☖5二歩 [1,[5,2,[],[1,"ag"]],[5,1,[1,"aa"],[]]]
+☗4一香 [0,[4,1,[1,"ae"],[0,"ai"]],[4,4,[0,"ab"],[]],[1,0,"ae"],[1,0,"ac"]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 19,
+  "teban": 1,
+  "turn": 0,
+  "date": {},
+  "moving": null
+}
+`;
+
+exports[`Kyoto Ginkaku shogi > can move 1`] = `
+ban:
+(1) 
+___1ae1ah1ad1ai
+1ag____________
+_______________
+___0ab_________
+___0ad0ah0ae0aa
+(0) 
+kifu:
+☗4四と [0,[4,4,[],[0,"ab"]],[5,5,[0,"ai"],[]]]
+☖5二歩 [1,[5,2,[],[1,"ag"]],[5,1,[1,"aa"],[]]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 19,
+  "teban": 0,
+  "turn": 0,
+  "date": {},
+  "moving": null
+}
+`;
+
+exports[`Kyoto Ginkaku shogi > can move 2`] = `
+ban:
+(1) 
+___0ai1ah1ad1ai
+1ag____________
+_______________
+_______________
+___0ad0ah0ae0aa
+(0) ae1 ac1 
+kifu:
+☗4四と [0,[4,4,[],[0,"ab"]],[5,5,[0,"ai"],[]]]
+☖5二歩 [1,[5,2,[],[1,"ag"]],[5,1,[1,"aa"],[]]]
+☗4一香 [0,[4,1,[1,"ae"],[0,"ai"]],[4,4,[0,"ab"],[]],[1,0,"ae"],[1,0,"ac"]]
+{
+  "version": "0.0",
+  "status": {
+    "num": 1
+  },
+  "ruleid": 19,
+  "teban": 1,
+  "turn": 0,
+  "date": {},
+  "moving": null
+}
+`;

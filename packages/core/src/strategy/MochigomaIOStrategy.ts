@@ -220,9 +220,7 @@ class ExchangeMochigomaIOStrategy extends MochigomaIOStrategy<ExchangeMochigomaI
   executeIn(toPick: Koma, tebanDirection: Direction) {
     toPick.promote(0);
     const species = this.setting[toPick.direction][toPick.species];
-    if (species) {
-      this.mochigoma.add(species, tebanDirection, 1);
-    }
+    this.mochigoma.add(species ?? toPick.species, tebanDirection, 1);
   }
 
   toHTML() {
