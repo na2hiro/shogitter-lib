@@ -119,9 +119,7 @@ export class RelXY {
         y = this.x;
         break;
       default:
-        throw new ShogitterCoreException(
-          `駒の向き${direction}が定義されていません。`
-        );
+        throw new Error(`駒の向き ${direction} は定義されていません。`);
     }
     this.x = x;
     this.y = y;
@@ -226,11 +224,11 @@ export default class XY extends RelXY {
   }
 
   turn() {
-    throw new ShogitterCoreException("座標が回転できません。");
+    throw new Error(`座標 ${this.getFormat()} が回転できません。`);
   }
 
   turnReverse() {
-    throw new ShogitterCoreException("座標が回転できません。");
+    throw new Error(`座標 ${this.getFormat()} が回転できません。`);
   }
 
   getDistance(xy: XY) {

@@ -251,9 +251,7 @@ export const findQuantumMochigoma = (
     }
   }
 
-  throw new ShogitterCoreException(
-    `quantum mochigoma not found for dir=${direction}, id=${id}`
-  );
+  throw new Error(`量子持ち駒ロジックエラー dir=${direction}, id=${id}`);
 };
 export const findQuantumKoma = (
   data: QuantumData[] | undefined,

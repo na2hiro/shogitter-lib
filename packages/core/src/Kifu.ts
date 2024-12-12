@@ -197,7 +197,7 @@ export default class Kifu {
    */
   get(num: number): KifuMove {
     if (num < 0)
-      throw new ShogitterCoreException(`num must be non-negative: ${num} `, 1);
+      throw new Error(`Args of Kifu#get() must be non-negative: ${num} `);
     return this.arrayKifu[num].move;
   }
 
@@ -208,7 +208,7 @@ export default class Kifu {
    */
   getKifu(num: number) {
     if (num < 0)
-      throw new ShogitterCoreException(`num must be non-negative: ${num} `, 1);
+      throw new Error(`Args of Kifu#getKifu() must be non-negative: ${num} `);
     return this.arrayKifu[num].disp;
   }
 

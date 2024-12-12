@@ -108,10 +108,7 @@ class ShogitterDB {
 
   loadRule(ruleid: number) {
     const rule = ruleConst[ruleid.toString()];
-    if (!rule)
-      throw new ShogitterCoreException(
-        `指定されたルールID「${ruleid}」が不正です。`
-      );
+    if (!rule) throw new Error(`指定されたルールID「${ruleid}」が不正です。`);
     if ("extend" in rule) {
       //継承する
       const extRule = { ...this.getRule(rule.extend.$id) };
@@ -139,7 +136,7 @@ class ShogitterDB {
   getKoma(species: Species, member?: keyof KomaInfo) {
     const koma = komaConst[species];
     if (!koma) {
-      throw new ShogitterCoreException(`駒 ${species} が不明です。` + 1);
+      throw new Error(`駒 ${species} が不明です。`);
     }
     if (member == null) {
       return koma;

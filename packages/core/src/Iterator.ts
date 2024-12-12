@@ -103,7 +103,7 @@ export class BanScanIterator implements Iterator<XY>, Iterable<XY> {
     this.initPosition = position.getClone();
     this.vector = vector;
     if (this.vector.x == 0 && this.vector.y == 0)
-      throw new ShogitterCoreException("探索ベクトルが零ベクトルです。");
+      throw new Error("探索ベクトルが零ベクトルです。");
     this.limit = flags.limit || -1;
     this.limitJump = flags.limitJump || 0;
     this.jumpExceptions = flags.jumpException || [];

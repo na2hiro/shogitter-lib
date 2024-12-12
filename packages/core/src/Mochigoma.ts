@@ -173,7 +173,7 @@ export class Mochigoma {
       !this.arrayMochigoma[direction][species] ||
       this.arrayMochigoma[direction][species] - value < 0
     ) {
-      throw new ShogitterCoreException(
+      throw new Error(
         `持ち駒 ${species} が足りません: ${this.arrayMochigoma[direction][species]} < ${value}`
       );
     } else if (this.arrayMochigoma[direction][species] - value === 0) {

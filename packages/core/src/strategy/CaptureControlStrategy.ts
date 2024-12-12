@@ -32,9 +32,7 @@ export abstract class CaptureControlStrategy<S> extends Strategy {
   ): CaptureControlStrategy<S> {
     const klass: any = nameToStrategy[name];
     if (!klass)
-      throw new ShogitterCoreException(
-        `CaptureControlStrategy: ${name} is not defined.`
-      );
+      throw new Error(`CaptureControlStrategy: ${name} is not defined.`);
     return new klass(ban, setting);
   }
 }

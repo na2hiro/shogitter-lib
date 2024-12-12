@@ -422,7 +422,8 @@ export default class Shogi {
     description: string
   ) {
     if (this.end) {
-      throw new ShogitterCoreException(
+      // TODO: handle it somehow
+      throw new Error(
         `複数の終了条件にひっかかりました: ${this.end.status}, ${description}`
       );
     }
@@ -465,12 +466,10 @@ export default class Shogi {
     let fromDirection;
     this.fromDirection = fromDirection = this.ban.get(from).direction;
     if (typeof direction !== "undefined" && fromDirection !== direction) {
-      throw new ShogitterCoreException("It's not your turn");
+      throw new ShogitterCoreException("あなたの手番ではありません");
     }
     if (fromDirection === null) {
-      throw new ShogitterCoreException(
-        `移動元に駒がありません。(${from.getFormat()})`
-      );
+      throw new Error(`移動元に駒がありません。(${from.getFormat()})`);
     }
     this.teban.ensureDirection(fromDirection);
 
@@ -651,10 +650,7 @@ export default class Shogi {
           command.id
         );
       default:
-        throw new ShogitterCoreException(
-          "Unknown command type: " + (command as any).type,
-          1
-        );
+        throw new Error("不明なコマンドです: " + (command as any).type);
     }
   }
 

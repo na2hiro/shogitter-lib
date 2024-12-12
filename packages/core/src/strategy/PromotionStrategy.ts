@@ -177,7 +177,7 @@ class NanamePromotionStrategy extends PromotionStrategy {
       numto = num - numto;
       numfrom = num - numfrom;
     } else {
-      throw new ShogitterCoreException("斜め将棋で想定されていない向きです");
+      throw new Error("斜め将棋で想定されていない向きです");
     }
     //	echo numto, numfrom;
     // const dan=this.setting['dan']?:this.setting['dan']=6;

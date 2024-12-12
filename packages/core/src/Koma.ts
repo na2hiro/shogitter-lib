@@ -395,22 +395,8 @@ export class Koma {
     return this.direction == koma.direction;
   }
 
-  ensureFriend(koma: Koma) {
-    if (!this.isFriend(koma))
-      throw new ShogitterCoreException(
-        `${this.XY}と${koma.XY}は味方同士でなくてはなりません。`
-      );
-  }
-
   isEnemy(koma: Koma) {
     return this.direction != koma.direction;
-  }
-
-  ensureEnemy(koma: Koma) {
-    if (!this.isEnemy(koma))
-      throw new ShogitterCoreException(
-        `${this.XY}と${koma.XY}は敵同士でなくてはなりません。`
-      );
   }
 
   /**
@@ -424,11 +410,6 @@ export class Koma {
 
   promote(mode: PromotionMode) {
     this.species = this.getPromoted(mode);
-  }
-
-  ensureLegal() {
-    if (!this.isLegal())
-      throw new ShogitterCoreException(`${this.XY}: この駒は動けません。`);
   }
 
   isLegal() {

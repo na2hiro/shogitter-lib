@@ -235,7 +235,7 @@ export class Teban {
   }
 
   static getMark(direction: Direction): string | null {
-    if (direction == null) throw new ShogitterCoreException("getMark", 1);
+    if (direction === null) throw new Error("directionがnullです");
     return direction === Direction.DRAW ? null : Teban.tebanMark[direction];
   }
 
@@ -300,7 +300,7 @@ export class Teban {
       case Direction.RIGHT:
         return Direction.LEFT;
       default:
-        throw new ShogitterCoreException("その向きは定義されていません。", 1);
+        throw new Error(`不明な向き ${direction} です。`);
     }
   }
 
@@ -311,6 +311,6 @@ export class Teban {
       case "△":
         return 1;
     }
-    throw new ShogitterCoreException("unknown direction mark: " + str);
+    throw new Error(`不明な向き ${str} です。`);
   }
 }
