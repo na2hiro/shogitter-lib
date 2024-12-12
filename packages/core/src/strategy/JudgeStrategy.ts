@@ -206,27 +206,25 @@ class TsumiJudgeStrategy extends JudgeStrategy<TsumiJudgeConfig> {
       const mapKiki = tmpBan.ban.mapKiki(direction);
 
       //王の全ての移動可能域を調べる
-      for (let kiki of this.ban.get(placeOu).getMovable()) {
+      for (let { XY } of this.ban.get(placeOu).getMovable()) {
         //「利いている、または味方の駒がある」出ない場合、詰みではない
         if (
           !(
-            mapKiki["enemy"][kiki["XY"].x]?.[kiki["XY"].y] ||
-            (this.ban.exists(kiki["XY"]) &&
-              this.ban.getDirection(kiki["XY"]) == direction)
+            mapKiki.enemy[XY.x]?.[XY.y] ||
+            (this.ban.exists(XY) && this.ban.getDirection(XY) == direction)
           )
         ) {
-          if (debug) console.log(`${kiki}に逃げられる`);
+          if (debug) console.log(`${XY}に逃げられる`);
           return false;
         }
       }
 
       //王手をしている駒全てについて
-      if (mapKiki["enemy"][placeOu.x]?.[placeOu.y]?.length > 0) {
-        for (let placeFrom of mapKiki["enemy"][placeOu.x][placeOu.y]) {
-          //					print "{placeFrom};";
+      if (mapKiki.enemy[placeOu.x]?.[placeOu.y]?.length > 0) {
+        for (let placeFrom of mapKiki.enemy[placeOu.x][placeOu.y]) {
           //王手をしている駒を取れる駒全てについて
-          if (mapKiki["friend"][placeFrom.x]?.[placeFrom.y]?.length > 0) {
-            for (let placeFromFrom of mapKiki["friend"][placeFrom.x][
+          if (mapKiki.friend[placeFrom.x]?.[placeFrom.y]?.length > 0) {
+            for (let placeFromFrom of mapKiki.friend[placeFrom.x][
               placeFrom.y
             ]) {
               //placeFromFrom[0], placeFromFrom[1]からplaceFrom[0], placeFrom[1]に移動すると取り除けるかも
@@ -264,11 +262,8 @@ class TsumiJudgeStrategy extends JudgeStrategy<TsumiJudgeConfig> {
             }
 
             // 間に行ける駒全てについて
-            if (
-              mapKiki["friend"][placeBetween.x] &&
-              mapKiki["friend"][placeBetween.x][placeBetween.y]
-            ) {
-              for (let placeBetweenFrom of mapKiki["friend"][placeBetween.x][
+            if (mapKiki.friend[placeBetween.x]?.[placeBetween.y]) {
+              for (let placeBetweenFrom of mapKiki.friend[placeBetween.x][
                 placeBetween.y
               ]) {
                 if (debug)

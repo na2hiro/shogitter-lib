@@ -624,46 +624,21 @@ export default class Ban {
    * その向きの利きのマップを返す(利いていればreturn[x][y]に1が入る)　向きがない場合[向き]以下にmapをおいて返す
    */
   mapKiki(direction: Direction) {
-    const ret: { [directionType: string]: XY[][][] } = {};
-    //if (typeof direction === "undefined") {
+    const ret: { friend: XY[][][]; enemy: XY[][][] } = {
+      friend: [],
+      enemy: [],
+    };
     for (let koma of this.getIterator()) {
       if (koma.isNull()) continue;
-      for (let kiki of koma.getMovable()) {
-        // TODO needs initialization. Negative index?
-        if (!ret[koma.direction == direction ? "friend" : "enemy"])
-          ret[koma.direction == direction ? "friend" : "enemy"] = [];
-        if (
-          !ret[koma.direction == direction ? "friend" : "enemy"][kiki["XY"].x]
-        )
-          ret[koma.direction == direction ? "friend" : "enemy"][kiki["XY"].x] =
-            [];
-        if (
-          !ret[koma.direction == direction ? "friend" : "enemy"][kiki["XY"].x][
-            kiki["XY"].y
-          ]
-        )
-          ret[koma.direction == direction ? "friend" : "enemy"][kiki["XY"].x][
-            kiki["XY"].y
-          ] = [];
-        ret[koma.direction == direction ? "friend" : "enemy"][kiki["XY"].x][
-          kiki["XY"].y
-        ].push(koma.XY);
+      for (let {
+        XY: { x, y },
+      } of koma.getMovable()) {
+        const mapping = koma.direction == direction ? ret.friend : ret.enemy;
+        if (!mapping[x]) mapping[x] = [];
+        if (!mapping[x][y]) mapping[x][y] = [];
+        mapping[x][y].push(koma.XY);
       }
     }
-    /*
-            // direction missing case
-        } else {
-            for (let koma of this.getIterator()) {
-                if (koma.isNull()) continue;
-                for (let kiki of koma.getMovable()) {
-                    if(!ret[koma.direction])ret[koma.direction] = [];
-                    if(!ret[koma.direction][kiki['XY'].x])ret[koma.direction][kiki['XY'].x] = [];
-                    if(!ret[koma.direction][kiki['XY'].x][kiki['XY'].y])ret[koma.direction][kiki['XY'].x][kiki['XY'].y] = [];
-                    ret[koma.direction][kiki['XY'].x][kiki['XY'].y].push(koma.XY);
-                }
-            }
-        }
-             */
     return ret;
   }
 
