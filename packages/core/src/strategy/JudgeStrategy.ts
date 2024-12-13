@@ -57,9 +57,9 @@ class WinKomaJudgeStrategy extends JudgeStrategy<{ ignore?: boolean }> {
     if (!this.ban.parent.rule["winkoma"]) return; // TODO: throw on construction if missing
 
     const countSpecies = this.ban.countSpecies();
-    let winkoma = "";
+    let winkoma: string[] = [];
     for (let species of this.ban.parent.rule.winkoma) {
-      winkoma += " " + Koma.getStatelessData(species).name;
+      winkoma.push(Koma.getStatelessData(species).name);
     }
     outer: for (let player of this.ban.parent.teban.getIterator()) {
       for (let species of this.ban.parent.rule.winkoma) {
@@ -71,7 +71,9 @@ class WinKomaJudgeStrategy extends JudgeStrategy<{ ignore?: boolean }> {
         player,
         player,
         "負け",
-        `${this.ban.parent.teban.getName(player)}の${winkoma} が取られました。`
+        `${this.ban.parent.teban.getName(player)}の${winkoma.join(
+          "・"
+        )}が取られました。`
       );
     }
   }

@@ -26,7 +26,7 @@ kifu:
   "version": "0.0",
   "status": {
     "num": 2,
-    "message": "先手の 王将 が取られました。"
+    "message": "先手の王将が取られました。"
   },
   "ruleid": 25,
   "teban": 3,

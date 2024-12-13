@@ -416,21 +416,38 @@ export default class Shogi {
      */
 
   gameEnd(
-    loseDirection: Direction,
+    lost: Direction,
     markDirection: Direction,
     kifu: string,
     description: string
   ) {
-    if (this.end) {
-      // TODO: handle it somehow
-      throw new Error(
-        `複数の終了条件にひっかかりました: ${this.end.status}, ${description}`
-      );
+    if (!this.end) {
+      this.end = {
+        status: description,
+        kifu: [`_${lost}`, (Teban.getMark(markDirection) ?? "") + kifu],
+      };
+      return;
     }
-    this.end = {
-      status: description,
-      kifu: [`_${loseDirection}`, (Teban.getMark(markDirection) ?? "") + kifu],
-    };
+    const CONTRADICTION_HEADING = "勝ちであり負けです";
+    const priorLost = parseInt(this.end.kifu[0][1]);
+    if (priorLost === lost || lost === 9) {
+      // Respect the first one if winner is the same, or it's judged draw now
+    } else if (priorLost !== 9) {
+      // If the prior one is not draw, then it's contradictory
+      this.end = {
+        status: `${CONTRADICTION_HEADING}：${this.end.status}${description}`,
+        kifu: [`_9`, "引き分け"],
+      };
+    } else if (this.end.status.startsWith(CONTRADICTION_HEADING)) {
+      // If it was already contradictory, respect it
+      this.end.status += `${description}`;
+    } else {
+      // If it was just a draw, overrides it with the new result
+      this.end = {
+        status: description,
+        kifu: [`_${lost}`, (Teban.getMark(markDirection) ?? "") + kifu],
+      };
+    }
   }
 
   isEnded() {

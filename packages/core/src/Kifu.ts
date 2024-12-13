@@ -137,7 +137,7 @@ export default class Kifu {
       };
     }
     const num = this.getTesuu() - 1;
-    if (num >= 0 && this.isResign(num)) {
+    if (num >= 0 && this.isEndKifu(num)) {
       //既に終局サインが入っている場合は最後から二番目に入れる
       this.arrayKifu.splice(num, 0, array);
     } else {
@@ -159,7 +159,7 @@ export default class Kifu {
    * @param type tesuu
    * @return type
    */
-  isResign(tesuu: number) {
+  isEndKifu(tesuu: number) {
     if (tesuu < 0) throw `isResign shouldn't be called for tesuu ${tesuu}`;
     const kifu = this.get(tesuu);
     return kifu[0] === "_";
