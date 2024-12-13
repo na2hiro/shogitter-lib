@@ -13,6 +13,5 @@ pnpm version <patch|minor|major>
 cd ../ai
 pnpm version <patch|minor|major>
 git add ../.. && git ci -m "chore: bump versions"
-cd ../core && pnpm publish
-cd ../ai && pnpm publish
+cd ../core && pnpm publish && cd ../ai && pnpm publish
 ```
